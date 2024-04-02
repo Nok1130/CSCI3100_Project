@@ -58,6 +58,7 @@ const App = () => {
               width: '40%',
               color: 'white'
             }}
+            
           />
         </Header>
         <Layout>
