@@ -100,3 +100,13 @@ button:focus-visible {
 .ant-input-group-addon .ant-btn {
   background-color: #d9d9d9; /* Replace with your desired color */
 }
+
+
+.ant-layout-header .ant-menu {
+ background: none !important;
+}
+
+.header-menu-item:hover, .header-menu-item:focus {
+  background: black !important;
+}
+
