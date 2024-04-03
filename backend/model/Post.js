@@ -13,7 +13,7 @@ const postSchema = new Schema({
     },
 
     hashtag: {
-        type: [String],
+        type: String,
     },
 
     userID: {

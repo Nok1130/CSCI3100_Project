@@ -1,16 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import unicon from './assets/Unicon.svg'
 import michael_lyu from './assets/lyu.svg'
 import './App.css'
 import { Button } from 'antd'
+import Testing from './Testing'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
+      {/* <div>
         <a href="https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam" target="_blank">
           <img src={unicon} className="logo" alt="Vite logo" />
         </a>
@@ -30,7 +31,8 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
+      <Testing/>
     </>
   )
 }

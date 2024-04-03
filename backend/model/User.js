@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import jwt from "jsonwebtoken";
+import ENV from '../ENV.js';
 
 const Schema = mongoose.Schema;
 
-const accountSchema = new Schema({
+const UserSchema = new Schema({
 
     userID: {
         type: String,
@@ -15,11 +17,13 @@ const accountSchema = new Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
 
     email: {
         type: String,
         required: true,
+        unique: true,
     },
 
     password: {
@@ -33,19 +37,25 @@ const accountSchema = new Schema({
     },
 
     personalIcon: {
-        filename: String,
+        type: String,
+        default: ""
     },
 
     isAdmin: {
         type: Boolean,
         default: false,
     },
-
+    
     isPrivate: {
         type: Boolean,
-        default: true,
+        default: false,
     },
 
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    
     isSuspended: {
         type: Boolean,
         default: false,
@@ -54,7 +64,12 @@ const accountSchema = new Schema({
 },{ 
     timestamps: true 
 }
-
 );
 
-export default mongoose.model("Account", accountSchema);
+UserSchema.methods.generateJWT = async function () {
+    return jwt.sign({ email: this.email }, ENV.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1 day",
+    });
+}
+
+export default mongoose.model("User", UserSchema);

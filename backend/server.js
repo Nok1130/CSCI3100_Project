@@ -5,7 +5,14 @@ import bodyParser from 'body-parser';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import { mongoose } from 'mongoose';
 import dotenv from 'dotenv';
+import ENV from './ENV.js';
 dotenv.config();
+
+// import all the routes
+import userRoute from './route/userRoutes.js';
+// import postRoute from './route/postRoutes.js';
+
+
 const PORT = 5001;
 
 const app = express();
@@ -13,9 +20,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-const dbConnection = "mongodb+srv://uniconadmin:123@unicondb.lwxmdyy.mongodb.net/?retryWrites=true&w=majority&appName=uniconDB";
+// const dbConnection = "mongodb+srv://uniconadmin:123@unicondb.lwxmdyy.mongodb.net/?retryWrites=true&w=majority&appName=uniconDB";
+// const dbConnection = Env.DB_CONNECTION;
 
-const db = new MongoClient(dbConnection, {
+const db = new MongoClient(ENV.DB_CONNECTION, {
 serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -36,7 +44,7 @@ try {
 }
 run().catch(console.dir);
 
-mongoose.connect(dbConnection, {
+mongoose.connect(ENV.DB_CONNECTION, {
 
 serverApi: {
     version: '1',
@@ -57,6 +65,9 @@ mongoose.connection.on('disconnected', () => {
 console.log('Mongoose is disconnected from MongoDB.');
 });
 
+// Routes
+app.use('/api/user', userRoute);
+// app.use('/api/post', postRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
