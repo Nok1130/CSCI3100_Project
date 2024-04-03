@@ -19,13 +19,11 @@ const groupSchema = new Schema({
     sender: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     receiver: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     text: {

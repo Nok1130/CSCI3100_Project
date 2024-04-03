@@ -7,13 +7,11 @@ const likeSchema = new Schema({
     userID: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     postID: {
         type: String,
         required: true,
-        ref: "Post",
     },
 
 },{ 

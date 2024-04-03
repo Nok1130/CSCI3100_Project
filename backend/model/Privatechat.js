@@ -12,13 +12,11 @@ const groupSchema = new Schema({
     paticipant1 : {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     paticipant2 : {
         type: String,
         required: true,
-        ref: "Account",
     },
 
 },{ 

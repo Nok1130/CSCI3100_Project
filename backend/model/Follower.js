@@ -5,15 +5,15 @@ const Schema = mongoose.Schema;
 const FollowerSchema = new Schema({
 
     follower: {
-        type: String,
+        type: [String],
         required: true,
-        ref: "Account",
+        default: [],
     },
 
     following: {
-        type: String,
+        type: [String],
         required: true,
-        ref: "Account",
+        default: [],
     },
 
     isAccepted: {
