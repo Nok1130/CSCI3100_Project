@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import { mongoose } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 const PORT = 5001;
@@ -34,6 +35,28 @@ try {
 }
 }
 run().catch(console.dir);
+
+mongoose.connect(dbConnection, {
+
+serverApi: {
+    version: '1',
+    strict: true,
+    deprecationErrors: true,
+}
+});
+
+mongoose.connection.on('connected', () => {
+console.log('Mongoose is connected to MongoDB!');
+});
+
+mongoose.connection.on('error', (err) => {
+console.log('Mongoose connection error: ', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+console.log('Mongoose is disconnected from MongoDB.');
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);

@@ -15,12 +15,11 @@ const dislikeSchema = new Schema({
         required: true,
         ref: "Post",
     },
-    
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
 
-});
+},{ 
+    timestamps: true 
+}
+
+);
 
 export default mongoose.model("Dislike", dislikeSchema);

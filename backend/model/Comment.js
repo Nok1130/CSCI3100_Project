@@ -9,18 +9,13 @@ const commentSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        default: () => uuidv4(),
+        default: () => uuidv4().substring(0, 6),
     },
 
     userID: {
         type: String,
         required: true,
         ref: "Account",
-    },
-
-    createTime: {
-        type: Date,
-        default: Date.now,
     },
 
     postID: {
@@ -35,7 +30,11 @@ const commentSchema = new Schema({
     },
 
     
-});
+},{ 
+    timestamps: true 
+}
+
+);
 
 
 export default mongoose.model("Comment", commentSchema);

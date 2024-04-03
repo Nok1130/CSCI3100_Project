@@ -33,6 +33,10 @@ const groupSchema = new Schema({
     },
 
 
-});
+},{ 
+    timestamps: true 
+}
+
+);
 
 export default mongoose.model("Group", groupSchema)

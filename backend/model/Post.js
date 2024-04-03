@@ -9,7 +9,7 @@ const postSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        default: () => uuidv4(),
+        default: () => uuidv4().substring(0, 6),
     },
 
     hashtag: {
@@ -21,17 +21,12 @@ const postSchema = new Schema({
         required: true,
     },
 
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
-
     postTopic: {
         type: String,
         required: true,
     },
 
-    postDesciption: {
+    postText: {
         type: String,
         required: true,
     },
@@ -44,7 +39,9 @@ const postSchema = new Schema({
         filename: String,
     },
 
-
-});
+},{ 
+    timestamps: true 
+}
+);
 
 export default mongoose.model("Post", postSchema);

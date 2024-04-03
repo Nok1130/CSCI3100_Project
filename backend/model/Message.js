@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const Schema = mongoose.Schema;
 
@@ -7,6 +8,7 @@ const groupSchema = new Schema({
     chatID: {
         type: String,
         required: true,
+        default: () => uuidv4().substring(0, 6),
     },
 
     messageID: {
@@ -31,11 +33,10 @@ const groupSchema = new Schema({
         required: true,
     },
 
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
+},{ 
+    timestamps: true 
+}
 
-});
+);
 
 export default mongoose.model("Message", groupSchema)

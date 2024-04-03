@@ -16,12 +16,10 @@ const likeSchema = new Schema({
         ref: "Post",
     },
 
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
+},{ 
+    timestamps: true 
+}
 
-
-});
+);
 
 export default mongoose.model("Like", likeSchema);

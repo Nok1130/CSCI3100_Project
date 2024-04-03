@@ -21,7 +21,10 @@ const groupSchema = new Schema({
         ref: "Account",
     },
 
+},{ 
+    timestamps: true 
+}
 
-});
+);
 
 export default mongoose.model("Privatechat", groupSchema)

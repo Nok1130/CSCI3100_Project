@@ -21,7 +21,10 @@ const FollowerSchema = new Schema({
         default: false,
     },
 
+},{ 
+    timestamps: true 
+}
 
-});
+);
 
 export default mongoose.model("Follower", FollowerSchema)

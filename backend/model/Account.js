@@ -9,7 +9,7 @@ const accountSchema = new Schema({
         type: String,
         required: true,
         unique: true,        
-        default: () => uuidv4(),
+        default: () => uuidv4().substring(0, 6),
     },
 
     username: {
@@ -32,6 +32,10 @@ const accountSchema = new Schema({
         default: "Presonal Bio == NULL...",
     },
 
+    personalIcon: {
+        filename: String,
+    },
+
     isAdmin: {
         type: Boolean,
         default: false,
@@ -46,8 +50,11 @@ const accountSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    
-    
-});
+
+},{ 
+    timestamps: true 
+}
+
+);
 
 export default mongoose.model("Account", accountSchema);
