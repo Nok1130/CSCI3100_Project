@@ -12,14 +12,23 @@ const postSchema = new Schema({
         default: () => uuidv4().substring(0, 6),
     },
 
+    username: {
+        type: String,
+        required: true,
+    },
+
     hashtag: {
         type: [String],
         default: [],
     },
 
-    userID: {
+    repostBy: {
         type: String,
-        required: true,
+    },
+
+    isRepost: {
+        type: Boolean,
+        default: false,
     },
 
     postCategory: {
