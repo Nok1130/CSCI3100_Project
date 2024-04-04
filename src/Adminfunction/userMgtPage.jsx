@@ -10,8 +10,14 @@ import {FaPlus} from 'react-icons/fa6';
 function UserMgtPage () {
 const [results,setResults] = useState(UserInfo);//store search result for display
 const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset 
-const [SuspendBtnText,setSuspendBtnText] = useState('Suspend');
+const [SuspendBtnText,setSuspendBtnText] = useState('Suspend'); // handle form to add new row
 const [AddButtonState,setAddButtonState] = useState(false);
+
+ const handleSubmit = (newRow) =>{
+     setDataSet([...dataset,newRow]);
+     setResults([...dataset,newRow]);
+    
+ }
  const getResults = (result) =>{
     setResults(result);
  }
@@ -39,24 +45,33 @@ const [AddButtonState,setAddButtonState] = useState(false);
                     <th id="emailheader">EMAIL</th>
                     <th id="actionheader">ACTIONS</th>
                 </tr>
-                {results?.map((key,val) =>
+                {results?.map((key,index) =>
                 {
                    return (
-                    <tr className="userRow" key={val}>
+                    <tr className="userRow" key={index}>
                         <td className="username">{key.username}</td>
                         <td className="email">{key.email}</td>
                         <td className="btn">
-                            <Button type="primary" className="editBtn">Edit</Button>
-                            <Button type="primary" className="suspendBtn" danger onClick={(val) => handleSuspend(val)}>Suspend</Button>
+                            <Button type="primary" 
+                                    className="editBtn">
+                                    Edit
+                            </Button>
+
+                            <Button type="primary" 
+                                    className="suspendBtn" 
+                                    danger 
+                                    onClick={(index) => handleSuspend(index)}>
+                                    Suspend
+                            </Button>
                         </td>
                     </tr>  
-                        );         
+                        );   
                 }
                 )}
             </table>
             <FloatButton icon={<FaPlus />} onClick={handleAdd}/>
             {
-                AddButtonState && <AddUser/>
+                AddButtonState && <AddUser onSubmit={handleSubmit} close={() => setAddButtonState(false)}/>
             }
            
 
