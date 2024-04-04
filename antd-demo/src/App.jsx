@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Navigate to="/post/all" />}>
+        <Route path="/" element={<Navigate to="recommend/post/all" />}>
           
         </Route>
       </Routes>

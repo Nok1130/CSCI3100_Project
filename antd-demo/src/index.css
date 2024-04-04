@@ -11,6 +11,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-y: hidden;
+
 }
 
 #root {
@@ -72,41 +75,5 @@ button:focus-visible {
   }
 }
 
-.ant-menu-item-group-title {
-  color: gray !important;
-}
-.ant-menu-item {
-  color: white !important;
 
-}
-.ant-menu-title-content {
-  white-space: normal;
-  line-height: normal;
-}
-
-
-.sidemenu .ant-menu-item-selected {
-  background-color: #888888;
-}
-
-.ant-input::placeholder, .ant-input{
-  color: #9B9B9B !important; /* Your desired color */
-}
-
-.ant-layout {
-  min-height: 100vh;
-}
-
-.ant-input-group-addon .ant-btn {
-  background-color: #d9d9d9; /* Replace with your desired color */
-}
-
-
-.ant-layout-header .ant-menu {
- background: none !important;
-}
-
-.header-menu-item:hover, .header-menu-item:focus {
-  background: black !important;
-}
 
