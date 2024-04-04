@@ -40,4 +40,25 @@
   color: #888;
 }
 
+.ant-card {
+  width: 600px !important;
+  max-width: 80% !important;
+  background: #F5F5F5;
+  margin-bottom: 10px;
+  align-self: center;
+
+}
+
+.ant-card-actions {
+  background: whitesmoke !important;
+}
+
+.ant-card-actions svg {
+  height: 25px;
+  width: 25px;
+}
+
+.hashtag {
+  color: #5295FF
+}
 
