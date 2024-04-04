@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { getUserProfile, updateUserProfile, signUpNewUser, signInUser, suspendUser, deleteUser } from "../controller/userController.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { getUserProfile, updateUserProfile, signUpNewUser, signInUser, searchUser, suspendUser, deleteUser } from "../controller/userController.js";
 import express from "express";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/getUserProfile", getUserProfile);
-router.post("/updateUserProfile", updateUserProfile);
+router.get("/getUserProfile", auth, getUserProfile);
+router.put("/updateUserProfile", auth, updateUserProfile);
 router.post("/signUpNewUser", signUpNewUser);
 router.post("/signInUser", signInUser);
-router.post("/suspendUser", suspendUser);
-router.post("/deleteUser", deleteUser);
+router.get("/searchUser", searchUser);
+router.patch("/suspendUser", suspendUser);
+router.delete("/deleteUser", deleteUser);
 
 
 

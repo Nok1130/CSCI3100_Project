@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import ENV from '../ENV.js';
+import { compare } from "bcrypt";
 
 const Schema = mongoose.Schema;
 
@@ -37,8 +38,8 @@ const UserSchema = new Schema({
     },
 
     personalIcon: {
-        type: String,
-        default: ""
+        filename: String,
+        path: String,
     },
 
     isAdmin: {
@@ -67,9 +68,13 @@ const UserSchema = new Schema({
 );
 
 UserSchema.methods.generateJWT = async function () {
-    return jwt.sign({ email: this.email }, ENV.ACCESS_TOKEN_SECRET, {
+    return jwt.sign({ userID: this.userID, username: this.username, isAdmin: this.isAdmin }, ENV.ACCESS_TOKEN_SECRET, {
         expiresIn: "1 day",
     });
+}
+
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+    return await compare(enteredPassword, this.password);
 }
 
 export default mongoose.model("User", UserSchema);

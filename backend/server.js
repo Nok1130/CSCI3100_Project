@@ -11,6 +11,7 @@ dotenv.config();
 // import all the routes
 import userRoute from './route/userRoutes.js';
 // import postRoute from './route/postRoutes.js';
+import followerRoute from './route/followerRoutes.js';
 
 
 const PORT = 5001;
@@ -67,6 +68,7 @@ console.log('Mongoose is disconnected from MongoDB.');
 
 // Routes
 app.use('/api/user', userRoute);
+app.use('/api/follower', followerRoute);
 // app.use('/api/post', postRoute);
 
 app.listen(PORT, () => {

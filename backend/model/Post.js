@@ -13,7 +13,8 @@ const postSchema = new Schema({
     },
 
     hashtag: {
-        type: String,
+        type: [String],
+        default: [],
     },
 
     userID: {
@@ -21,7 +22,12 @@ const postSchema = new Schema({
         required: true,
     },
 
-    postTopic: {
+    postCategory: {
+        type: String,
+        required: true,
+    },
+    
+    postTitle: {
         type: String,
         required: true,
     },

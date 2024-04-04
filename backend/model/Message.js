@@ -11,11 +11,6 @@ const groupSchema = new Schema({
         default: () => uuidv4().substring(0, 6),
     },
 
-    messageID: {
-        type: String,
-        required: true,
-    },
-
     sender: {
         type: String,
         required: true,

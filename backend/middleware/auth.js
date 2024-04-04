@@ -1,45 +1,43 @@
 /*
-    This function is cant use, still developing
-*/
-
-
-/*
     This file is for some useful functions of authenticating users.
 */
 import jwt from "jsonwebtoken";
-import User from "../model/User.model.js";
+import User from "../model/User.js";
+import ENV from "../ENV.js";
 
 /*
     This function checks whether the user is logged in by verifying the token. If verified, the information
     of this user will be stored in req.user for further usage.
     (For the functions following this function, they can directly access req.user for user information.)
 */
-export default async function Auth(req, res, next) {
-//check whether the header contains authorization information
-if (req.headers && req.headers.authorization) {
+export async function auth(req, res, next) {
+  //check whether the header contains authorization information
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     /*
             Get the token.
             The token, as jwt tokens, are sent in the header via Authorization: Bearer <token>
         */
-    const token = req.headers.authorization.split(" ")[1];
     try {
-    //decode the token and check whether this user exists in the database
-    const decode = jwt.verify(token, "8413211ce5e4892c6dfe1217e84ad27eb77a0c3b5b9176433e05ecc0e3632053");
-    const user = await User.findById(decode.userId);
-    if (!user) {
+      //decode the token and check whether this user exists in the database
+      const token = req.headers.authorization.split(" ")[1];
+      const decode = jwt.verify(token, ENV.ACCESS_TOKEN_SECRET);
+      const user = await User.findOne({userID : decode.userID}).select("-password");
+
+      if (!user) {
         //user does not exist
         res.status(401).json({ error: "Authentication Failed!" });
-    }
-    //store the user information and perform the next steps
-    req.user = user;
-    console.log(req.user._id);
-    next();
+      }
+      //store the user information and perform the next steps
+      req.user = user;
+      console.log("req.user: ", req.user);
+      next();
     } catch (error) {
-    res.status(401).json({ error: "Authentication Failed!" });
+    //   console.log(error);
+      res.status(401).json({ error: "Authentication Failed! Token Failed" });
     }
-} else {
-    res.status(401).json({ error: "Authentication Failed!" });
-}
+  } else {
+    res.status(401).json({ error: "Authentication Failed! No Token" });
+  }
 }
 
 /*
@@ -47,20 +45,20 @@ if (req.headers && req.headers.authorization) {
     Since user information is already stored, this function is rather straightforward.
 */
 export async function checkAdmin(req, res, next) {
-if (req.user && req.user.isAdmin) {
+  if (req.user && req.user.isAdmin) {
     next();
-} else {
+  } else {
     res.status(401).json({ error: "Authentication Failed!" });
-}
+  }
 }
 
-/*
-    This function provides some local variables for sending OTP.
-*/
-export function localVariables(req, res, next) {
-req.app.locals = {
-    OTP: null,
-    resetSession: false,
-};
-next();
-}
+// /*
+//     This function provides some local variables for sending OTP.
+// */
+// export function localVariables(req, res, next) {
+//   req.app.locals = {
+//     OTP: null,
+//     resetSession: false,
+//   };
+//   next();
+// }
