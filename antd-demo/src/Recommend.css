@@ -1,0 +1,10 @@
+.navigation_bar {
+    display: flex;
+    justify-content: center;
+}
+
+.navigation_bar .ant-menu-title-content {
+    font-weight: bold;
+    color: black;
+}
+
