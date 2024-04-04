@@ -1,11 +1,11 @@
 export const UserInfo = [
     {
         "username":"JoJo",
-        "email":"1155213154@link.cuhk.edu.hk"
+        "email":"1155213154@link.cuhk.edu.hk",
     },
     {
         "username":"Elon Musk",
-        "email":"1155243154@link.cuhk.edu.hk"
+        "email":"1155243154@link.cuhk.edu.hk",
     },
     {
         "username":"Bill Gates",

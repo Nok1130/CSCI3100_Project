@@ -1,0 +1,31 @@
+.addContainer{
+    position: fixed;
+    z-index : 1;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.addClass{
+    border-radius: 5px;
+    padding: 2rem;
+    background-color: white;
+    width: 40em;
+}
+
+.addClass .submitbtn{
+margin:auto;
+display:block;
+background-color: #1d4ed8;
+color:white;
+border:none;
+border-radius: 5px;
+cursor: pointer;
+padding: 0.5rem 1rem;
+box-shadow: 0px 5px 5px #ccc;
+}

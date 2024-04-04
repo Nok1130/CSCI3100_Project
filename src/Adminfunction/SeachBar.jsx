@@ -1,22 +1,42 @@
 import {FaSearch} from 'react-icons/fa';
-import {useState} from 'react';
-const SearchBar = () => {
-    const[input,setInput]=useState('');
+import {useState,useEffect} from 'react';
+import {UserInfo} from './UserInfo';
+import {PostInfo} from './PostInfo';
 
-    const fetchData = (input) => {
 
+
+const SearchBar = ({children,getResult,data}) => {
+    const[searchQuery,setSearchQuery] = useState('');
+    const[seachResults,setSearchResutls] = useState([]);
+   
+   
+    const handleSearch = (e) => {
+      var value = e.target.value;
+      if(children === 'Search Post'){
+        const filteredItems = PostInfo.filter(
+            (item) => item.postId.includes(searchQuery)
+            );
+            getResult(filteredItems);
+           
+      }
+      if(children === 'Search User'){
+        console.log(data);
+           const filteredItems = data.filter(
+            (item) => item.username.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        
+            getResult(filteredItems);
+           
+
+      }
+  
     }
 
-    const handleChange = (value) => {
-        setInput(value);
-        fetchData(value);
-    }
     return ( 
      <div className="searchBar">
         <FaSearch id="search-icon" />
-        <input type="text" placeholder='Search User' value={input} onChange={(e) => handleChange(e.target.value)}/>
+        <input type="text" placeholder={children} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyUp={handleSearch} />
     </div>
      );
 }
- 
 export default SearchBar;
