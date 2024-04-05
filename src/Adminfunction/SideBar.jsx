@@ -9,11 +9,11 @@ const SideBar = () => {
         <div className="sidebar">
             <div className="mgtTools">
                    {         
-                    SideBarData.map((key,val) => 
+                    SideBarData.map((keys,val) => 
                     <div className='sideBaritem'>
-                    <NavLink to={key.link} key={val} className="link" activeClassName="active">
-                        <div className='icon'>{key.icon}</div>
-                        <div className='title'>{key.title}</div>
+                    <NavLink to={keys.link} key={val} className="link" activeClassName="active" >
+                        <div className='icon'>{keys.icon}</div>
+                        <div className='title'>{keys.title}</div>
                     </NavLink>
                     </div>
                     )

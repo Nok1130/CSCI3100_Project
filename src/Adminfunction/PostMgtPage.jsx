@@ -5,16 +5,17 @@ import {Button} from 'antd';
 import { SuspendBtn } from "./SuspendBtn";
 import {useState} from 'react';
 import EditPost from "./EditPost";
-
-PostInfo.filter(Boolean)
+import Report from './Report';
 
 
 function PostMgtPage(){
-    const [results,setResults] = useState(PostInfo);
+    const [results,setResults] = useState(PostInfo.filter(Boolean));
     const [EditState,setEditState] = useState(false);
-    const [editIndex,setEditIndex] = useState(0);
+    const [editIndex,setEditIndex] = useState(100);
     const [editPost,setEditPost] = useState("content");
     const [dataset,setDataSet] = useState(PostInfo);
+    const [showReportState,setShowReportState] = useState(false);
+    const [reportIndex,setReportIndex] = useState(0);
 
      const getResults = (result) =>{
         setResults(result);
@@ -30,7 +31,14 @@ function PostMgtPage(){
              }
          })
      }
-
+     const showReport = (targetIndex) =>{
+        if(showReportState == 0){
+console.log("uwwu");        }
+         showReportState? setShowReportState(false): setShowReportState(true);
+         setShowReportState(targetIndex);
+         setReportIndex(targetIndex);
+         console.log(showReportState);
+     }
      const handleEdit = (targetIndex) =>{
         EditState? setEditState(false): setEditState(true);
         setEditIndex(targetIndex);
@@ -77,7 +85,10 @@ function PostMgtPage(){
                             onClick={() => handleEdit(index)}
                                 >Edit</Button>
                             <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
-                            <Button>View Report</Button>
+                            <Button 
+                                onClick={()=> showReport(index)}>
+                                    View Report
+                            </Button>
                         </td>
                     </tr>
                          );         
@@ -87,8 +98,11 @@ function PostMgtPage(){
            
            {
                EditState && <EditPost onSumbit={onSubmit} close={() => setEditState(false)} content={editPost}/>
-           }
-        
+            }
+            {
+               
+            showReportState && <Report report={results[reportIndex].report}  close={() => setShowReportState(false)}/>
+            }
         
 
           
