@@ -15,6 +15,7 @@ const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset
 const [SuspendBtnText,setSuspendBtnText] = useState('Suspend'); // handle form to add new row
 const [AddButtonState,setAddButtonState] = useState(false);
 const [EditState,setEditState] = useState(false);
+const [editIndex,setEditIndex] = useState(0);
 
  const handleSubmit = (newRow) =>{
      setDataSet([...dataset,newRow]);
@@ -23,27 +24,33 @@ const [EditState,setEditState] = useState(false);
     }
     const handleEdit = (targetIndex) =>{
         EditState? setEditState(false): setEditState(true);
+        setEditIndex(targetIndex);
         console.log("edit user");
     }
     const handleEditSumbit = (newRow) =>{
-        const change = results.map((key,index) => {
-            if(index === targetIndex){
-                if(newRow.username !== ""){
-                    key.username = newRow.username;
+            console.log(newRow);
+         const change = results.map((key,index) => {
+                if(index === editIndex){
+                    if(newRow.username !== ""){
+                        key.username = newRow.username;
+                    }
+                    if(newRow.email !== ""){
+                        key.email = newRow.email;
+                    }
+                    return key;
+                }else{
+                    return key;
                 }
-                if(newRow.email !== ""){
-                    key.email = newRow.email;
-                }
-                return key;
-            }else{
-                return key;
-            }
-        })
+            })
+        
+        // console.log(change);
         setResults(change);
+        setDataSet(change);
     }
+
     const getResults = (result) =>{
-    setResults(result);
- }
+       setResults(result);
+        }
 
  const handleAdd = () => {
     AddButtonState ? setAddButtonState(false) : setAddButtonState(true);

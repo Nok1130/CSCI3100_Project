@@ -4,16 +4,41 @@ import { PostInfo } from "./PostInfo"
 import {Button} from 'antd';
 import { SuspendBtn } from "./SuspendBtn";
 import {useState} from 'react';
+import EditPost from "./EditPost";
 
 PostInfo.filter(Boolean)
 
 
 function PostMgtPage(){
     const [results,setResults] = useState(PostInfo);
-   
+    const [EditState,setEditState] = useState(false);
+    const [editIndex,setEditIndex] = useState(0);
+    const [editPost,setEditPost] = useState("content");
+    const [dataset,setDataSet] = useState(PostInfo);
+
      const getResults = (result) =>{
         setResults(result);
      }
+     const onSubmit = (post) =>{
+        console.log(post);
+         results.map((key,index) => {
+             if(index === editIndex){
+                 key.content = post;
+                 return key;
+             }else{screenLeft
+                return key;
+             }
+         })
+     }
+
+     const handleEdit = (targetIndex) =>{
+        EditState? setEditState(false): setEditState(true);
+        setEditIndex(targetIndex);
+        console.log("edit user");
+        const post = results[targetIndex].content;
+        setEditPost(post);
+
+    }
 
      const handleSuspend = (targetIndex) =>{
         console.log("entered");
@@ -47,7 +72,10 @@ function PostMgtPage(){
                         <td className="username">{key.username}</td>
                         <td className="username">{key.content}</td>
                         <td className="btn">
-                            <Button type="primary" className="editBtn">Edit</Button>
+                            <Button type="primary" 
+                            className="editBtn"
+                            onClick={() => handleEdit(index)}
+                                >Edit</Button>
                             <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
                             <Button>View Report</Button>
                         </td>
@@ -57,7 +85,9 @@ function PostMgtPage(){
            </table>
         
            
-           
+           {
+               EditState && <EditPost onSumbit={onSubmit} close={() => setEditState(false)} content={editPost}/>
+           }
         
         
 

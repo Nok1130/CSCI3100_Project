@@ -3,34 +3,17 @@ import './AddUser.css';
 import {Input} from 'antd';
 import {UserOutlined ,MailOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
-const Edit = ({close,onSumbit}) => {
+const EditPost = ({close,onSumbit,content}) => {
         
-    const [formState, setFormState] = useState({
-        "username": '',
-        "email": '',
-    });
+    const [contents, setContent] = useState("");
 
     const handleChange = (e) => {
-        setFormState({
-            ...formState,
-            [e.target.name] : e.target.value,
-        })
+       setContent(e.target.value);
     }
-
+  
     const handleSubmit = (e) => {
         e.preventDefault();
-     
-       if(formState.email.length>0){
-           if(formState.email.includes('cuhk.edu.hk')){
-                onSumbit(formState);
-            }else{
-                alert("invalid email");
-            }    
-       }
-       if(formState.username.length>0){
-        console.log(formState);
-         onSumbit(formState);
-       }
+         onSumbit(contents);
         close();
     }
 
@@ -41,28 +24,16 @@ const Edit = ({close,onSumbit}) => {
 
                     <div>
                        
-                         <Input 
-                            placeholder="username" 
-                            size="large" 
-                            name="username"
+                         <Input.TextArea 
+                            defaultValue={content} 
+                            size="large"
+                            style={{height:'200px'}} 
+                            name="content"
                             type='text'  
                             // value="" 
                             onChange={(e) => handleChange(e)} 
                             prefix={<UserOutlined />}
                          />
-                    </div>
-                    <br/>
-                    <div>
-                        
-                         <Input 
-                            placeholder="email" 
-                            size="large" 
-                            // value={formState.email} 
-                            onChange={(e) => handleChange(e)} 
-                            prefix={<MailOutlined />}
-                            name="email"
-                         />
-
                     </div>
                     <br/>
                     <div className="btnEdit">
@@ -85,4 +56,4 @@ const Edit = ({close,onSumbit}) => {
      );
 }
 
-export default Edit;
+export default EditPost;
