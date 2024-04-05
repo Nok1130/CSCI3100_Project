@@ -60,7 +60,7 @@ const AddUser = ({close,onSubmit}) => {
 
                     </div>
                     <br/>
-                    <button type='submit' className='submitbtn' onClick={handleSubmit} >ADD</button>
+                    <button type='submit' className='addbtn' onClick={handleSubmit} >ADD</button>
                 </form>
             </div>
            

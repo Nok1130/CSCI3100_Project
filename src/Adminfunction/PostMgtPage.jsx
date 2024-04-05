@@ -11,11 +11,11 @@ import Report from './Report';
 function PostMgtPage(){
     const [results,setResults] = useState(PostInfo.filter(Boolean));
     const [EditState,setEditState] = useState(false);
-    const [editIndex,setEditIndex] = useState(100);
+    const [editIndex,setEditIndex] = useState(null);
     const [editPost,setEditPost] = useState("content");
     const [dataset,setDataSet] = useState(PostInfo);
     const [showReportState,setShowReportState] = useState(false);
-    const [reportIndex,setReportIndex] = useState(0);
+    const [reportIndex,setReportIndex] = useState(null);
 
      const getResults = (result) =>{
         setResults(result);
@@ -32,8 +32,6 @@ function PostMgtPage(){
          })
      }
      const showReport = (targetIndex) =>{
-        if(showReportState == 0){
-console.log("uwwu");        }
          showReportState? setShowReportState(false): setShowReportState(true);
          setShowReportState(targetIndex);
          setReportIndex(targetIndex);
@@ -45,7 +43,6 @@ console.log("uwwu");        }
         console.log("edit user");
         const post = results[targetIndex].content;
         setEditPost(post);
-
     }
 
      const handleSuspend = (targetIndex) =>{
@@ -74,24 +71,26 @@ console.log("uwwu");        }
                    <th className="large">ACTIONS</th>
                </tr>
                {results?.map((key,index) =>{
-                   return (
-                    <tr>
-                        <td className="username" key={key.postId}>{key.postId}</td>
-                        <td className="username">{key.username}</td>
-                        <td className="username">{key.content}</td>
-                        <td className="btn">
-                            <Button type="primary" 
-                            className="editBtn"
-                            onClick={() => handleEdit(index)}
-                                >Edit</Button>
-                            <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
-                            <Button 
-                                onClick={()=> showReport(index)}>
-                                    View Report
-                            </Button>
-                        </td>
-                    </tr>
-                         );         
+                return (
+                <tr>
+                    <td className="username" key={key.postId}>{key.postId}</td>
+                    <td className="username">{key.username}</td>
+                    <td className="username">{key.content}</td>
+                    <td className="btn">
+                        <Button type="primary" 
+                        className="editBtn"
+                        onClick={() => handleEdit(index)}>Edit</Button>
+
+                        <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
+
+                        <Button 
+                        onClick={()=> showReport(index)}>
+                        View Report
+                        </Button>
+
+                    </td>
+                </tr>
+                        );         
                     })}
            </table>
         
