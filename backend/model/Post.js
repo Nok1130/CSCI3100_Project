@@ -17,6 +17,11 @@ const postSchema = new Schema({
         required: true,
     },
 
+    nickname: {
+        type: String,
+        required: true,
+    },
+
     hashtag: {
         type: [String],
         default: [],
@@ -33,7 +38,6 @@ const postSchema = new Schema({
 
     postCategory: {
         type: String,
-        required: true,
     },
     
     postTitle: {

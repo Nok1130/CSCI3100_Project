@@ -10,7 +10,7 @@ dotenv.config();
 
 // import all the routes
 import userRoute from "./route/userRoutes.js";
-// import postRoute from './route/postRoutes.js';
+import postRoute from './route/postRoutes.js';
 import followerRoute from "./route/followerRoutes.js";
 import adminRoutes from "./route/adminRoutes.js";
 
@@ -71,6 +71,7 @@ mongoose.connection.on("disconnected", () => {
 app.use("/api/user", userRoute);
 app.use("/api/follower", followerRoute);
 app.use("/api/admin", adminRoutes);
+app.use("/api/post", postRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

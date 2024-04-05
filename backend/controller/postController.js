@@ -5,9 +5,13 @@ import DislikeModel from "../model/Dislike.js";
 import { v4 as uuidv4 } from "uuid";
 
 const createPost = async (req, res) => {
-    const { userID, title, content } = req.body;
+    const postID = uuidv4().substring(0, 6)
+    const { username, nickname, postTitle, postText, postImage, postVideo } = req.body;
     try {
-        const newPost = await postModel.create({ userID, title, content });
+        if (!username || !nickname || !postTitle || !postText) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage, postVideo });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -28,7 +32,6 @@ const getAllPostOfUSer = async (req, res) => {
         console.log("Error in getPost: ", error.message);
     }
 };
-
 
 // create a new like or dislike info
 const likeAndDislikePost = async (req, res) => {
@@ -66,7 +69,7 @@ const likeAndDislikeCount = async (req, res) => {
 }
 
 const repost = async (req, res) => {
-    const { repostUsername, postID } = req.body;
+    const { repostUsername, repostNickname, postID } = req.body;
 
     try {
         if (!repostUsername || !postID) {
@@ -89,6 +92,7 @@ const repost = async (req, res) => {
         const newPost = await postModel.create({
             postID: uuidv4().substring(0, 6),
             username: post.username,
+            nickname: repostNickname,
             hashtag: post.hashtag,
             repostBy: repostUsername,
             isRepost: true,

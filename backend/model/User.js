@@ -32,6 +32,20 @@ const UserSchema = new Schema({
         required: true,
     },
 
+    major: {
+        type: String,
+        required: true,
+    },
+
+    university: {
+        type: String,
+        default: "CUHK",
+    },
+
+    nickname: {
+        type: [Array],
+    },
+
     personalBio: {
         type: String,
         default: "Presonal Bio == NULL...",
@@ -66,6 +80,11 @@ const UserSchema = new Schema({
     timestamps: true 
 }
 );
+
+UserSchema.pre('save', function(next) {
+    this.nickname = [this.major, this.username];
+    next();
+});
 
 UserSchema.methods.generateJWT = async function () {
     return jwt.sign({ userID: this.userID, username: this.username, isAdmin: this.isAdmin }, ENV.ACCESS_TOKEN_SECRET, {

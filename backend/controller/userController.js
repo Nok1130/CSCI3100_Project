@@ -1,13 +1,28 @@
 /* eslint-disable no-unused-vars */
+import bodyParser from "body-parser";
 import { uploadImage } from "../middleware/upload.js";
 import UserModel from "../model/User.js";
 import { v4 as uuidv4 } from "uuid";
-
 // getting the user profile as a json file from the database
-const getUserProfile = async (req, res, next) => {
+const getUserProfileFromUsername = async (req, res, next) => {
     const username = req.body.username;
     try {
         let user = await UserModel.findOne({ username });
+        if (!user) {
+            return next(new Error("User Profile not found"));
+        }
+
+        return res.status(200).json({ user });
+    } 
+    catch (error) {
+        next(error);
+    }
+};
+
+const getUserProfileFromUserID = async (req, res, next) => {
+    const userID = req.body.userID;
+    try {
+        let user = await UserModel.findOne({ userID });
         if (!user) {
             return next(new Error("User Profile not found"));
         }
@@ -61,10 +76,10 @@ const updateUserProfile = async (req, res, next) => {
 // create a new user profile with the given data
 const signUpNewUser = async (req, res) => {
     let userID = uuidv4().substring(0, 6);
-    const { username, email, password } = req.body;
+    const { username, email, password, major } = req.body;
 
     // check if all fields are filled
-    if (!userID || !username || !email || !password) {
+    if (!userID || !username || !email || !password || !major) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -76,7 +91,7 @@ const signUpNewUser = async (req, res) => {
 
     try {
         // create a new user profile
-        const user = await UserModel.create({ userID, username, email, password });
+        const user = await UserModel.create({ userID, username, email, password, major });
         return res.status(201).json({ user });
     } 
     catch (error) {
@@ -145,52 +160,5 @@ const searchUser = async (req, res) => {
     }
 };
 
-const suspendUser = async (req, res) => {
-    const { username } = req.body;
-
-    try {
-        // query the user database using userID
-        const user = await UserModel.findOne({ username });
-
-        // if user not found
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // update the user profile
-        user.isSuspended = true;
-        await user.save();
-        return res.status(200).json({ user });
-    } 
-    catch (error) {
-        res.status(500).json({ error: error.message });
-        console.log("Error in suspendUser: ", error.message);
-    }
-};
-
-const deleteUser = async (req, res) => {
-    const { username } = req.body;
-
-    try {
-        // query the user database using userID
-        const user = await UserModel.findOne({ username });
-
-        // if user not found
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // delete the user profile
-        await UserModel.deleteOne({ username });
-        return res.status(200).json({ message: "User deleted successfully" });
-    } 
-    catch (error) {
-        res.status(500).json({ error: error.message });
-        console.log("Error in delelteUser: ", error.message);
-    }
-};
-
-
-
-export { getUserProfile, updateUserProfile, signUpNewUser, signInUser, searchUser, suspendUser, deleteUser };
+export { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile, signUpNewUser, signInUser, searchUser };
 

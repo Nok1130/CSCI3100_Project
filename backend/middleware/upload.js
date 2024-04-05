@@ -33,19 +33,19 @@ const uploadImage = multer({
     },
 });
 
-// const uploadVideo = multer({
-//     storage: storage,
-//     limits: {
-//         fileSize: 1024 * 1024 * 20,
-//     },
-//     fileFilter: (req, file, cb) => {
-//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-//             cb(null, true);
-//         } else {
-//             cb(null, false);
-//             return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-//         }
-//     },
-// });
+const uploadVideo = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 20,
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+        }
+    },
+});
 
-export { uploadImage };
+export { uploadImage, uploadVideo };
