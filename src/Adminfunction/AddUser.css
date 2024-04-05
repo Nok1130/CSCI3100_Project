@@ -19,7 +19,7 @@
 }
 
 .addClass .submitbtn{
-margin:auto;
+/* margin:auto; */
 display:block;
 background-color: #1d4ed8;
 color:white;
@@ -28,4 +28,11 @@ border-radius: 5px;
 cursor: pointer;
 padding: 0.5rem 1rem;
 box-shadow: 0px 5px 5px #ccc;
+margin-left:100px;
+}
+
+.btnEdit{
+    display:flex;
+    justify-content: space-evenly;
+    margin-right: 100px;
 }

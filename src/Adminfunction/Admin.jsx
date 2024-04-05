@@ -18,7 +18,6 @@ function Admin(){
           
          
          <Routes>
-               <Route path='/Home' element={<Home/>}/>
                <Route path='/UserManagement' element={<UserMgtPage />}/>
                <Route path='/PostManagement' element={<PostMgtPage />} />
           </Routes> 

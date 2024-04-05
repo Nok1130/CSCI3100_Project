@@ -2,12 +2,12 @@ import React,{useState} from 'react';
 import './AddUser.css';
 import {Input} from 'antd';
 import {UserOutlined ,MailOutlined} from '@ant-design/icons';
-const AddUser = ({close,onSubmit}) => {
+import {Button} from 'antd';
+const Edit = ({close,onSubmit}) => {
         
     const [formState, setFormState] = useState({
         "username": '',
         "email": '',
-        "isSuspend":false
     });
 
     const handleChange = (e) => {
@@ -19,13 +19,14 @@ const AddUser = ({close,onSubmit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(formState.username === '' || formState.email === ''){
-            alert("Empty field");
-        }if(formState.email.includes('cuhk.edu.hk')){
-             onSubmit(formState);
-        }else{
-            alert("invalid email");
-        }
+     
+       if(formState.email.length>0){
+           if(formState.email.includes('cuhk.edu.hk')){
+                 onSubmit(formState);
+            }else{
+                alert("invalid email");
+            }    
+       }
         close();
     }
 
@@ -60,12 +61,24 @@ const AddUser = ({close,onSubmit}) => {
 
                     </div>
                     <br/>
-                    <button type='submit' className='submitbtn' onClick={handleSubmit} >ADD</button>
+                    <div class="btnEdit">
+                        <button type='submit'
+                             className='submitbtn' 
+                             onClick={handleSubmit} >
+                             EDIT
+                        </button>
+                         <Button 
+                            onClick={close}>
+                                CANCEL
+                        </Button>
+
+                    </div>
+                   
                 </form>
             </div>
            
         </div>
      );
 }
- 
-export default AddUser;
+
+export default Edit;
