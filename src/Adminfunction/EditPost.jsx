@@ -5,7 +5,7 @@ import {UserOutlined ,MailOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
 const EditPost = ({close,onSumbit,content}) => {
         
-    const [contents, setContent] = useState("");
+    const [contents, setContent] = useState(content);
 
     const handleChange = (e) => {
        setContent(e.target.value);
@@ -25,12 +25,12 @@ const EditPost = ({close,onSumbit,content}) => {
                     <div>
                        
                          <Input.TextArea 
-                            defaultValue={content} 
+                            // defaultValue={content} 
                             size="large"
                             style={{height:'200px'}} 
                             name="content"
-                            type='text'  
-                            // value="" 
+                            type='text' 
+                            value={contents} 
                             onChange={(e) => handleChange(e)} 
                             prefix={<UserOutlined />}
                          />
