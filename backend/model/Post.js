@@ -58,6 +58,16 @@ const postSchema = new Schema({
         filename: String,
     },
 
+    like: {
+        type: [String],
+        default: [],
+    },
+
+    dislike : {
+        type: [String],
+        default: [],
+    }
+
 },{ 
     timestamps: true 
 }

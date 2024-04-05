@@ -20,6 +20,7 @@ const createPost = async (req, res) => {
     }
 };
 
+// get all posts
 const getAllPostOfUSer = async (req, res) => {
     const { username } = req.query;
     try {
@@ -34,19 +35,32 @@ const getAllPostOfUSer = async (req, res) => {
     }
 };
 
+const getPost = async (req, res) => {
+    const { postID } = req.query;
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
 // create a new like or dislike info
-const likeAndDislikePost = async (req, res) => {
-    const { userID, postID, isLike } = req.body;
+const likePost = async (req, res) => {
+    const { userID, postID} = req.body;
 
     try {
-        if (isLike) {
-            const newLike = await likeModel.create({ userID, postID });
-            return res.status(201).json({ newLike });
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
         }
-        else {
-            const newDislike = await dislikeModel.create({ userID, postID });
-            return res.status(201).json({ newDislike });
-        }
+        post.like.push(userID);
+        await post.save();
+        return res.status(201).json({ post });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,17 +69,23 @@ const likeAndDislikePost = async (req, res) => {
 
 }
 
-const likeAndDislikeCount = async (req, res) => {
-    const { postID } = req.body;
+const dislikePost = async (req, res) => {
+    const { userID, postID} = req.body;
+
     try {
-        const likeCount = await likeModel.countDocuments({ postID });
-        const dislikeCount = await dislikeModel.countDocuments({ postID });
-        return res.status(200).json({ likeCount, dislikeCount });
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.dislike.push(userID);
+        await post.save();
+        return res.status(201).json({ post });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
-        console.log("Error in likeCount: ", error.message);
-    } 
+        console.log("Error in like or dislike post: ", error.message);
+    }
+
 }
 
 const repost = async (req, res) => {
@@ -130,4 +150,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUSer, likeAndDislikePost, likeAndDislikeCount, repost, reportPost }
+export { createPost, getAllPostOfUSer, likePost, dislikePost, getPost, repost, reportPost }
