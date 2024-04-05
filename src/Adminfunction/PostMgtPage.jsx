@@ -15,7 +15,7 @@ function PostMgtPage(){
     const [editPost,setEditPost] = useState("content");
     const [dataset,setDataSet] = useState(PostInfo);
     const [showReportState,setShowReportState] = useState(false);
-    const [reportIndex,setReportIndex] = useState(null);
+    const [reportIndex,setReportIndex] = useState(0);
 
      const getResults = (result) =>{
         setResults(result);
@@ -32,11 +32,10 @@ function PostMgtPage(){
          })
      }
      const showReport = (targetIndex) =>{
-         showReportState? setShowReportState(false): setShowReportState(true);
-         setShowReportState(targetIndex);
+        setShowReportState(!showReportState);
          setReportIndex(targetIndex);
-         console.log(showReportState);
      }
+
      const handleEdit = (targetIndex) =>{
         EditState? setEditState(false): setEditState(true);
         setEditIndex(targetIndex);
@@ -46,7 +45,7 @@ function PostMgtPage(){
     }
 
      const handleSuspend = (targetIndex) =>{
-        console.log("entered");
+     
        const change = results.map((key,index) => {
            if(index === targetIndex){
               key.isSuspend = (!key.isSuspend);
@@ -98,10 +97,10 @@ function PostMgtPage(){
            {
                EditState && <EditPost onSumbit={onSubmit} close={() => setEditState(false)} content={editPost}/>
             }
-            {
-               
-            showReportState && <Report report={results[reportIndex].report}  close={() => setShowReportState(false)}/>
-            }
+            
+          {showReportState && <Report report={results[reportIndex]?.report} close={() => setShowReportState(false)}/>}
+
+            
         
 
           

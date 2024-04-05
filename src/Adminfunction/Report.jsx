@@ -5,6 +5,7 @@ import {UserOutlined ,MailOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
 import { Typography,Divider } from 'antd';
 import {TiDeleteOutline} from 'react-icons/ti';
+import { CloseOutlined } from '@ant-design/icons';
 
 const{Title} = Typography;
 
@@ -13,14 +14,15 @@ const Report = ({report,close}) => {
     return ( 
         <div className='reportContainer' >
             <div className='reportClass'>
-                <TiDeleteOutline 
+                <div className='delete'>
+                     <CloseOutlined 
                         style={{ 
-                            marginTop: 0,
-                            marginLeft: 0,
-                            fontSize: '35px'
+                           fontSize: '35px'
                               }}
                         onClick={close}
-                />
+                />  
+                </div>
+             
               <Title level={2}>Report Reason</Title>
                 <Divider/>
                 <div className='reasonContainer'>

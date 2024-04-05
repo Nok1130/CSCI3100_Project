@@ -29,8 +29,7 @@
     overflow:auto;
 }
 
-.deleteIcon{
-    margin-top:0 ;
-    margin-left:0;
-    size: 30px;
+.delete{
+    display:flex;
+    justify-content: flex-end;
 }
