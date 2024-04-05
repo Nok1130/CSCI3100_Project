@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import postModel from "../model/Post.js";
-import LikeModel from "../model/Like.js";
-import DislikeModel from "../model/Dislike.js";
+import likeModel from "../model/Like.js";
+import dislikeModel from "../model/Dislike.js";
+import reportModel from "../model/Report.js";
 import { v4 as uuidv4 } from "uuid";
 
 const createPost = async (req, res) => {
@@ -39,11 +40,11 @@ const likeAndDislikePost = async (req, res) => {
 
     try {
         if (isLike) {
-            const newLike = await LikeModel.create({ userID, postID });
+            const newLike = await likeModel.create({ userID, postID });
             return res.status(201).json({ newLike });
         }
         else {
-            const newDislike = await DislikeModel.create({ userID, postID });
+            const newDislike = await dislikeModel.create({ userID, postID });
             return res.status(201).json({ newDislike });
         }
 
@@ -57,8 +58,8 @@ const likeAndDislikePost = async (req, res) => {
 const likeAndDislikeCount = async (req, res) => {
     const { postID } = req.body;
     try {
-        const likeCount = await LikeModel.countDocuments({ postID });
-        const dislikeCount = await DislikeModel.countDocuments({ postID });
+        const likeCount = await likeModel.countDocuments({ postID });
+        const dislikeCount = await dislikeModel.countDocuments({ postID });
         return res.status(200).json({ likeCount, dislikeCount });
 
     } catch (error) {
@@ -109,4 +110,24 @@ const repost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUSer, likeAndDislikePost, likeAndDislikeCount, repost }
+const reportPost = async (req, res) => {
+    const { userID, postID, reportReson } = req.body;
+
+    try {
+        if (!userID || !postID || !reportReson) {
+            return res.status(404).json({ message: "Required fields missing" });
+        }
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        const newReport = await reportModel.create({ userID, postID, reportReason: reportReson });
+        return res.status(201).json({ newReport });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in reportPost: ", error.message);
+    }
+}
+
+export { createPost, getAllPostOfUSer, likeAndDislikePost, likeAndDislikeCount, repost, reportPost }

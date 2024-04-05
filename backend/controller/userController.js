@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { uploadImage } from "../middleware/upload.js";
 import UserModel from "../model/User.js";
 import { v4 as uuidv4 } from "uuid";
+
 // getting the user profile as a json file from the database
 const getUserProfileFromUsername = async (req, res, next) => {
     const username = req.body.username;
@@ -144,7 +145,7 @@ const signInUser = async (req, res, next) => {
 };
 
 const searchUser = async (req, res) => {
-    const { username } = req.body;
+    const { username } = req.query;
     console.log("username: ", username);
     try {
         const user = await UserModel.findOne({ username });

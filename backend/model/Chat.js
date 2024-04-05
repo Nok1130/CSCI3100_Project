@@ -3,30 +3,19 @@ import { v4 as uuidv4 } from "uuid";
 
 const Schema = mongoose.Schema;
 
-const groupSchema = new Schema({
+const chatSchema = new Schema({
 
-    groupID: {
+    chatID : {
         type: String,
         required: true,
-        unique: true,
         default: () => uuidv4().substring(0, 6),
     },
 
-    groupname: {
-        type: String,
-        required: true,
-    },
-
-    groupBio: {
-        type: String,
-        default: "Group Bio == NULL...",
-    },
-
-    groupAdmin: {
+    paticipant: {
         type: [String],
         required: true,
+        validate: [arrayLimit, '{PATH} expects array of length 2.'],
     },
-
 
 },{ 
     timestamps: true 
@@ -34,4 +23,8 @@ const groupSchema = new Schema({
 
 );
 
-export default mongoose.model("Group", groupSchema)
+function arrayLimit(val) {
+    return val.length == 2;
+  }  
+
+export default mongoose.model("Chat", chatSchema)

@@ -1,6 +1,5 @@
 import UserModel from "../model/User.js";
 
-
 const suspendUser = async (req, res) => {
     const { userID } = req.params;
 
@@ -46,5 +45,16 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const getAllUser = async (req, res) => {
+    try {
+        const users = await UserModel.find();
+        return res.status(200).json({ users });
+    } 
+    catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getAllUser: ", error.message);
+    }
+};
 
-export { suspendUser, deleteUser };
+
+export { suspendUser, deleteUser, getAllUser };

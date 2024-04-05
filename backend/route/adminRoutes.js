@@ -1,9 +1,10 @@
-import { suspendUser, deleteUser } from "../controller/adminController.js";
+import { suspendUser, deleteUser, getAllUser } from "../controller/adminController.js";
 import express from "express";
 
-const router = express.Router();
+const adminRouter = express.Router();
 
-router.patch("/suspendUser", suspendUser);
-router.delete("/deleteUser", deleteUser);
+adminRouter.patch("/suspendUser", suspendUser);
+adminRouter.delete("/deleteUser", deleteUser);
+adminRouter.get("/getAllUser", getAllUser);
 
-export default router
+export default adminRouter

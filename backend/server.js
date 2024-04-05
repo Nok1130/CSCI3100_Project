@@ -9,10 +9,12 @@ import ENV from "./ENV.js";
 dotenv.config();
 
 // import all the routes
-import userRoute from "./route/userRoutes.js";
-import postRoute from './route/postRoutes.js';
-import followerRoute from "./route/followerRoutes.js";
+import userRoutes from "./route/userRoutes.js";
+import postRoutes from './route/postRoutes.js';
+import followerRoutes from "./route/followerRoutes.js";
 import adminRoutes from "./route/adminRoutes.js";
+import chatRoutes from "./route/chatRoutes.js";
+import groupRoutes from "./route/groupRoutes.js";
 
 const PORT = 5001;
 
@@ -20,9 +22,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-
-// const dbConnection = "mongodb+srv://uniconadmin:123@unicondb.lwxmdyy.mongodb.net/?retryWrites=true&w=majority&appName=uniconDB";
-// const dbConnection = Env.DB_CONNECTION;
 
 const db = new MongoClient(ENV.DB_CONNECTION, {
   serverApi: {
@@ -68,10 +67,12 @@ mongoose.connection.on("disconnected", () => {
 });
 
 // Routes
-app.use("/api/user", userRoute);
-app.use("/api/follower", followerRoute);
+app.use("/api/user", userRoutes);
+app.use("/api/follower", followerRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/api/post", postRoute);
+app.use("/api/post", postRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/group", groupRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

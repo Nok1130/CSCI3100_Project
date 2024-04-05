@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid";
 
 const Schema = mongoose.Schema;
 
-const groupSchema = new Schema({
+const messageSchema = new Schema({
 
     chatID: {
         type: String,
         required: true,
-        default: () => uuidv4().substring(0, 6),
     },
 
     sender: {
@@ -32,4 +30,4 @@ const groupSchema = new Schema({
 
 );
 
-export default mongoose.model("Message", groupSchema)
+export default mongoose.model("Message", messageSchema)

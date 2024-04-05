@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
 import { createPost, getAllPostOfUSer, likeAndDislikePost, likeAndDislikeCount, repost } from "../controller/postController.js";
+import { createComment, getAllCommentOfPost } from "../controller/commentController.js";
 
-const router = express.Router();
+const postRouter = express.Router();
 
-router.post("/likeAndDislikePost/:postID", likeAndDislikePost);
-router.get("/likeAndDislikeCount/:postID", likeAndDislikeCount);
-router.post("/repost/:postID", repost);
-router.post("/createPost", createPost);
-router.get("/getAllPostOfUSer", getAllPostOfUSer);
+postRouter.post("/likeAndDislikePost/:postID", likeAndDislikePost);
+postRouter.get("/likeAndDislikeCount/:postID", likeAndDislikeCount);
+postRouter.post("/repost/:postID", repost);
+postRouter.post("/createPost", createPost);
+postRouter.get("/getAllPostOfUSer", getAllPostOfUSer);
+postRouter.post("/createComment", createComment);
+postRouter.get("/getAllCommentOfPost", getAllCommentOfPost);
 
-export default router;
+export default postRouter;

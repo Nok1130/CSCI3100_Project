@@ -42,7 +42,7 @@ const UserSchema = new Schema({
         default: "CUHK",
     },
 
-    nickname: {
+    identity: {
         type: [Array],
     },
 
@@ -82,7 +82,7 @@ const UserSchema = new Schema({
 );
 
 UserSchema.pre('save', function(next) {
-    this.nickname = [this.major, this.username];
+    this.identity = [this.major, this.university, this.username];
     next();
 });
 

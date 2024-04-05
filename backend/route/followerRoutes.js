@@ -1,11 +1,11 @@
 import { followUserRequest, acceptFollowRequest, rejectFollowRequest, getAllFollowerAndFollowing } from "../controller/followerController.js";
 import express from "express";
 
-const router = express.Router();
+const followerRouter = express.Router();
 
-router.post("/:username/followUserRequest", followUserRequest);
-router.patch("/:username/acceptFollowRequest", acceptFollowRequest);
-router.delete("/:username/rejectFollowRequest", rejectFollowRequest);
-router.get("/:username/getAllFollowerAndFollowing", getAllFollowerAndFollowing);
+followerRouter.post("/:username/followUserRequest", followUserRequest);
+followerRouter.patch("/:username/acceptFollowRequest", acceptFollowRequest);
+followerRouter.delete("/:username/rejectFollowRequest", rejectFollowRequest);
+followerRouter.get("/:username/getAllFollowerAndFollowing", getAllFollowerAndFollowing);
 
-export default router
+export default followerRouter

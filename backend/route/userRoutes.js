@@ -3,13 +3,14 @@ import { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile
 import express from "express";
 import { auth } from "../middleware/auth.js";
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.get("/getUserProfileFromUserName", auth, getUserProfileFromUsername);
-router.put("/updateUserProfile", auth, updateUserProfile);
-router.post("/signUpNewUser", signUpNewUser);
-router.post("/signInUser", signInUser);
-router.get("/searchUser", searchUser);
+userRouter.get("/getUserProfileFromUserID", auth, getUserProfileFromUserID);
+userRouter.get("/getUserProfileFromUserName", auth, getUserProfileFromUsername);
+userRouter.put("/updateUserProfile", auth, updateUserProfile);
+userRouter.post("/signUpNewUser", signUpNewUser);
+userRouter.post("/signInUser", signInUser);
+userRouter.get("/searchUser", searchUser);
 
-export default router;
+export default userRouter;
 
