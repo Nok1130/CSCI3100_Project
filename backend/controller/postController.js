@@ -58,7 +58,6 @@ const likeAndDislikeCount = async (req, res) => {
     const { postID } = req.body;
     try {
         const likeCount = await LikeModel.countDocuments({ postID });
-
         const dislikeCount = await DislikeModel.countDocuments({ postID });
         return res.status(200).json({ likeCount, dislikeCount });
 
@@ -84,8 +83,7 @@ const repost = async (req, res) => {
             Generate a new post which has the following properties:
             Everything else is the same with original post except:
             postId is newly generated;
-            isRetweet set to true;
-            retweetUser, originalTime is set.
+            isRepost set to true, repostBy is set;
             This generates a repost which displays the original repost
         */
 
