@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -52,8 +53,8 @@ const UserSchema = new Schema({
     },
 
     personalIcon: {
-        filename: String,
-        path: String,
+        type: String,
+        default: "",
     },
 
     isAdmin: {

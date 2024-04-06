@@ -7,7 +7,7 @@ import { mongoose } from "mongoose";
 import dotenv from "dotenv";
 import ENV from "./ENV.js";
 dotenv.config();
-
+import multer from "multer";
 // import all the routes
 import userRoutes from "./route/userRoutes.js";
 import postRoutes from './route/postRoutes.js';
@@ -22,6 +22,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
+
 
 const db = new MongoClient(ENV.DB_CONNECTION, {
   serverApi: {

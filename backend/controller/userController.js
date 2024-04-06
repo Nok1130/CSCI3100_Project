@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import bodyParser from "body-parser";
-import { uploadImage } from "../middleware/upload.js";
 import UserModel from "../model/User.js";
 import { v4 as uuidv4 } from "uuid";
+
+import multer from "multer";
+import fs from "fs";
 
 // getting the user profile as a json file from the database
 const getUserProfileFromUsername = async (req, res, next) => {
@@ -16,7 +17,8 @@ const getUserProfileFromUsername = async (req, res, next) => {
         return res.status(200).json({ user });
     } 
     catch (error) {
-        next(error);
+        res.status(500).json({ error: error.message });
+        console.log("Error in getUserProfile: ", error.message);
     }
 };
 
@@ -31,12 +33,13 @@ const getUserProfileFromUserID = async (req, res, next) => {
         return res.status(200).json({ user });
     } 
     catch (error) {
-        next(error);
+        res.status(500).json({ error: error.message });
+        console.log("Error in getUserProfile: ", error.message);
     }
 };
 
 // update the user profile
-const updateUserProfile = async (req, res, next) => {
+const updateUserProfile = async (req, res) => {
     // const userID = req.user.userID;
     // console.log(userID);
     const { userID, newUsername, oldPassword, newPassword, personalBio } = req.body;
@@ -58,25 +61,65 @@ const updateUserProfile = async (req, res, next) => {
 
         const updatedUserProfile = await user.save();
         return res.status(200).json({ updatedUserProfile });
-        // const upload = uploadImage.single("personalIcon");
-        // upload(req, res, async (err) => {
-        //     if (err) {
-        //         return next(err);
-        //     }
-        //     else {
-        //         if (req.file) {
-        //             user.personalIcon = req.file.path;
-        //         }
-
-                // const updatedUserProfile = await user.save();
-                // return res.status(200).json({ updatedUserProfile });
-        //     }
-        // });
     } 
     catch (error) {
-        next(error);
+        res.status(500).json({ error: error.message });
+        console.log("Error in updateUserProfile: ", error.message);
     }
 };
+
+const updateUserProfileIcon = async (req, res) => {
+    console.log(req.body.userID);
+    console.log(req.file);
+    try {
+        const icon = req.file;
+        if (!icon) {
+            return new Error("No file uploaded");
+        }
+        let user = await UserModel.findOne({ userID : req.body.userID });
+        console.log(user);
+        if (!user) {
+            return new Error("User Profile not found");
+        }
+        user.personalIcon = icon.filename;
+        const updatedUserProfile = await user.save();
+        return res.status(200).json({ updatedUserProfile });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in updateUserProfileIcon: ", error.message);
+    }
+};
+
+// const updateUserProfileIcon = async (req, res, next) => {
+//     try {
+//         const uploadImage = upload.single("icon");
+//         const userID = req.body.userID;
+
+//         uploadImage(req, res, userID, async function (err) {
+//             if (err) {
+//                 next();
+//             }
+
+//             if (!req.file) {
+//                 return new Error("No file uploaded");
+//             }
+//             const user = await UserModel.findOne({ userID : userID });
+//             if (!user) {
+//                 return new Error("User Profile not found");
+//             }
+//             user.personalIcon = req.file.filename;
+//             const updatedUserProfile = await user.save();
+//             return res.status(200).json({ updatedUserProfile });
+//         }
+//         );
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//         console.log("Error in updateUserProfileIcon: ", error.message);
+//     }
+
+// };
+
 
 
 // create a new user profile with the given data
@@ -166,5 +209,5 @@ const searchUser = async (req, res) => {
     }
 };
 
-export { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile, signUpNewUser, signInUser, searchUser };
+export { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile, updateUserProfileIcon, signUpNewUser, signInUser, searchUser };
 

@@ -36,6 +36,11 @@ const postSchema = new Schema({
         default: false,
     },
 
+    isSuspended: {
+        type: Boolean,
+        default: false,
+    },
+
     postCategory: {
         type: String,
     },
@@ -71,7 +76,7 @@ const postSchema = new Schema({
     comments: {
         type: Map,
         default: {},
-        // userID : comment
+        // format : {userID : comment}
     }
 
 },{ 

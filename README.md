@@ -14,6 +14,8 @@ In the project directory, you can run:
 ### `npm start`
 Runs the app in the development mode.
 
-In backend folder
-### `node server.js` / `nodemon server js`
+## To run the database server
+
+### `cd backend`
+### `node server.js` / `nodemon server.js`
 Runs the database server 

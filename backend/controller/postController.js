@@ -132,6 +132,7 @@ const repost = async (req, res) => {
             hashtag: post.hashtag,
             repostBy: repostUsername,
             isRepost: true,
+            isSuspended: post.isSuspended,
             postTitle: post.postTitle,
             postCategory: post.postCategory,
             postText: post.postText,
