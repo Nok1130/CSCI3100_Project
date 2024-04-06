@@ -4,19 +4,50 @@ import reportModel from "../model/Report.js";
 import { v4 as uuidv4 } from "uuid";
 
 const createPost = async (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
     const postID = uuidv4().substring(0, 6)
-    const { username, nickname, postTitle, postText, postImage, postVideo } = req.body;
+    const content = req.file;
+    const { username, nickname, postTitle, postText } = req.body;
     try {
         if (!username || !nickname || !postTitle || !postText) {
             return res.status(400).json({ message: "Missing required fields" });
         }
-        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage, postVideo });
+        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: content.filename });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
         console.log("Error in createPost: ", error.message);
     }
 };
+
+// const createPost = async (req, res) => {
+//     console.log(req.body);
+//     console.log(req.file);
+//     const postID = uuidv4().substring(0, 6)
+//     const content = req.file;
+//     const { username, nickname, postTitle, postText } = req.body;
+//     try {
+//         if (!username || !nickname || !postTitle || !postText) {
+//             return res.status(400).json({ message: "Missing required fields" });
+//         }
+//         if (content.mimeType === "video/mp4") {
+//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postVideo: content.filename });
+//             return res.status(201).json({ newPost });
+//         }
+//         if (content.mimeType === "image/png" || content.mimeType === "image/jpeg" || content.mimeType === "image/jpg") {
+//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage: content.filename });
+//             return res.status(201).json({ newPost });
+//         }
+//         else {
+//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText });
+//             return res.status(201).json({ newPost });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//         console.log("Error in createPost: ", error.message);
+//     }
+// };
 
 // get all posts
 const getAllPostOfUSer = async (req, res) => {
@@ -87,8 +118,8 @@ const dislikePost = async (req, res) => {
 }
 
 const createComment = async (req, res) => {
-    const { userID, postID, commentContent } = req.body;
-    if (!userID || !commentContent) {
+    const { username, postID, commentContent } = req.body;
+    if (!username || !commentContent) {
         return res.status(400).json({ message: "Missing required fields" });
     }
     try {
@@ -96,7 +127,7 @@ const createComment = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        post.comments.push({ userID, commentContent });
+        post.comments.push({ username, commentContent });
         await post.save();
         return res.status(201).json({ post });
     } catch (error) {

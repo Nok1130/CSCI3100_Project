@@ -1,5 +1,6 @@
 /*
     This file is for some useful functions of authenticating users.
+    No use now
 */
 import jwt from "jsonwebtoken";
 import User from "../model/User.js";

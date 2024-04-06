@@ -55,12 +55,10 @@ const postSchema = new Schema({
         required: true,
     },
 
-    postImage: {
-        filename: String,
-    },
+    postContent: {
+        type: String,
+        default: "",
 
-    postVideo: {
-        filename: String,
     },
 
     like: {
@@ -76,7 +74,7 @@ const postSchema = new Schema({
     comments: {
         type: Map,
         default: {},
-        // format : {userID : comment}
+        // format : {username : comment}
     }
 
 },{ 
