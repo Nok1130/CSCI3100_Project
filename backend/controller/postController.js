@@ -13,7 +13,8 @@ const createPost = async (req, res) => {
         if (!username || !nickname || !postTitle || !postText) {
             return res.status(400).json({ message: "Missing required fields" });
         }
-        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: content.filename });
+        const contentFilename = content === undefined ? "" : content.filename;
+        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: contentFilename });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });

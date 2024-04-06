@@ -28,7 +28,7 @@ postRouter.post("/likePost", likePost);
 postRouter.post("/dislikePost", dislikePost);
 postRouter.post("/reportPost", reportPost);
 postRouter.post("/repost/:postID", repost);
-postRouter.post("/createPost", upload.single('content'), createPost);
+postRouter.post("/createPost", upload.single('postContent'), createPost);
 postRouter.get("/getAllPostOfUSer", getAllPostOfUSer);
 postRouter.post("/createComment", createComment);
 postRouter.get("/getPost", getPost);
