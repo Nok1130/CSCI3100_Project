@@ -66,6 +66,12 @@ const postSchema = new Schema({
     dislike : {
         type: [String],
         default: [],
+    },
+
+    comments: {
+        type: Map,
+        default: {},
+        // userID : comment
     }
 
 },{ 

@@ -39,17 +39,17 @@ const getUserProfileFromUserID = async (req, res, next) => {
 const updateUserProfile = async (req, res, next) => {
     // const userID = req.user.userID;
     // console.log(userID);
-    const { oldUsername, newUsername, oldPassword, newPassword, personalBio } = req.body;
-    console.log(oldUsername, newUsername, oldPassword, newPassword, personalBio);
+    const { userID, newUsername, oldPassword, newPassword, personalBio } = req.body;
+    console.log(userID, newUsername, oldPassword, newPassword, personalBio);
 
     try {
-        let user = await UserModel.findOne({ username: oldUsername });
+        let user = await UserModel.findOne({ userID });
         if (!user) {
             throw new Error("User Profile not found");
         }
 
         if (oldPassword !== user.password) {
-            throw new Error("Wrong original password");
+            throw new Error("Wrong old password");
         }
 
         user.username = newUsername || user.username;

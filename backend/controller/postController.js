@@ -86,6 +86,25 @@ const dislikePost = async (req, res) => {
 
 }
 
+const createComment = async (req, res) => {
+    const { userID, postID, commentContent } = req.body;
+    if (!userID || !commentContent) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.comments.push({ userID, commentContent });
+        await post.save();
+        return res.status(201).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in createComment: ", error.message);
+    }
+};
+
 const repost = async (req, res) => {
     const { repostUsername, repostNickname, postID } = req.body;
 
@@ -119,7 +138,9 @@ const repost = async (req, res) => {
             postImage: post.postImage,
             postVideo: post.postVideo,
             like: post.like,
-            dislike: post.dislike
+            dislike: post.dislike,
+            comments: post.comments,
+
         });
 
         res.status(201).json({ newPost });
@@ -150,4 +171,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUSer, likePost, dislikePost, getPost, repost, reportPost }
+export { createPost, getAllPostOfUSer, likePost, dislikePost, getPost, createComment, repost, reportPost }
