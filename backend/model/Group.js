@@ -19,7 +19,7 @@ const groupSchema = new Schema({
 
     groupBio: {
         type: String,
-        default: "Group Bio == NULL...",
+        default: "This is a group account. No bio yet.",
     },
 
     groupAdmin: {

@@ -5,9 +5,9 @@ import { auth } from "../middleware/auth.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/getUserProfileFromUserID", auth, getUserProfileFromUserID);
-userRouter.get("/getUserProfileFromUserName", auth, getUserProfileFromUsername);
-userRouter.put("/updateUserProfile", auth, updateUserProfile);
+userRouter.get("/getUserProfileFromUserID", getUserProfileFromUserID);
+userRouter.get("/getUserProfileFromUserName", getUserProfileFromUsername);
+userRouter.patch("/updateUserProfile", updateUserProfile);
 userRouter.post("/signUpNewUser", signUpNewUser);
 userRouter.post("/signInUser", signInUser);
 userRouter.get("/searchUser", searchUser);

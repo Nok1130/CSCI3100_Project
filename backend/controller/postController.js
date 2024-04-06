@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import postModel from "../model/Post.js";
-import likeModel from "../model/Like.js";
-import dislikeModel from "../model/Dislike.js";
 import reportModel from "../model/Report.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -51,7 +49,7 @@ const getPost = async (req, res) => {
 
 // create a new like or dislike info
 const likePost = async (req, res) => {
-    const { userID, postID} = req.body;
+    const { userID, postID } = req.body;
 
     try {
         const post = await postModel.findOne({ postID: postID });
@@ -70,7 +68,7 @@ const likePost = async (req, res) => {
 }
 
 const dislikePost = async (req, res) => {
-    const { userID, postID} = req.body;
+    const { userID, postID } = req.body;
 
     try {
         const post = await postModel.findOne({ postID: postID });
@@ -120,6 +118,8 @@ const repost = async (req, res) => {
             postText: post.postText,
             postImage: post.postImage,
             postVideo: post.postVideo,
+            like: post.like,
+            dislike: post.dislike
         });
 
         res.status(201).json({ newPost });
@@ -131,17 +131,17 @@ const repost = async (req, res) => {
 }
 
 const reportPost = async (req, res) => {
-    const { userID, postID, reportReson } = req.body;
+    const { userID, postID, reportReason } = req.body;
 
     try {
-        if (!userID || !postID || !reportReson) {
+        if (!userID || !postID || !reportReason) {
             return res.status(404).json({ message: "Required fields missing" });
         }
         const post = await postModel.findOne({ postID: postID });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        const newReport = await reportModel.create({ userID, postID, reportReason: reportReson });
+        const newReport = await reportModel.create({ userID, postID, reportReason });
         return res.status(201).json({ newReport });
 
     } catch (error) {
