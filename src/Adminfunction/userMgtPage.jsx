@@ -10,12 +10,12 @@ import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
 
 function UserMgtPage () {
-const [results,setResults] = useState(UserInfo);//store search result for display
-const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset 
-const [SuspendBtnText,setSuspendBtnText] = useState('Suspend'); // handle form to add new row
-const [AddButtonState,setAddButtonState] = useState(false);
-const [EditState,setEditState] = useState(false);
-const [editIndex,setEditIndex] = useState(0);
+    const [results,setResults] = useState(UserInfo);//store search result for display
+    const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset 
+    const [SuspendBtnText,setSuspendBtnText] = useState('Suspend'); // handle form to add new row
+    const [AddButtonState,setAddButtonState] = useState(false);
+    const [EditState,setEditState] = useState(false);
+    const [editIndex,setEditIndex] = useState(0);
 
  const handleSubmit = (newRow) =>{
      setDataSet([...dataset,newRow]);

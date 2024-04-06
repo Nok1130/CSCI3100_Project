@@ -2,7 +2,7 @@ export const UserInfo = [
     {
         "username":"JoJo",
         "email":"1155213154@link.cuhk.edu.hk",
-        "isSuspend":true
+        "isSuspend":false
     },
     {
         "username":"Elon Musk",
