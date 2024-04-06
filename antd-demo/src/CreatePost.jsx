@@ -1,6 +1,9 @@
 import React from 'react';
 import './CreatePost.css';
-import { Button, Checkbox, Form, Input, Select } from 'antd';
+import { Avatar, Button, Checkbox, Form, Input, Select, Flex, Upload } from 'antd';
+import { LiaFileVideo, LiaImage } from "react-icons/lia";
+
+const {TextArea} = Input;
 const onFinish = (values) => {
   console.log('Success:', values);
 };
@@ -10,6 +13,30 @@ const onFinishFailed = (errorInfo) => {
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
+const props_video = {
+  beforeUpload: (file) => {
+    const isPNG = file.type === 'video/mp4';
+    if (!isPNG) {
+      message.error(`${file.name} is not a video file`);
+    }
+    return isPNG || Upload.LIST_IGNORE;
+  },
+  onChange: (info) => {
+    console.log(info.fileList);
+  },
+};
+const props_image = {
+  beforeUpload: (file) => {
+    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg';
+    if (!isPNG) {
+      message.error(`${file.name} is not a image file`);
+    }
+    return isPNG || Upload.LIST_IGNORE;
+  },
+  onChange: (info) => {
+    console.log(info.fileList);
+  },
+};
 const CreatePost = () => (
   <Form
     name="basic"
@@ -17,10 +44,10 @@ const CreatePost = () => (
       span: 8,
     }}
     wrapperCol={{
-      span: 16,
+      span: 30,
     }}
     style={{
-      maxWidth: 600,
+      width: '100%',
     }}
     initialValues={{
       remember: true,
@@ -34,59 +61,110 @@ const CreatePost = () => (
       rules={[
         {
           required: true,
-          
+
         },
       ]}
     >
       <Select
-      className='post_access'
-      placeholder="Select major/ faculty"
-      style={{
-        width: 175,
-        color: 'black',
-      }}
-      onChange={handleChange}
-      options={[
-        {
-          value: 'all',
-          label: 'All',
-        },
-        {
-          value: 'engineering',
-          label: 'Engineering',
-        },
-        {
-          value: 'computer_science',
-          label: 'Computer Science',
-        },
-      ]}
-    />
+        className='post_access'
+        placeholder="Select major/ faculty"
+
+        onChange={handleChange}
+        options={[
+          {
+            value: 'all',
+            label: 'All',
+          },
+          {
+            value: 'engineering',
+            label: 'Engineering',
+          },
+          {
+            value: 'computer_science',
+            label: 'Computer Science',
+          },
+        ]}
+      />
+    </Form.Item>
+    <Flex gap="small">
+      <Avatar width={30} src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+      <Form.Item
+        name="identity"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+
+
+
+        <Select
+          className='identity'
+          placeholder="Select identity"
+          onChange={handleChange}
+          options={[
+            {
+              value: 'username',
+              label: 'CSDOG',
+            },
+            {
+              value: 'engineering',
+              label: 'Engineering',
+            },
+            {
+              value: 'computer_science',
+              label: 'Computer Science',
+            },
+          ]}
+        />
+
+
+      </Form.Item>
+    </Flex>
+
+    <Form.Item
+            name="title"
+            rules={[
+              {
+                required: true,
+              },
+            ]}>
+    <Input className="title" placeholder="Title" maxLength={80} showCount variant="borderless"/>
     </Form.Item>
 
     <Form.Item
-      label="Password"
-      name="password"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your password!',
-        },
-      ]}
-    >
-      <Input.Password />
+            className='content_form'
+            name="content"
+            style={{height: '40%'}}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+            >
+    <TextArea size='large' className="content" placeholder="Content" style={{resize: 'none'}} variant="borderless"/>
     </Form.Item>
 
     <Form.Item
-      name="remember"
-      valuePropName="checked"
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
+            name="topic"
     >
-      <Checkbox>Remember me</Checkbox>
+    <Input className="topic" placeholder="Topic"/>
     </Form.Item>
 
+  <Flex justify='space-between'>
+    <Flex>
+    <Form.Item>
+      <Upload {...props_video}>
+        <Button className='upload' icon={<LiaFileVideo style={{height: 30, width: 30}}/>}></Button>
+      </Upload>
+    </Form.Item>
+    <Form.Item>
+      <Upload {...props_image}>
+        <Button type="file"accept="image/png, image/jpeg" className='upload' icon={<LiaImage style={{height: 30, width: 30}}/>}></Button>
+      </Upload>
+    </Form.Item>
+    </Flex>
     <Form.Item
       wrapperCol={{
         offset: 8,
@@ -94,9 +172,11 @@ const CreatePost = () => (
       }}
     >
       <Button type="primary" htmlType="submit">
-        Submit
+        Post
       </Button>
     </Form.Item>
+  </Flex>
+
   </Form>
 );
 export default CreatePost;

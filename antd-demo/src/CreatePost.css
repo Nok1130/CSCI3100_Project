@@ -1,3 +1,74 @@
 .post_access .ant-select-selector {
     background: rgb(160, 160, 160) !important;
 }
+
+.identity .ant-select-selector {
+    background: whitesmoke !important;
+}
+
+.ant-select-selection-placeholder {
+    color: black !important;
+}
+
+.title,
+.title input,
+.title input::placeholder {
+    width: 100%;
+    font-size: x-large;
+    font-weight: bold;
+
+
+}
+
+input.title,
+.content {
+    color: black !important;
+
+}
+
+.content_form .ant-row,
+.content_form .ant-form-item-control-input,
+.content_form .ant-form-item-control-input-content,
+.content_form textarea {
+    height: 100% !important;
+}
+
+.identity{
+    width: 150px !important;
+    color: 'black';
+}
+
+.post_access{
+    width: 175px !important;
+    color: 'black';
+}
+
+.topic,
+input.topic::placeholder,
+.topic:hover,
+.topic:focus {
+    width: 100%;
+    font-weight: bold;
+    background: white;
+
+}
+
+input.topic {
+    color: #5295FF !important;
+}
+
+.upload,
+.upload:focus,
+.upload:hover{
+    background: none !important;
+    border: none;
+}
+
+.upload svg {
+    width: 30px;
+    height: 30px;
+}
+
+.ant-col.ant-col-16.ant-col-offset-8.ant-form-item-control.css-dev-only-do-not-override-16clcv3 {
+    margin: 0;
+}
