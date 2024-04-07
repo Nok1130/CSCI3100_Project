@@ -2,7 +2,7 @@ import {useState} from 'react';
 import React from 'react';
 import "./Admin.css";
 import  {SideBarData} from './SideBarData.jsx';
-import {Link,NavLink} from 'react-router-dom';
+import {Link,NavLink,Outlet} from 'react-router-dom';
 const SideBar = () => {
 
     return ( 
@@ -20,7 +20,7 @@ const SideBar = () => {
           
                 }
             </div>
-             
+             <Outlet />
         </div>
      );
 };
