@@ -6,7 +6,8 @@ import { SuspendBtn } from "./SuspendBtn";
 import {useState} from 'react';
 import EditPost from "./EditPost";
 import Report from './Report';
-import './Admin.css'
+import './Admin.css';
+import axios from 'axios';
 
 function PostMgtPage(){
     const [results,setResults] = useState(PostInfo.filter(Boolean));

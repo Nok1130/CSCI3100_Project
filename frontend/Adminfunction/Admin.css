@@ -134,13 +134,13 @@ width:100%;
     outline:none;
 }
 
-.UserRow{
+/* .UserRow{
     width:100%;
     height:100%;
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
+} */
 
 .userHeader,.postHeader{
     margin-top:20px;
@@ -152,13 +152,13 @@ width:100%;
 }
 
 
-.userInfo{
+/* .userInfo{
     margin-top:20px;
     display:flex;
     flex-direction: column;
     gap:50px;
     
-}
+} */
 
 .userInfo button{
     margin-left:45px;
