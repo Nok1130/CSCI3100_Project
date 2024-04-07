@@ -29,7 +29,7 @@ function getItem(label, key, icon, children, type, link) {
 };
 
 const header = [
-    getItem(null, 'notification',
+    getItem(null, '/notification',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
             <IoNotificationsOutline
                 size={25}
@@ -37,7 +37,7 @@ const header = [
                     color: '#ffffff',
                 }}
             /></Flex>),
-    getItem(null, 'profile',
+    getItem(null, '/profile',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
             <AiOutlineUser
                 size={25}
@@ -46,7 +46,7 @@ const header = [
                 }}
             />
         </Flex>),
-    getItem(null, 'createpost',
+    getItem(null, '/createpost',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
             <FiEdit
                 size={25}
@@ -55,7 +55,7 @@ const header = [
                 }}
             />
         </Flex>),
-    getItem(null, 'chat',
+    getItem(null, '/chat',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'><FiMessageSquare
             size={25}
             style={{
@@ -68,8 +68,8 @@ const header = [
 
 const sidemenu = [
 
-    getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/all'), getItem('Engineering', 'recommend/post/engineering'), getItem('Computer Science', 'recommend/post/computerscience')], 'group'),
-    getItem('Groups', 'g1', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
+    getItem('Posts', 'g1', null, [getItem('All', '/recommend/post/all'), getItem('Engineering', '/recommend/post/engineering'), getItem('Computer Science', '/recommend/post/computerscience')], 'group'),
+    getItem('Groups', 'g1', null, [getItem('Group Accounts', '/groupaccount')], 'group')];
 const Home = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -182,12 +182,12 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend />} />
-                                <Route path='groupaccount/*' element={<MyGroupAccounts />} />
-                                <Route path='notification' element={<Notification />} />
-                                <Route path='profile' element={<Profile />} />
-                                <Route path='createpost' element={<CreatePost />} />
-                                <Route path='chat' element={<Chat />} />
+                                <Route path='/recommend/*' element={<Recommend />} />
+                                <Route path='/groupaccount/*' element={<MyGroupAccounts />} />
+                                <Route path='/notification' element={<Notification />} />
+                                <Route path='/profile' element={<Profile />} />
+                                <Route path='/createpost' element={<CreatePost />} />
+                                <Route path='/chat' element={<Chat />} />
 
                             </Routes>
 

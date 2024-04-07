@@ -10,15 +10,15 @@ import GroupAccounts from './GroupAccounts';
 const navbar_items = [
     {
         label: 'Posts',
-        key: '/recommend/post/all',
+        key: '/home/recommend/post/all',
     },
     {
         label: 'Users',
-        key: '/recommend/user',
+        key: '/home/recommend/user',
     },
     {
         label: 'Group Accounts',
-        key: '/recommend/groupaccount',
+        key: '/home/recommend/groupaccount',
     }
 ]
 

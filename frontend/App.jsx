@@ -1,5 +1,4 @@
 import './App.css'
-import { Button } from 'antd'
 import Testing from './Testing'
 
 
@@ -21,7 +20,7 @@ function App() {
         <Route path='/signup' exact element={<Signup />}/>
         <Route path='/login' exact element={<Login />}/>
         <Route path="/" element={<Navigate replace to="/signup" />} />
-        <Route path="/post" element={<Navigate to="recommend/post/all" />} />
+        <Route path="/home/*" exact element={<Home />} />
         <Route path="/admin" exact element={<Admin />}/>
     </Routes>
       
