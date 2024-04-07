@@ -7,6 +7,7 @@ function Home () {
         <SideBar/>
         <div>
             <h1>This is Home Page</h1>
+            <h2>Hello World</h2>
         </div>
         
     </div>  
