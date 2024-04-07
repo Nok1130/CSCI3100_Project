@@ -9,32 +9,28 @@ const reportSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        default: () => uuidv4(),
+        default: () => uuidv4().substring(0, 6),
     },
 
     userID: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     postID: {
         type: String,
         required: true,
-        ref: "Post",
     },
 
     reportReason: {
         type: String,
         required: true,
     },
-
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
-
     
-});
+},{ 
+    timestamps: true 
+}
+
+);
 
 export default mongoose.model("Report", reportSchema);

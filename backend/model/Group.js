@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const Schema = mongoose.Schema;
 
@@ -8,31 +9,29 @@ const groupSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+        default: () => uuidv4().substring(0, 6),
     },
 
-    groupName: {
+    groupname: {
         type: String,
         required: true,
     },
 
-    personalBio: {
+    groupBio: {
         type: String,
-        default: "Group Bio == NULL...",
-    },
-
-    groupMember: {
-        type: [String],
-        default: [],
-        required: true,
+        default: "This is a group account. No bio yet.",
     },
 
     groupAdmin: {
         type: [String],
-        default: [],
         required: true,
     },
 
 
-});
+},{ 
+    timestamps: true 
+}
+
+);
 
 export default mongoose.model("Group", groupSchema)

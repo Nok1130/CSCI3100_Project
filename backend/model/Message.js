@@ -2,14 +2,9 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const groupSchema = new Schema({
+const messageSchema = new Schema({
 
     chatID: {
-        type: String,
-        required: true,
-    },
-
-    messageID: {
         type: String,
         required: true,
     },
@@ -17,13 +12,11 @@ const groupSchema = new Schema({
     sender: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     receiver: {
         type: String,
         required: true,
-        ref: "Account",
     },
 
     text: {
@@ -31,11 +24,10 @@ const groupSchema = new Schema({
         required: true,
     },
 
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
+},{ 
+    timestamps: true 
+}
 
-});
+);
 
-export default mongoose.model("Message", groupSchema)
+export default mongoose.model("Message", messageSchema)

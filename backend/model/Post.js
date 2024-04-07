@@ -9,11 +9,7 @@ const postSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        default: () => uuidv4(),
-    },
-
-    hashtag: {
-        type: [String],
+        default: () => uuidv4().substring(0, 6),
     },
 
     userID: {
@@ -21,30 +17,69 @@ const postSchema = new Schema({
         required: true,
     },
 
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
-
-    postTopic: {
+    nickname: {
         type: String,
         required: true,
     },
 
-    postDesciption: {
+    hashtag: {
+        type: [String],
+        default: [],
+    },
+
+    repostBy: {
+        type: String,
+    },
+
+    isRepost: {
+        type: Boolean,
+        default: false,
+    },
+
+    isSuspended: {
+        type: Boolean,
+        default: false,
+    },
+
+    postCategory: {
+        type: String,
+    },
+    
+    postTitle: {
         type: String,
         required: true,
     },
 
-    postImage: {
-        filename: String,
+    postText: {
+        type: String,
+        required: true,
     },
 
-    postVideo: {
-        filename: String,
+    postContent: {
+        type: String,
+        default: "",
+
     },
 
+    like: {
+        type: [String],
+        default: [],
+    },
 
-});
+    dislike : {
+        type: [String],
+        default: [],
+    },
+
+    comments: {
+        type: Map,
+        default: {},
+        // format : {username : comment}
+    }
+
+},{ 
+    timestamps: true 
+}
+);
 
 export default mongoose.model("Post", postSchema);

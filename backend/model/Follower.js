@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 
 const FollowerSchema = new Schema({
 
-    follower: {
+    // the user who are going to follow others
+    follower: { 
         type: String,
         required: true,
-        ref: "Account",
     },
 
-    following: {
+    // the user who are going to being follow
+    following: { 
         type: String,
         required: true,
-        ref: "Account",
     },
 
     isAccepted: {
@@ -21,7 +21,10 @@ const FollowerSchema = new Schema({
         default: false,
     },
 
+},{ 
+    timestamps: true 
+}
 
-});
+);
 
 export default mongoose.model("Follower", FollowerSchema)
