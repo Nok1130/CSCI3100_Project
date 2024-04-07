@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import logo from '../assets/Unicon.svg';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
+import { Button } from "antd";
 
 import './login.css';
 
@@ -30,13 +31,16 @@ function Login(){
 
     const handleForgotPassword = () => {
         // Perform forgot password logic here
+        // wont have this 
     };
 
     const handleSignup = () => {
         // Perform signup logic here
+        // should be call some api
     };
 
     return (
+        
        
         <div className="login_container">
             <img src={logo} alt="Logo" />
@@ -71,11 +75,13 @@ function Login(){
             <div>
                 <div className='password_layout_container '>
                     <p>Don't have an account?    </p> 
-                        <Link to='/signup'>
-                            <button  className="login_signup_btn"onClick={handleSignup}>   Sign Up</button>
-                        </Link>
+                    <br />
                 </div>
+
             </div>
+                <Link to='/signup'>
+                    <Button  className="login_signup_btn" onClick={handleSignup}>Sign Up</Button>
+                </Link>
 
 
 

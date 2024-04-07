@@ -7,7 +7,7 @@ body {
 	
 }
 ::placeholder {
-	color: #3bb19b;
+	color: #536671;
 	opacity: 1; /* Firefox */
   }
 
@@ -123,6 +123,7 @@ body {
 	
 	display: flex;
 	margin-right: auto; /* Add this line */
+	
 }
 
 

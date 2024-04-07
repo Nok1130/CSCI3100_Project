@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import './signup.css';
 import axios from 'axios';
+import { Button } from "antd";
+import logo from '../assets/Unicon.svg';
 
 
 
@@ -53,6 +55,9 @@ const Signup=()=> {
 
             <div className='signup_form_container'>
                 <div className='left'> 
+                    <div>
+                        <img src={logo} alt="Logo" />
+                    </div>
                     <h1 className='roboto-regular'>Welcome To</h1> 
                     <h1 >Unicon</h1> 
                 </div >
@@ -97,14 +102,14 @@ const Signup=()=> {
                     
                         <div>
                             <div className='password_layout_container '>
-                                <p>Already have an account?</p> 
-                                    <Link to='/login'>
-                                        <button type='button' className='btn_login' >
-                                            Login
-                                        </button>
-                                    </Link>
+                                <p>Already have an account?</p>
                             </div>
                         </div>
+                        <Link to='/login'>
+                            <Button type='default'>
+                                Login
+                            </Button>
+                        </Link>
                 </div> 
             </div>
         </div>       

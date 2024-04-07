@@ -11,7 +11,7 @@ Currently, two official plugins are available:
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 Runs the app in the development mode.
 
 ## To run the database server
