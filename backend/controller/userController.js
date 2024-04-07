@@ -2,9 +2,6 @@
 import UserModel from "../model/User.js";
 import { v4 as uuidv4 } from "uuid";
 
-import multer from "multer";
-import fs from "fs";
-
 // getting the user profile as a json file from the database
 const getUserProfileFromUsername = async (req, res, next) => {
     const username = req.body.username;
@@ -90,37 +87,6 @@ const updateUserProfileIcon = async (req, res) => {
         console.log("Error in updateUserProfileIcon: ", error.message);
     }
 };
-
-// const updateUserProfileIcon = async (req, res, next) => {
-//     try {
-//         const uploadImage = upload.single("icon");
-//         const userID = req.body.userID;
-
-//         uploadImage(req, res, userID, async function (err) {
-//             if (err) {
-//                 next();
-//             }
-
-//             if (!req.file) {
-//                 return new Error("No file uploaded");
-//             }
-//             const user = await UserModel.findOne({ userID : userID });
-//             if (!user) {
-//                 return new Error("User Profile not found");
-//             }
-//             user.personalIcon = req.file.filename;
-//             const updatedUserProfile = await user.save();
-//             return res.status(200).json({ updatedUserProfile });
-//         }
-//         );
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//         console.log("Error in updateUserProfileIcon: ", error.message);
-//     }
-
-// };
-
-
 
 // create a new user profile with the given data
 const signUpNewUser = async (req, res) => {

@@ -4,7 +4,6 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import ENV from "../ENV.js";
-// import { auth } from "../middleware/auth.js";
 
 const userRouter = express.Router();
 const storage = multer.diskStorage({
@@ -35,8 +34,8 @@ userRouter.patch("/updateUserProfileIcon", upload.single('photo'), updateUserPro
         formData.append('userID', '1d1564'); // Include 'userID' text field
 
         fetch('/updateUserProfileIcon', {
-        method: 'PATCH',
-        body: formData
+          method: 'PATCH',
+          body: formData
         });
 
     On the server side, Multer will process the file data and add it to the req.file object, 
