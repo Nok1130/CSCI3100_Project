@@ -22,39 +22,11 @@ const createPost = async (req, res) => {
     }
 };
 
-// const createPost = async (req, res) => {
-//     console.log(req.body);
-//     console.log(req.file);
-//     const postID = uuidv4().substring(0, 6)
-//     const content = req.file;
-//     const { username, nickname, postTitle, postText } = req.body;
-//     try {
-//         if (!username || !nickname || !postTitle || !postText) {
-//             return res.status(400).json({ message: "Missing required fields" });
-//         }
-//         if (content.mimeType === "video/mp4") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postVideo: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         if (content.mimeType === "image/png" || content.mimeType === "image/jpeg" || content.mimeType === "image/jpg") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         else {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText });
-//             return res.status(201).json({ newPost });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//         console.log("Error in createPost: ", error.message);
-//     }
-// };
-
 // get all posts
 const getAllPostOfUser = async (req, res) => {
-    const { username } = req.query;
+    const { nicknames, postCategorys } = req.query;
     try {
-        const post = await postModel.find({ username : username });
+        const post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "updatedAt": -1 } );
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -64,6 +36,7 @@ const getAllPostOfUser = async (req, res) => {
         console.log("Error in getPost: ", error.message);
     }
 };
+
 
 const getPost = async (req, res) => {
     const { postID } = req.query;

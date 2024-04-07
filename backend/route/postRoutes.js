@@ -33,4 +33,5 @@ postRouter.get("/getAllPostOfUSer", getAllPostOfUser);
 postRouter.post("/createComment", createComment);
 postRouter.get("/getPost", getPost);
 
+
 export default postRouter;

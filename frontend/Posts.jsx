@@ -1,44 +1,57 @@
-import React from 'react'
+import {React, useEffect, useState} from 'react'
+import axios from 'axios';
 import './Posts.css'
 import { Card, Flex, Avatar } from 'antd';
 import { AiOutlineHeart, AiOutlineDislike, AiOutlineWarning } from "react-icons/ai";
 import { BiComment, BiRepost } from "react-icons/bi";
+import { getAllPostOfUser } from '../backend/controller/postController';
+import { useLocation } from 'react-router-dom';
 
 const { Meta } = Card;
-const PostInfo = [
-    {
-        "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=8",
-        "username": "JOMUD",
-        "title": "CS Debate",
-        "content": "Which one do you think first when u see cs\nComment 0 for computer science\nComment 1 for customer service\n",
-        "hashtag": ["#cs", "#debate"]
-    },
-    {
-        "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=7",
-        "username": "CSDOG",
-        "title": "CS tips",
-        "content": "1. quit your job\n2. go to teach computer\n3. go to play lottery...",
-        "hashtag": ["#cs"]
-    },
-    {
-        "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=6",
-        "username": "CSDOG",
-        "title": "Why",
-        "content": "Why must god hate me",
-        "hashtag": ["#why", "#justwhy"]
-    }
-]
+
 function Posts() {
+    const location = useLocation();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    let postCategoryquery = '';
+    const postCategorys = ['all', 'engineering', 'SEEM'];
+    console.log([location.pathname.split('/').pop()]);
+    if ([location.pathname.split('/').pop()] == 'all') {
+        postCategoryquery = postCategorys.map(postCategory => `postCategorys=${postCategory}`).join('&');
+    } else {
+        postCategoryquery = `postCategorys=${[location.pathname.split('/').pop()]}`;
+    }
+
+    const followers = ['Macro', 'Johnny'];
+    followers.push('Engineering');
+    followers.push('CUHK');
+    const followersquery = followers.map(follower => `nicknames=${follower}`).join('&');
+    const queryString = postCategoryquery+'&'+followersquery;
+    console.log(queryString)
+    useEffect(() => {
+        console.log('run');
+        setLoading(true);
+        
+        axios
+            .get(`http://localhost:5001/api/post/getAllPostOfUser?${queryString}`)
+            .then((response) => {
+                console.log(response.data.post)
+                setPosts(response.data.post);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            })
+    }, [location]);
+
     return (
         <Flex vertical className='scroll' style={{ height: '90vh' }}>
 
 
-            {PostInfo.map((key, val) => {
-                let text = "";
-                for (let i=0; i< key.hashtag.length; i++) {
-                    text += key.hashtag[i] + ' ';
-                }
-                return <Card
+            {posts.map((post, index) => (
+            <Card
+                key={post.postID}
                 className='postcard'
                     actions={[
                         <AiOutlineHeart key="like" color='red' />,
@@ -49,18 +62,17 @@ function Posts() {
                     ]}
                 >
                     <Meta
-                        avatar={<Avatar src={key.avatar} />}
-                        title={key.username}
+                        avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
+                        title={post.nickname}
 
                     />
-                    <h3 className='title'>{key.title}</h3>
-                    <pre className='content'>{key.content}
+                    <h3 className='title'>{post.postTitle}</h3>
+                    <pre className='content'>{post.postText}
                     </pre>
-                    <pre className='hashtag'>{text}</pre>
+                    <pre className='hashtag'>{post.hashtag}</pre>
                 </Card>
-            })}
-
-
+            ))}
+        
         </Flex>
     )
 }

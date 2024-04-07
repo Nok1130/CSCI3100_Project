@@ -23,21 +23,21 @@
     min-height: 100vh;
 
   }
-  .ant-layout.ant-layout-has-sider.css-dev-only-do-not-override-16clcv3 {
+  .ant-layout.ant-layout-has-sider {
     padding-right: 300px;
     padding-top: 20px;
     background: rgb(62, 62, 62);
   }
 /* Smaller padding for medium screens */
 @media (max-width: 1000px) {
-  .ant-layout.ant-layout-has-sider.css-dev-only-do-not-override-16clcv3 {
+  .ant-layout.ant-layout-has-sider {
     padding-right: 100px;
   }
 }
 
 /* Even smaller padding for small screens */
 @media (max-width: 480px) {
-  .ant-layout.ant-layout-has-sider.css-dev-only-do-not-override-16clcv3 {
+  .ant-layout.ant-layout-has-sider {
     padding-right: 10px;
   }
 }

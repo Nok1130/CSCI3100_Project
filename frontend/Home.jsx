@@ -98,7 +98,10 @@ const Home = () => {
             }}
         >
 
-            <Layout>
+            <Layout 
+                    style = {{
+                        background: colorBgContainer
+                    }}>
                 <Header
                     style={{
                         display: 'flex',
