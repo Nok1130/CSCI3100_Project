@@ -34,7 +34,6 @@ const Signup=()=> {
         axios.post('',{username, password, email})
         .then (result => console.log(result))
         .catch(err => console.log(err));
-        
         console.log('Username:', username);
         console.log('Password:', password);
         console.log('ConfirmedPassword:', confirmedpassword);
@@ -68,11 +67,11 @@ const Signup=()=> {
                     
                         <br />
                         <div className='password_layout_container'>
-                        <input type="password" autoComplete = 'off' name = 'password' onChange={(e)=>setPassword(e.target.value)} placeholder='Password' required />
+                        <input type="password" autoComplete = 'off' name = 'password' onChange={(e)=>setPassword(e.target.value)} placeholder='Password' className='input_password'required />
                     
                         <br />
                         
-                        <input type="password" autoComplete = 'off' name = 'confirmedpassword' onChange={(e)=>setConfirmedPassword(e.target.value)}   placeholder='Confirm Password' required/>
+                        <input type="password" autoComplete = 'off' name = 'confirmedpassword' onChange={(e)=>setConfirmedPassword(e.target.value)}   className="input_password"placeholder='Confirm Password' required/>
                     
                         <br />
                         
