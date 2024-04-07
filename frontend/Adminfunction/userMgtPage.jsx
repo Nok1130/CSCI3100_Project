@@ -8,7 +8,7 @@ import {FloatButton} from 'antd';
 import {FaPlus} from 'react-icons/fa6';
 import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
-
+import "./Admin.css"
 function UserMgtPage () {
     const [results,setResults] = useState(UserInfo);//store search result for display
     const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset 

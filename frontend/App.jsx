@@ -6,8 +6,8 @@ import Home from './Home.jsx';
 import Signup from './components/signup.jsx';
 import Login from './components/login.jsx';
 import Admin from './Adminfunction/Admin.jsx';
-
-
+import UserMgtPage from './Adminfunction/userMgtPage.jsx';
+import PostMgtPage from './Adminfunction/PostMgtPage.jsx';
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
         <Route path='/signup' exact element={<Signup />}/>
         <Route path='/login' exact element={<Login />}/>
         <Route path="/" element={<Navigate replace to="/signup" />} />
-        <Route path="/admin" exact element={<Admin />}/>
+        <Route path="/Admin/*"  element={<Admin />}/>
         <Route path="/home/*" exact element={<Home />}/>
     </Routes>
       

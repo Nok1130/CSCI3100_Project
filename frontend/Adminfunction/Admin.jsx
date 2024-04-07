@@ -15,12 +15,15 @@ function Admin(){
 
         <SideBar/>
          <Header/>
-          
+          <Routes>
+              <Route path ='/' element={<UserMgtPage />} />
+              <Route path='/UserManagement' element={<UserMgtPage />}/>
+              <Route path='/PostManagement' element={<PostMgtPage />} />
+      
+          </Routes>
          
-         <Routes>
-               <Route path='/UserManagement' element={<UserMgtPage />}/>
-               <Route path='/PostManagement' element={<PostMgtPage />} />
-          </Routes> 
+         
+     
          
  
        </div>
