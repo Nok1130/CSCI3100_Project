@@ -185,6 +185,7 @@ width:100%;
 .btn{
     display: flex;
     justify-content: space-evenly;
+    width:100%;
 }
 
 .editBtn{
@@ -207,4 +208,9 @@ table{
 
 .large{
     font-size: 20px;
+}
+
+.contentContainer{
+    overflow:hidden;
+    height:10px;   
 }

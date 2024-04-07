@@ -6,7 +6,7 @@ export const PostInfo = [
     "username":"JoJo",
     "content":"i lost my umbrella in the lecture hall :(",
     "isSuspend": false,
-    "report":['Spam','Rubbish']
+    "report":["Spam","Rubbish"]
 },
 {
     "postId":"123155",
