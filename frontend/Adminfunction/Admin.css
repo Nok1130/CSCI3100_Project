@@ -67,6 +67,8 @@ body{
 margin-top: 6%;
 margin-left: 15%;
 width: 100%;
+height:100%;
+
 }
 
 .usermgt{
@@ -77,14 +79,16 @@ width: 100%;
     height:100%;
 }
 
-.mainUsermgt,.mainPostmgt{
-    width: 80%;
-    height: 100%;
+.mainUsermgt, .mainPostmgt{
+    width: 85%;
+    height: 85%;
     background-color: #E2EDED;
     border-radius: 15px;
     padding-top:20px;
-    padding-right: 50px;
+    padding-left: 100px;
     overflow: auto;
+    scrollbar-width: none;
+    
 }
 
 
@@ -180,8 +184,9 @@ width:100%;
 }
 
 .btn{
+    width:70%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: #E2EDED;
 }
 

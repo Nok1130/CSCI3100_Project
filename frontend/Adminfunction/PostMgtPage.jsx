@@ -6,7 +6,7 @@ import { SuspendBtn } from "./SuspendBtn";
 import {useState} from 'react';
 import EditPost from "./EditPost";
 import Report from './Report';
-
+import './Admin.css'
 
 function PostMgtPage(){
     const [results,setResults] = useState(PostInfo.filter(Boolean));
@@ -75,7 +75,7 @@ function PostMgtPage(){
                     <td className="username" key={key.postId}>{key.postId}</td>
                     <td className="username">{key.username}</td>
                     <td className="username">{key.content}</td>
-                    <td className="btn">
+                    <td style={{display:'flex', justifyContent:'space-evenly'}}>
                         <Button type="primary" 
                         className="editBtn"
                         onClick={() => handleEdit(index)}>Edit</Button>
