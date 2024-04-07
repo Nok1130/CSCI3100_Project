@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import './signup.css';
-
+import axios from 'axios';
 
 
 
@@ -31,6 +31,10 @@ const Signup=()=> {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Perform signup logic here
+        axios.post('',{username, password, email})
+        .then (result => console.log(result))
+        .catch(err => console.log(err));
+        
         console.log('Username:', username);
         console.log('Password:', password);
         console.log('ConfirmedPassword:', confirmedpassword);
@@ -60,15 +64,15 @@ const Signup=()=> {
                         <h6>Create A Account Express Opinions Freely And Anonymously</h6>
                        
 
-                        <input type="text" value={username} className="input_signup" onChange={handleUsernameChange} placeholder='Username' required/>
+                        <input type="text" autoComplete = 'off' name = 'username' onChange={(e)=>setUsername(e.target.value)} className="input_signup"  placeholder='Username' required/>
                     
                         <br />
                         <div className='password_layout_container'>
-                        <input type="password" value={password} className="input_password" onChange={handlePasswordChange} placeholder='Password' required />
+                        <input type="password" autoComplete = 'off' name = 'password' onChange={(e)=>setPassword(e.target.value)} placeholder='Password' required />
                     
                         <br />
                         
-                        <input type="password" value={confirmedpassword} className="input_password" onChange={handleConfirmedPasswordChange} placeholder='Confirm Password' required/>
+                        <input type="password" autoComplete = 'off' name = 'confirmedpassword' onChange={(e)=>setConfirmedPassword(e.target.value)}   placeholder='Confirm Password' required/>
                     
                         <br />
                         
@@ -76,12 +80,12 @@ const Signup=()=> {
 
 
                         </div>
-                        <input type="email" value={email} className="input_signup" onChange={handleEmailChange} placeholder='University email' required />
+                        <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='University email' required />
                     
                         <br />
 
                         <label>
-                            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
+                            <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
                             I've read and agree with <b>Terms of Service</b> and <b> Privacy Policy</b>
                         </label>
 
