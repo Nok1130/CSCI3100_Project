@@ -1,7 +1,7 @@
 import UserModel from "../model/User.js";
 
 const suspendUser = async (req, res) => {
-    const { userID } = req.params;
+    const { userID } = req.body;
 
     try {
         // query the user database using userID
@@ -24,7 +24,7 @@ const suspendUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    const { userID } = req.params;
+    const { userID } = req.body;
 
     try {
         // query the user database using userID

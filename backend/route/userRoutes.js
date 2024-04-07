@@ -24,7 +24,7 @@ const upload = multer({
 });
 
 userRouter.get("/getUserProfileFromUserID", getUserProfileFromUserID);
-userRouter.get("/getUserProfileFromUserName", getUserProfileFromUsername);
+userRouter.get("/getUserProfileFromUsername", getUserProfileFromUsername);
 userRouter.patch("/updateUserProfile", updateUserProfile);
 userRouter.patch("/updateUserProfileIcon", upload.single('photo'), updateUserProfileIcon);
 /*

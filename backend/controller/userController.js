@@ -116,16 +116,16 @@ const signUpNewUser = async (req, res) => {
 };
 
 const signInUser = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     // check if all fields are filled
-    if (!email || !password) {
+    if (!username || !password) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
     // check if the user exists and the correctness of the password
     try {
-        let user = await UserModel.findOne({ email });
+        let user = await UserModel.findOne({ username });
 
         // if user not found
         if (!user) {
@@ -144,7 +144,6 @@ const signInUser = async (req, res, next) => {
 
         // if everything is correct, create and assign a token using userID
         res.status(200).json({ 
-            token: await user.generateJWT(), 
             user,
         });
 
