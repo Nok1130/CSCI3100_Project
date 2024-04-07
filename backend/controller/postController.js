@@ -51,7 +51,7 @@ const createPost = async (req, res) => {
 // };
 
 // get all posts
-const getAllPostOfUSer = async (req, res) => {
+const getAllPostOfUser = async (req, res) => {
     const { username } = req.query;
     try {
         const post = await postModel.find({ username : username });
@@ -204,4 +204,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUSer, likePost, dislikePost, getPost, createComment, repost, reportPost }
+export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost }
