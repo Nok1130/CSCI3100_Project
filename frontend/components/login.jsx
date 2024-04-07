@@ -48,16 +48,6 @@ function Login(){
         
     };
 
-    const handleForgotPassword = () => {
-        // Perform forgot password logic here
-        // wont have this sorry...
-    };
-
-    const handleSignup = () => {
-        // Perform signup logic here
-        // should be call some api
-    };
-
     return (
         
        
@@ -102,7 +92,7 @@ function Login(){
 
             </div>
                 <Link to='/signup'>
-                    <Button  className="login_signup_btn" onClick={handleSignup}>Sign Up</Button>
+                    <Button  className="login_signup_btn">Sign Up</Button>
                 </Link>
 
 

@@ -14,6 +14,8 @@ const Signup=()=> {
     const [password, setPassword] = useState('');
     const [confirmedpassword, setConfirmedPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [university, setUniversity] = useState('');
+    const [major, setMajor] = useState('');
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
@@ -26,6 +28,14 @@ const Signup=()=> {
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
+    const handleUniversityChange = (event) => {   
+        setUniversity(event.target.value);
+    };
+    const handleMajorChange = (event) => {
+        setMajor(event.target.value);
+    };
+
+
     const handleCheckboxChange = (event) => {
         setIsChecked(event.target.checked);
     };
@@ -33,13 +43,15 @@ const Signup=()=> {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Perform signup logic here
-        axios.post('',{username, password, email})
+        axios.post('',{username, password, email, university, major})
         .then (result => console.log(result))
         .catch(err => console.log(err));
         console.log('Username:', username);
         console.log('Password:', password);
         console.log('ConfirmedPassword:', confirmedpassword);
         console.log('Email:', email);
+        console.log('Unveristy:', university);
+        console.log('Major:', major);
     };
     
     /*
@@ -87,6 +99,38 @@ const Signup=()=> {
                         <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='University email' required />
                     
                         <br />
+
+
+                        <div className='password_layout_container '>
+                            <select name='university' onChange={(e)=>setUniversity(e.target.value)} className='input_select'>
+                               
+                                
+                                <option value="CUHK">Chinese University of Hong Kong</option>
+                                <option value="HKU">Hong Kong University</option>
+                                <option value="HKUST">Hong Kong University of Science and Technology</option>
+                                <option value="PolyU">Hong Kong Polytechnic University</option>
+                                <option value="CityU">City University of Hong Kong</option>
+                                <option value="HKBU">Hong Kong Baptist University</option>
+                                <option value="HKMU">Hong Kong Metropolitan University</option>
+                                <option value="LingnanU">Lingnan University</option>
+                                <option value="HSYU">Hong Kong Shue Yan University</option>
+                                <option value="EdUHK">Education University of Hong Kong</option>
+                                <option value="HSUHK">Hang Seng University of Hong Kong</option>
+                                <option value="SFU">Saint Francis University</option>
+                                
+                            </select>
+                            <input type="text" autoComplete = 'off' name = 'major' onChange={(e)=>setMajor(e.target.value)} className="input_password"  placeholder='Major' required/>
+
+
+                        </div>
+
+
+
+
+
+
+
+
 
                         <label>
                             <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
