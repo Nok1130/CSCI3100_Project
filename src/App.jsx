@@ -1,20 +1,27 @@
-import './App.css';
+App.css'
+
+import { Button } from 'antd'
+import {BrowserRouter, Route, Routes,NavLink,useNavigate,Navigate} from 'react-router-dom';
 import Home from './Home.jsx';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import Signup from './components/signup.jsx';
+import Login from './components/login.jsx';
+
+
 
 function App() {
+ 
 
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Navigate to="recommend/post/all" />}>
-          
-        </Route>
-      </Routes>
-      <Home />
-
-    </div>
-
+    
+  
+    <Routes>
+        <Route path='/signup' exact element={<Signup />}/>
+        <Route path='/login' exact element={<Login />}/>
+        <Route path="/" element={<Navigate replace to="/signup" />} />
+        <Route path="/post" element={<Navigate to="recommend/post/all" />} />
+    </Routes>
+      
+   
   );
 }
 
