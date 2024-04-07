@@ -1,8 +1,7 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0;
 }
 
 
@@ -54,6 +53,25 @@
   color: #888;
 }
 
+
+.ant-card {
+  width: 80% !important;
+  background: #F5F5F5;
+  margin-bottom: 10px;
+  align-self: center;
+
+}
+
+.ant-card-actions {
+  background: whitesmoke !important;
+}
+
+.ant-card-actions svg {
+  height: 25px;
+  width: 25px;
+}
+
+=======
 .roboto-thin {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
@@ -125,3 +143,4 @@
   font-weight: 900;
   font-style: italic;
 }
+
