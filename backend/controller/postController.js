@@ -128,7 +128,7 @@ const createComment = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        post.comments.push({ username, commentContent });
+        post.comments.set(username, commentContent);
         await post.save();
         return res.status(201).json({ post });
     } catch (error) {

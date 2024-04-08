@@ -13,10 +13,10 @@ import { atom, RecoilRoot } from 'recoil';
 
 function App() {
 
-  const currentUser = atom({
-    key: 'currentUserID',
-    default: '', 
-  });
+  // const currentUser = atom({
+  //   key: 'currentUserID',
+  //   default: '', 
+  // });
   const [currentloginID, setcurrentloginID] = useState('');
 
   return (
