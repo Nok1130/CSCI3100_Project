@@ -20,7 +20,7 @@ const createGroup = async (req, res) => {
 };
 
 const getGroup = async (req, res) => {
-    const { groupID } = req.query;
+    const { groupID } = req.body;
     if (!groupID) {
         return res.status(400).json({ message: "Missing required fields" });
     }
@@ -54,7 +54,7 @@ const addGroupAdmin = async (req, res) => {
 };
 
 const getAllGroupAdmin = async (req, res) => {
-    const { groupID } = req.query;
+    const { groupID } = req.body;
     if (!groupID) {
         return res.status(400).json({ message: "Missing required fields" });
     }

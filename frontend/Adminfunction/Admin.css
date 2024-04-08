@@ -6,7 +6,7 @@
     margin:0;
     padding:0;
     background-color: #3E3E3E;
-
+    color:black;
 }
 
 body{
@@ -103,8 +103,14 @@ height:100%;
     display:flex;
     align-items:center;
     z-index:1;
+    justify-content: space-between;
 }
 
+.headerAlign{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
 .header img{
     font-size:5;
 }
@@ -119,7 +125,7 @@ height:100%;
     align-items: center;
     border-radius: 10px;
     padding-left: 20px;
-     
+    color:black;
 }
 
 .searchBar input{
@@ -128,6 +134,7 @@ margin-left: 10px;
 height:100%;
 background-color: transparent;
 width:100%;
+color:black;
 }
 
 .searchBar input:focus{
@@ -197,12 +204,23 @@ width:100%;
     font-size: 20px;
 }
 
+.overflow-hidden {
+    max-width: 200px; /* Set the maximum width for the table cell */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 .email,#emailheader{
    /* flex:33%; */
    /* width:80px; */
    font-size: 20px;
 }
-
+.postRow{
+    height:5px;
+    overflow: auto;
+    scrollbar-width: none;
+}
 table{
     width: 100%;
     border-spacing: 50px;

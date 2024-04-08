@@ -5,9 +5,11 @@ import  {SideBarData} from './SideBarData.jsx';
 import {Link,NavLink,Outlet} from 'react-router-dom';
 const SideBar = () => {
 
+
     return ( 
         <div className="sidebar">
             <div className="mgtTools">
+                
                    {         
                     SideBarData.map((keys,val) => 
                     <div className='sideBaritem'>

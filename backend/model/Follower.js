@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 
 const FollowerSchema = new Schema({
 
-    // the user who are going to follow others
+    // the user who are going to follow others, this is username
     follower: { 
         type: String,
         required: true,
     },
 
-    // the user who are going to being follow
+    // the user who are going to being follow is username
     following: { 
         type: String,
         required: true,

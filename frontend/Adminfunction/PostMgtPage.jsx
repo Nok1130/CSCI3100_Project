@@ -3,21 +3,36 @@ import SearchBar from "./SeachBar";
 import { PostInfo } from "./PostInfo"
 import {Button} from 'antd';
 import { SuspendBtn } from "./SuspendBtn";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import EditPost from "./EditPost";
 import Report from './Report';
 import './Admin.css';
 import axios from 'axios';
 
+
+
 function PostMgtPage(){
-    const [results,setResults] = useState(PostInfo.filter(Boolean));
+    const [results,setResults] = useState(null);
     const [EditState,setEditState] = useState(false);
     const [editIndex,setEditIndex] = useState(null);
     const [editPost,setEditPost] = useState("content");
-    const [dataset,setDataSet] = useState(PostInfo);
+    const [dataset,setDataSet] = useState(null);
     const [showReportState,setShowReportState] = useState(false);
     const [reportIndex,setReportIndex] = useState(0);
+    const [reportData,setReportData] = useState([]);
 
+    useEffect(() => {
+        const getPost = async () => {
+       
+              const response = await fetch('http://localhost:8080/api/post/getAllPost');
+              const data = await response.json();
+              console.log(data.post);
+    
+                setDataSet(data.post);
+                setResults(data.post);
+          };
+        getPost();
+      }, []);
      const getResults = (result) =>{
         setResults(result);
      }
@@ -32,17 +47,29 @@ function PostMgtPage(){
              }
          })
      }
-     const showReport = (targetIndex) =>{
-        setShowReportState(!showReportState);
-         setReportIndex(targetIndex);
+     const showReport = async (postID) =>{
+       
+        const response = await fetch('http://localhost:8080/api/admin/getPostReport',{
+             method:'POST',
+             headers :{
+                'Content-Type':'application/json'
+             },
+             body: JSON.stringify({
+                 postID:postID
+             })
+       })
+
+       const data = await response.json();
+       console.log(data);
+       setReportData(data.reports);
+       setShowReportState(true);
      }
 
-     const handleEdit = (targetIndex) =>{
+     const handleEdit = (targetIndex,postText) =>{
         EditState? setEditState(false): setEditState(true);
         setEditIndex(targetIndex);
         console.log("edit user");
-        const post = results[targetIndex].content;
-        setEditPost(post);
+        setEditPost(postText);
     }
 
      const handleSuspend = (targetIndex) =>{
@@ -62,7 +89,7 @@ function PostMgtPage(){
     return (
     <div className="PostMgt">
        <div className="mainPostmgt">
-           <SearchBar children="Search Post" getResult={getResults}/>
+           <SearchBar children="Search Post" getResult={getResults} data={dataset}/>
          <table>              
                <tr>
                    <th className="large">POSTID</th>
@@ -72,19 +99,19 @@ function PostMgtPage(){
                </tr>
                {results?.map((key,index) =>{
                 return (
-                <tr>
-                    <td className="username" key={key.postId}>{key.postId}</td>
+                <tr >
+                    <td className="username" key={key.postID}>{key.postID}</td>
                     <td className="username">{key.username}</td>
-                    <td className="username">{key.content}</td>
+                    <td className="overflow-hidden" style={{width:'10px'}}>{key.postText}</td>
                     <td style={{display:'flex', justifyContent:'space-evenly'}}>
                         <Button type="primary" 
                         className="editBtn"
-                        onClick={() => handleEdit(index)}>Edit</Button>
+                        onClick={() => handleEdit(index,key.postText)}>Edit</Button>
 
                         <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
 
                         <Button 
-                        onClick={()=> showReport(index)}>
+                        onClick={()=> showReport(key.postID)}>
                         View Report
                         </Button>
 
@@ -99,7 +126,7 @@ function PostMgtPage(){
                EditState && <EditPost onSumbit={onSubmit} close={() => setEditState(false)} content={editPost}/>
             }
             
-          {showReportState && <Report report={results[reportIndex]?.report} close={() => setShowReportState(false)}/>}
+          {showReportState && <Report report={reportData} close={() => setShowReportState(false)}/>}
 
             
         

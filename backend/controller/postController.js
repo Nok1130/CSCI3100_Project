@@ -8,13 +8,14 @@ const createPost = async (req, res) => {
     console.log(req.file);
     const postID = uuidv4().substring(0, 6)
     const content = req.file;
-    const { username, nickname, postTitle, postText } = req.body;
+    const { userID, nickname, postTitle, postText, hashtag } = req.body;
     try {
-        if (!username || !nickname || !postTitle || !postText) {
+        if (!userID || !nickname || !postTitle || !postText) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
-        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: contentFilename });
+        const hashtagList = hashtag === undefined ? [] : [hashtag];
+        const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -22,39 +23,25 @@ const createPost = async (req, res) => {
     }
 };
 
-// const createPost = async (req, res) => {
-//     console.log(req.body);
-//     console.log(req.file);
-//     const postID = uuidv4().substring(0, 6)
-//     const content = req.file;
-//     const { username, nickname, postTitle, postText } = req.body;
-//     try {
-//         if (!username || !nickname || !postTitle || !postText) {
-//             return res.status(400).json({ message: "Missing required fields" });
-//         }
-//         if (content.mimeType === "video/mp4") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postVideo: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         if (content.mimeType === "image/png" || content.mimeType === "image/jpeg" || content.mimeType === "image/jpg") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         else {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText });
-//             return res.status(201).json({ newPost });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//         console.log("Error in createPost: ", error.message);
-//     }
-// };
+const searchPostByHashtag = async (req, res) => {
+    const { hashtag } = req.body;
+    try {
+        const post = await postModel.find({ hashtag : hashtag });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
 
 // get all posts
 const getAllPostOfUser = async (req, res) => {
-    const { username } = req.query;
+    const { userID } = req.body;
     try {
-        const post = await postModel.find({ username : username });
+        const post = await postModel.find({ userID: userID });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -66,9 +53,22 @@ const getAllPostOfUser = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-    const { postID } = req.query;
+    const { postID } = req.body;
     try {
         const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
+const getAllPost = async (req, res) => {
+    try {
+        const post = await postModel.find();
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -128,7 +128,7 @@ const createComment = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        post.comments.push({ username, commentContent });
+        post.comments.set(username, commentContent);
         await post.save();
         return res.status(201).json({ post });
     } catch (error) {
@@ -204,4 +204,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost }
+export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, getAllPost, createComment, repost, reportPost, searchPostByHashtag }

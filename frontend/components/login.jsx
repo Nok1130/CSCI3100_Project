@@ -41,6 +41,7 @@ function Login(){
         console.log('Username:', username);
         console.log('Password:', password);
         
+
         try{
             await fetch('http://localhost:5001/api/user/signInUser', {
                 method: 'POST',
@@ -79,6 +80,7 @@ function Login(){
 
             
         }
+
         
     };
 
