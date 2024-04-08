@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
-import { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost, getAllPost } from "../controller/postController.js";
+import { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost, getAllPost, searchPostByHashtag } from "../controller/postController.js";
 import multer from "multer";
 import path from "path";
 import ENV from "../ENV.js";
@@ -33,5 +33,6 @@ postRouter.get("/getAllPostOfUser", getAllPostOfUser);
 postRouter.post("/createComment", createComment);
 postRouter.post("/getPost", getPost);
 postRouter.get("/getAllPost", getAllPost);
+postRouter.post("/searchPostByHashtag", searchPostByHashtag);
 
 export default postRouter;

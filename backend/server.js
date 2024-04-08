@@ -16,7 +16,7 @@ import adminRoutes from "./route/adminRoutes.js";
 import chatRoutes from "./route/chatRoutes.js";
 import groupRoutes from "./route/groupRoutes.js";
 
-const PORT = 5001;
+const PORT = 8080;
 
 const app = express();
 app.use(cors());

@@ -43,6 +43,7 @@ const postSchema = new Schema({
 
     postCategory: {
         type: String,
+        default: "General",
     },
     
     postTitle: {
