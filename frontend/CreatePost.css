@@ -2,7 +2,7 @@
     background: rgb(160, 160, 160) !important;
 }
 
-.identity .ant-select-selector {
+.nickname .ant-select-selector {
     background: whitesmoke !important;
 }
 
@@ -33,7 +33,7 @@ input.title,
     height: 100% !important;
 }
 
-.identity{
+.nickname{
     width: 150px !important;
     color: 'black';
 }

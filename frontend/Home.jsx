@@ -16,7 +16,7 @@ import Chat from './Chat.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 function getItem(label, key, icon, children, type, link) {
     return {
         key,
@@ -69,12 +69,20 @@ const header = [
 const sidemenu = [
 
     getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/all'), getItem('Engineering', 'recommend/post/engineering'), getItem('Computer Science', 'recommend/post/computerscience')], 'group'),
-    getItem('Groups', 'g1', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
+    getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
+
+
+
 const Home = () => {
+
     const location = useLocation();
     const navigate = useNavigate();
     const [selectedKeys, setSelectedKeys] = useState([location.pathname]);
-    console.log(selectedKeys);
+    const [searchInput, setSearchInput] = useState([]);
+    const onSearch = (value, _e, info) => {
+        setSearchInput(value);
+        console.log(searchInput);
+    };
     const handleSelect = ({ key }) => {
         setSelectedKeys([key]);
     };
@@ -82,9 +90,6 @@ const Home = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-
-
-
 
     return (
 
@@ -185,7 +190,7 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend />} />
+                                <Route path='recommend/*' element={<Recommend data={searchInput}/>} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
                                 <Route path='profile' element={<Profile />} />
@@ -201,5 +206,6 @@ const Home = () => {
             </Layout>
         </ConfigProvider>
     );
+    
 };
 export default Home;

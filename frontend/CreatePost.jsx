@@ -89,7 +89,7 @@ const CreatePost = () => (
     <Flex gap="small">
       <Avatar width={30} src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
       <Form.Item
-        name="identity"
+        name="nickname"
         rules={[
           {
             required: true,
@@ -100,7 +100,7 @@ const CreatePost = () => (
 
 
         <Select
-          className='identity'
+          className='nickname'
           placeholder="Select identity"
           onChange={handleChange}
           options={[
@@ -124,7 +124,7 @@ const CreatePost = () => (
     </Flex>
 
     <Form.Item
-            name="title"
+            name="postTitle"
             rules={[
               {
                 required: true,
@@ -135,7 +135,7 @@ const CreatePost = () => (
 
     <Form.Item
             className='content_form'
-            name="content"
+            name="postText"
             style={{height: '40%'}}
             rules={[
               {
