@@ -119,10 +119,8 @@ function Login(){
                 <button  className="login_btn" onClick={handleLogin}>Login</button>
             
 
-
-            <a href="#" onClick={handleForgotPassword}>
-                Forgot Password?
-            </a>
+            
+          
 
 
             <div>
