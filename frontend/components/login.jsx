@@ -48,6 +48,11 @@ function Login(){
         
     };
 
+    const handleForgotPassword = () => {
+        // Handle forgot password logic here
+        console.log('Forgot password clicked');
+    };
+
     return (
         
        
