@@ -20,11 +20,11 @@ const SearchBar = ({children,getResult,data}) => {
            
       }
       if(children === 'Search User'){
-        console.log(data);
+        console.log("at Search User");
            const filteredItems = data.filter(
             (item) => item.username.toLowerCase().includes(searchQuery.toLowerCase())
             );
-        
+            console.log(filteredItems);
             getResult(filteredItems);
            
 

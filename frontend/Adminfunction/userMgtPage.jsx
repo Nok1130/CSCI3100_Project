@@ -2,20 +2,77 @@ import React from "react";
 import SearchBar from "./SeachBar";
 import { UserInfo } from "./UserInfo";
 import {Button} from 'antd';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import AddUser from "./AddUser";
 import {FloatButton} from 'antd';
 import {FaPlus} from 'react-icons/fa6';
 import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
-import "./Admin.css"
+import "./Admin.css";
+// import {getAllUser} from "../backend/controller/adminController";
+// import UserModel from "../model/User.js";
+
 function UserMgtPage () {
-    const [results,setResults] = useState(UserInfo);//store search result for display
-    const [dataset,setDataSet] = useState(UserInfo); //store orginal dataset 
+    const [results,setResults] = useState(null);//store search result for display
+    const [dataset,setDataSet] = useState(null); //store orginal dataset 
     const [SuspendBtnText,setSuspendBtnText] = useState('Suspend'); // handle form to add new row
     const [AddButtonState,setAddButtonState] = useState(false);
     const [EditState,setEditState] = useState(false);
     const [editIndex,setEditIndex] = useState(0);
+  
+
+
+    useEffect(() => {
+
+        const getUser = async () => {
+          try {
+            const response = await fetch('http://localhost:5001/api/admin/getAllUser', {
+              method: 'GET',
+            })
+            // const data = await response.json();
+            // console.log(data); // Log the fetched data
+            .then(response => response.json())
+            .then(data => {
+
+            console.log(data);
+              //console.log(data.users);
+              setDataSet(data.users);
+              setResults(data.users);
+          })
+          } catch (error) {
+            console.log("error");
+            // Handle any errors that occur during the fetch request
+          }
+        };
+      
+        getUser();
+      }, []);
+
+
+    // useEffect(() => {
+    //     return (getUser()
+    //             );
+    // });
+//  const getUser = async () =>{
+
+//     await null
+//     // console.log("data");
+//         // const response = await fetch('/api/admin/getAllUser2',{
+//         //       method: 'GET'
+//         //   })
+//         //   .then(response => response.json()).then(data => {
+//         //     console.log(response);
+//         //     console.log(data);
+//         //       //console.log(data.users);
+//         //       //setDataSet(data.users);
+//         //       //setResults(data.users);
+//         //   })
+    
+//         // const data = await response.json();
+//         // console.log(data);
+   
+//  };
+
 
  const handleSubmit = (newRow) =>{
      setDataSet([...dataset,newRow]);
@@ -72,7 +129,6 @@ function UserMgtPage () {
     return ( 
     <div className='usermgt'>
         <div className="mainUsermgt">
-      
             <SearchBar children='Search User' getResult={getResults} data={dataset}/>
             <table>
                
