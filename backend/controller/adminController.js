@@ -68,5 +68,17 @@ const getAllReport = async (req, res) => {
     }
 };
 
+const getPostReport = async (req, res) => {
+    const { postID } = req.body;
+    try {
+        const reports = await ReportModel.find({ postID: postID });
+        return res.status(200).json({ reports });
+    } 
+    catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPostReport: ", error.message);
+    }
+};
 
-export { suspendUser, deleteUser, getAllUser, getAllReport };
+
+export { suspendUser, deleteUser, getAllUser, getAllReport, getPostReport };

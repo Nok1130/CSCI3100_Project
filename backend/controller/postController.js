@@ -39,9 +39,9 @@ const searchPostByHashtag = async (req, res) => {
 
 // get all posts
 const getAllPostOfUser = async (req, res) => {
-    const { username } = req.query;
+    const { userID } = req.body;
     try {
-        const post = await postModel.find({ username : username });
+        const post = await postModel.find({ userID: userID });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
