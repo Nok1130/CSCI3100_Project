@@ -8,13 +8,14 @@ const createPost = async (req, res) => {
     console.log(req.file);
     const postID = uuidv4().substring(0, 6)
     const content = req.file;
-    const { username, nickname, postTitle, postText } = req.body;
+    const { userID, nickname, postTitle, postText, hashtag, postCategory } = req.body;
     try {
-        if (!username || !nickname || !postTitle || !postText) {
+        if (!userID || !postCategory || !nickname || !postTitle || !postText) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
-        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: contentFilename });
+        const hashtagList = hashtag === undefined ? [] : hashtag.split(" ");
+        const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList, postCategory });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -39,16 +40,15 @@ const createPost = async (req, res) => {
 
 //search post
 const searchPost = async (req, res) => {
-    const { nicknames, postCategorys, hashtag } = req.query;
+    const { nicknames, postCategorys, hashtags } = req.query;
     try {
         var post = await postModel.find({});
-        if (hashtag === "") {
+        if (hashtags === "") {
             post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "updatedAt": -1 } );
             
           } else {
-            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : hashtag }).sort( { "updatedAt": -1 } );
+            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : { $in: hashtags} }).sort( { "updatedAt": -1 } );
           }
-        
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -61,9 +61,22 @@ const searchPost = async (req, res) => {
 
 
 const getPost = async (req, res) => {
-    const { postID } = req.query;
+    const { postID } = req.body;
     try {
         const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
+const getAllPost = async (req, res) => {
+    try {
+        const post = await postModel.find();
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -199,4 +212,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost }
+export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost }

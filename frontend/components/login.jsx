@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import logo from '../assets/Unicon.svg';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import { Button } from "antd";
-
 import './login.css';
+import UserContext from '../UserContext.jsx';
 
 
 function Login(){
@@ -14,6 +14,7 @@ function Login(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { currentloginID, setcurrentloginID } = useContext(UserContext);
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -23,20 +24,33 @@ function Login(){
         setPassword(event.target.value);
     };
 
-    const handleLogin = () => {
+    const handleLogin = async() => {
         // Perform login logic here
         console.log('Username:', username);
         console.log('Password:', password);
+        
+        await fetch('http://localhost:5001/api/user/signInUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })  
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.user);
+            setcurrentloginID(data.user.userID);
+        });
+        console.log("ID: ", currentloginID);
+        
     };
 
     const handleForgotPassword = () => {
-        // Perform forgot password logic here
-        // wont have this 
-    };
-
-    const handleSignup = () => {
-        // Perform signup logic here
-        // should be call some api
+        // Handle forgot password logic here
+        console.log('Forgot password clicked');
     };
 
     return (
@@ -65,7 +79,10 @@ function Login(){
                 style={{ '::placeholder': { color: placeholderColor } }}
             />
             <br/>
-            <button  className="login_btn" onClick={handleLogin}>Login</button>
+            <Link to="/home">
+                <button  className="login_btn" onClick={handleLogin}>Login</button>
+            </Link>
+
 
             <a href="#" onClick={handleForgotPassword}>
                 Forgot Password?
@@ -80,7 +97,7 @@ function Login(){
 
             </div>
                 <Link to='/signup'>
-                    <Button  className="login_signup_btn" onClick={handleSignup}>Sign Up</Button>
+                    <Button  className="login_signup_btn">Sign Up</Button>
                 </Link>
 
 

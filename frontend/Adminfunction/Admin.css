@@ -6,7 +6,7 @@
     margin:0;
     padding:0;
     background-color: #3E3E3E;
-
+    color:black;
 }
 
 body{
@@ -49,7 +49,7 @@ body{
 
 
 .mgtTools{
-    margin-top: 30%;
+    margin-top: 40%;
 }
 
 .sidebar .icon{
@@ -60,34 +60,35 @@ body{
 
 .sidebar .title{
     flex:70%;
+    font-size: 18px;
 }
 
 .PostMgt{
-margin-top: 4.5%;
+margin-top: 6%;
 margin-left: 15%;
 width: 100%;
+height:100%;
+
 }
 
 .usermgt{
     background-color: #3E3E3E;
-    margin-top: 4.5%;
+    margin-top: 6%;
     margin-left: 15%;
     width: 100%;
     height:100%;
-    
-    
-   
 }
 
-.mainUsermgt,.mainPostmgt{
-    width: 80%;
-    height: 100%;
+.mainUsermgt, .mainPostmgt{
+    width: 85%;
+    height: 85%;
     background-color: #E2EDED;
     border-radius: 15px;
     padding-top:20px;
-    /* padding-left: 20px; */
-    padding-right: 50px;
+    padding-left: 100px;
     overflow: auto;
+    scrollbar-width: none;
+    
 }
 
 
@@ -118,7 +119,7 @@ width: 100%;
     align-items: center;
     border-radius: 10px;
     padding-left: 20px;
-     
+    color:black;
 }
 
 .searchBar input{
@@ -127,19 +128,20 @@ margin-left: 10px;
 height:100%;
 background-color: transparent;
 width:100%;
+color:black;
 }
 
 .searchBar input:focus{
     outline:none;
 }
 
-.UserRow{
+/* .UserRow{
     width:100%;
     height:100%;
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
+} */
 
 .userHeader,.postHeader{
     margin-top:20px;
@@ -151,13 +153,13 @@ width:100%;
 }
 
 
-.userInfo{
+/* .userInfo{
     margin-top:20px;
     display:flex;
     flex-direction: column;
     gap:50px;
     
-}
+} */
 
 .userInfo button{
     margin-left:45px;
@@ -183,8 +185,10 @@ width:100%;
 }
 
 .btn{
+    width:70%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    background-color: #E2EDED;
 }
 
 .editBtn{
@@ -194,12 +198,23 @@ width:100%;
     font-size: 20px;
 }
 
+.overflow-hidden {
+    max-width: 200px; /* Set the maximum width for the table cell */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 .email,#emailheader{
    /* flex:33%; */
    /* width:80px; */
    font-size: 20px;
 }
-
+.postRow{
+    height:5px;
+    overflow: auto;
+    scrollbar-width: none;
+}
 table{
     width: 100%;
     border-spacing: 50px;

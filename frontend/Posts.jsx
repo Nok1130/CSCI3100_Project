@@ -4,7 +4,7 @@ import './Posts.css'
 import { Card, Flex, Avatar } from 'antd';
 import { AiOutlineHeart, AiOutlineDislike, AiOutlineWarning } from "react-icons/ai";
 import { BiComment, BiRepost } from "react-icons/bi";
-import { getAllPostOfUser } from '../backend/controller/postController';
+import { searchPost } from '../backend/controller/postController';
 import { useLocation } from 'react-router-dom';
 
 const { Meta } = Card;
@@ -17,70 +17,32 @@ function Posts({data}) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     let postCategoryquery = '';
-    const postCategorys = ['all', 'engineering', 'SEEM'];
+    const postCategorys = ['all', 'engineering', 'computer_science'];
     if ([location.pathname.split('/').pop()] == 'all') {
         postCategoryquery = postCategorys.map(postCategory => `postCategorys=${postCategory}`).join('&');
     } else {
         postCategoryquery = `postCategorys=${[location.pathname.split('/').pop()]}`;
     }
 
-    const followers = ['Macro', 'Johnny'];
+    const followers = ['Macro', 'Johnny', 'CSDOG'];
     followers.push('Engineering');
-    followers.push('CUHK');
-//     useEffect(() => {
-//     if (search  == '' | search == undefined) {
-//         const followersquery = followers.map(follower => `nicknames=${follower}`).join('&');
-//         var queryString = postCategoryquery + '&' + followersquery;
-        
-        
-//             console.log(queryString)
-//             console.log('run');
-//             setLoading(true);
-
-//             axios
-//                 .get(`http://localhost:5001/api/post/getAllPostOfUser?${queryString}`)
-//                 .then((response) => {
-//                     console.log(response.data.post)
-//                     setPosts(response.data.post);
-//                     setLoading(false);
-//                 })
-//                 .catch((error) => {
-//                     console.log(error);
-//                     setLoading(false);
-//                 })
-//     } else {
-//         let hashtagquery = `hashtag=${search}`;
-//         queryString = postCategoryquery + '&' + hashtagquery;
-//         console.log(queryString)
-//             console.log('run');
-//             setLoading(true);
-
-//             axios
-//                 .get(`http://localhost:5001/api/post/searchPost?${queryString}`)
-//                 .then((response) => {
-//                     console.log(response.data.post)
-//                     setPosts(response.data.post);
-//                     setLoading(false);
-//                 })
-//                 .catch((error) => {
-//                     console.log(error);
-//                     setLoading(false);
-//                 })
-       
-//     }
-// }, [location, search]);
+    followers.push('Computer Science');
 useEffect(() => {
-
-        const followersquery = followers.map(follower => `nicknames=${follower}`).join('&');
-        var hashtagquery = `hashtag=${search}`;
-        var queryString = postCategoryquery + '&' + followersquery + '&' + hashtagquery;
+        var queryString = '';
+        if (search  == '' | search == undefined) {
+            const followersquery = followers.map(follower => `nicknames=${follower}`).join('&');
+            queryString = postCategoryquery + '&' + followersquery + '&hashtags=';
+        } else {
+            const hashtagquery = `hashtags=${search}`;
+            queryString = postCategoryquery  + '&' + hashtagquery;
+        }
 
             console.log(queryString)
             console.log('run');
             setLoading(true);
 
             axios
-                .get(`http://localhost:5001/api/post/searchPost?${queryString}`)
+                .get(`http://localhost:8080/api/post/searchPost?${queryString}`)
                 .then((response) => {
                     console.log(response.data.post)
                     setPosts(response.data.post);
@@ -120,6 +82,7 @@ useEffect(() => {
                     <pre className='content'>{post.postText}
                     </pre>
                     <pre className='hashtag'>{post.hashtag.map(hashtag => `#${hashtag}`).join(' ')}</pre>
+                    
                 </Card>
             ))}
 

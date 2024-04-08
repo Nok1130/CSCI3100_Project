@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Home.css'
 import unicon from './assets/Unicon.svg'
 import { } from '@ant-design/icons';
@@ -13,11 +13,14 @@ import Notification from './Notification.jsx';
 import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
+import { constant } from 'async';
+import UserContext from './UserContext.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
 function getItem(label, key, icon, children, type, link) {
+
     return {
         key,
         icon,
@@ -75,6 +78,9 @@ const sidemenu = [
 
 const Home = () => {
 
+
+    const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
     const [selectedKeys, setSelectedKeys] = useState([location.pathname]);

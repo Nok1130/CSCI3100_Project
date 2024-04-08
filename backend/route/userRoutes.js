@@ -23,8 +23,8 @@ const upload = multer({
     },
 });
 
-userRouter.get("/getUserProfileFromUserID", getUserProfileFromUserID);
-userRouter.get("/getUserProfileFromUserName", getUserProfileFromUsername);
+userRouter.post("/getUserProfileFromUserID", getUserProfileFromUserID);
+userRouter.post("/getUserProfileFromUsername", getUserProfileFromUsername);
 userRouter.patch("/updateUserProfile", updateUserProfile);
 userRouter.patch("/updateUserProfileIcon", upload.single('photo'), updateUserProfileIcon);
 /*
@@ -45,7 +45,7 @@ userRouter.patch("/updateUserProfileIcon", upload.single('photo'), updateUserPro
 */
 userRouter.post("/signUpNewUser", signUpNewUser);
 userRouter.post("/signInUser", signInUser);
-userRouter.get("/searchUser", searchUser);
+userRouter.post("/searchUser", searchUser);
 
 export default userRouter;
 
