@@ -3,9 +3,9 @@ import express from "express";
 
 const followerRouter = express.Router();
 
-followerRouter.post("/:username/followUserRequest", followUserRequest);
-followerRouter.patch("/:username/acceptFollowRequest", acceptFollowRequest);
-followerRouter.delete("/:username/rejectFollowRequest", rejectFollowRequest);
-followerRouter.get("/:username/getAllFollowerAndFollowing", getAllFollowerAndFollowing);
+followerRouter.post("/followUserRequest", followUserRequest);
+followerRouter.patch("/acceptFollowRequest", acceptFollowRequest);
+followerRouter.delete("/rejectFollowRequest", rejectFollowRequest);
+followerRouter.post("/getAllFollowerAndFollowing", getAllFollowerAndFollowing);
 
 export default followerRouter

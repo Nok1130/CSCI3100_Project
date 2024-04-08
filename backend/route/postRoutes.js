@@ -27,7 +27,7 @@ const upload = multer({
 postRouter.post("/likePost", likePost);
 postRouter.post("/dislikePost", dislikePost);
 postRouter.post("/reportPost", reportPost);
-postRouter.post("/repost/:postID", repost);
+postRouter.post("/repost", repost);
 postRouter.post("/createPost", upload.single('postContent'), createPost);
 postRouter.get("/getAllPostOfUser", getAllPostOfUser);
 postRouter.post("/createComment", createComment);

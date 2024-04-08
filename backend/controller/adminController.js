@@ -1,4 +1,5 @@
 import UserModel from "../model/User.js";
+import ReportModel from "../model/Report.js";
 
 const suspendUser = async (req, res) => {
     const { userID } = req.body;
@@ -56,5 +57,16 @@ const getAllUser = async (req, res) => {
     }
 };
 
+const getAllReport = async (req, res) => {
+    try {
+        const reports = await ReportModel.find();
+        return res.status(200).json({ reports });
+    } 
+    catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getAllReport: ", error.message);
+    }
+};
 
-export { suspendUser, deleteUser, getAllUser };
+
+export { suspendUser, deleteUser, getAllUser, getAllReport };
