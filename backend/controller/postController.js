@@ -66,9 +66,22 @@ const getAllPostOfUser = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-    const { postID } = req.query;
+    const { postID } = req.body;
     try {
         const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
+const getAllPost = async (req, res) => {
+    try {
+        const post = await postModel.find();
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -204,4 +217,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost }
+export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, getAllPost, createComment, repost, reportPost }
