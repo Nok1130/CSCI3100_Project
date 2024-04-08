@@ -9,7 +9,7 @@ import logo from '../assets/Unicon.svg';
 
 
 const Signup=()=> {
-    
+    document.body.style = 'background: #5295ff;';
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedpassword, setConfirmedPassword] = useState('');
@@ -139,7 +139,7 @@ const Signup=()=> {
 
                         <br />
 
-                        <button type="submit" className='btn'>Sign Up</button>
+                        <button type="submit" className='btn_signup'>Sign Up</button>
 
                         
                     </form>
@@ -147,13 +147,14 @@ const Signup=()=> {
                         <div>
                             <div className='password_layout_container '>
                                 <p>Already have an account?</p>
+                                <Link to='/login'>
+                                    <Button type='default' className='btn_login' >
+                                        Login
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
-                        <Link to='/login'>
-                            <Button type='default'>
-                                Login
-                            </Button>
-                        </Link>
+                        
                 </div> 
             </div>
         </div>       
