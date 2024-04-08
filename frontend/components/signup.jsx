@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import './signup.css';
 import axios from 'axios';
@@ -40,18 +39,58 @@ const Signup=()=> {
         setIsChecked(event.target.checked);
     };
     const [isChecked, setIsChecked] = useState(false);
+
+    
+
+    
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        // Perform signup logic here
-        axios.post('',{username, password, email, university, major})
-        .then (result => console.log(result))
-        .catch(err => console.log(err));
-        console.log('Username:', username);
-        console.log('Password:', password);
-        console.log('ConfirmedPassword:', confirmedpassword);
-        console.log('Email:', email);
-        console.log('Unveristy:', university);
-        console.log('Major:', major);
+
+        (async () => {
+            if (password !== confirmedpassword) {
+                alert('Passwords do not match.');
+                window.location.href = '/signup';
+                return;
+                
+            }
+            if(!isChecked){
+                alert("Please agree to the terms of service and privacy policy.");
+                window.location.href = '/signup';
+                return;
+            }
+           
+                event.preventDefault();
+                // Perform signup logic here
+                try {
+                    await axios.post('http://localhost:5001/api/user/signUpNewUser', { username, password, email, university, major });
+                } catch (err) {
+                    console.log(err);
+                }
+                /*axios.post('http://localhost:5001/api/user/signInUser',{username, password, email, university, major})
+                .then (result => console.log(result))
+                .catch(err => console.log(err));
+                */
+                console.log('Username:', username);
+                console.log('Password:', password);
+                //console.log('ConfirmedPassword:', confirmedpassword);
+                console.log('Email:', email);
+                console.log('Unveristy:', university);
+                console.log('Major:', major);
+                alert("Sign up successful!");
+                window.location.href = '/login';
+            
+               
+        })();
+
+        
+   
+        
+
+
+
+
+
+
     };
     
     /*
@@ -132,7 +171,9 @@ const Signup=()=> {
 
 
 
-                        <label>
+                        <label >
+                        
+                            
                             <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
                             I've read and agree with <b>Terms of Service</b> and <b> Privacy Policy</b>
                         </label>
