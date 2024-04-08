@@ -198,12 +198,23 @@ color:black;
     font-size: 20px;
 }
 
+.overflow-hidden {
+    max-width: 200px; /* Set the maximum width for the table cell */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 .email,#emailheader{
    /* flex:33%; */
    /* width:80px; */
    font-size: 20px;
 }
-
+.postRow{
+    height:5px;
+    overflow: auto;
+    scrollbar-width: none;
+}
 table{
     width: 100%;
     border-spacing: 50px;

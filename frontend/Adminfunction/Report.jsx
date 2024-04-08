@@ -28,7 +28,7 @@ const Report = ({report,close}) => {
                 <div className='reasonContainer'>
 
                 {
-                    report.map((item,index)=> <div className="reportItems">{item}</div>)
+                    report?.map((item,index)=> <div className="reportItems">user{item.userID}{"  "}:{"   "} {item.reportReason}</div>)
                 }
                 </div>
             </div>

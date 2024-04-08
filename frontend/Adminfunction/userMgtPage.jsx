@@ -25,7 +25,7 @@ function UserMgtPage () {
     useEffect(() => {
         const getUser = async () => {
             try {
-              const response = await fetch('http://localhost:5001/api/admin/getAllUser');
+              const response = await fetch('http://localhost:8080/api/admin/getAllUser');
               const data = await response.json();
               console.log(data);
     
@@ -42,7 +42,7 @@ function UserMgtPage () {
 
       const getUsers = async () => {
         try {
-          const response = await fetch('http://localhost:5001/api/admin/getAllUser');
+          const response = await fetch('http://localhost:8080/api/admin/getAllUser');
           const data = await response.json();
           console.log(data);
 
@@ -95,7 +95,7 @@ function UserMgtPage () {
 }
 
 const handleDelete = async (userID) =>{
-    const response = await fetch('http://localhost:5001/api/admin/deleteUser',{
+    const response = await fetch('http://localhost:8080/api/admin/deleteUser',{
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
