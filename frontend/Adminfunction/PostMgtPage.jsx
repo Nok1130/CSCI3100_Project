@@ -65,12 +65,11 @@ function PostMgtPage(){
        setShowReportState(true);
      }
 
-     const handleEdit = (targetIndex) =>{
+     const handleEdit = (targetIndex,postText) =>{
         EditState? setEditState(false): setEditState(true);
         setEditIndex(targetIndex);
         console.log("edit user");
-        const post = results[targetIndex].content;
-        setEditPost(post);
+        setEditPost(postText);
     }
 
      const handleSuspend = (targetIndex) =>{
@@ -107,7 +106,7 @@ function PostMgtPage(){
                     <td style={{display:'flex', justifyContent:'space-evenly'}}>
                         <Button type="primary" 
                         className="editBtn"
-                        onClick={() => handleEdit(index)}>Edit</Button>
+                        onClick={() => handleEdit(index,key.postText)}>Edit</Button>
 
                         <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
 

@@ -103,8 +103,14 @@ height:100%;
     display:flex;
     align-items:center;
     z-index:1;
+    justify-content: space-between;
 }
 
+.headerAlign{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
 .header img{
     font-size:5;
 }
@@ -204,7 +210,7 @@ color:black;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
 .email,#emailheader{
    /* flex:33%; */
    /* width:80px; */
