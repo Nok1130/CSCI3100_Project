@@ -1,9 +1,10 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState ,useContext, useEffect} from 'react';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import './signup.css';
 import axios from 'axios';
 import { Button } from "antd";
 import logo from '../assets/Unicon.svg';
+import UserContext from '../UserContext.jsx';
 
 
 
@@ -61,7 +62,37 @@ const Signup=()=> {
            
                 event.preventDefault();
                 // Perform signup logic here
+                //const { currentusername, setcurrentusername } = useContext(UserContext);                
+                try{
+                    await fetch('http://localhost:5001/api/user/getUserProfileFromUsername', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                username: username
+                            })  
+                        })
+                    
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.user);
+                            //setcurrentusername(data.user.username);
+                            console.log(data.user.username);
+                            console.log("username: founded");
+                            if(data.user.username){
+                                alert("Username already exists. Please try another username.");
+                                window.location.href = '/signup';
+                                return;
+                            }
+                        });
+                       
+                        
+                    }
+                    catch(err){ console.log(err);}
+
                 try {
+                    
                     await axios.post('http://localhost:5001/api/user/signUpNewUser', { username, password, email, university, major });
                 } catch (err) {
                     console.log(err);

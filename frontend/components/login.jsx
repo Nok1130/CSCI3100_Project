@@ -6,6 +6,7 @@ import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-route
 import { Button } from "antd";
 import './login.css';
 import UserContext from '../UserContext.jsx';
+import axios from 'axios';
 
 
 function Login(){
@@ -15,6 +16,8 @@ function Login(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    
+    let isAdmin = false;
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -32,6 +35,7 @@ function Login(){
       }
     }, []);
    
+
     const handleLogin = async() => {
         // Perform login logic here
         console.log('Username:', username);
@@ -46,6 +50,7 @@ function Login(){
                 body: JSON.stringify({
                     username: username,
                     password: password
+
                 })  
             })
         
@@ -54,10 +59,18 @@ function Login(){
                 
                 console.log(data.user);
                 setcurrentloginID(data.user.userID);
+                isAdmin=data.user.isAdmin;
             });
             console.log("ID: ", currentloginID);
-            
-            window.location.href = '/home';
+            console.log("isAdmin: ", isAdmin);
+
+
+            if(isAdmin){
+                console.log('Admin Login');
+                window.location.href = '/Admin';   
+            }
+            else
+                window.location.href = '/home';
             
         }
         catch(error){
@@ -100,9 +113,9 @@ function Login(){
                 style={{ '::placeholder': { color: placeholderColor } }}
             />
             <br/>
-            <Link to="/home">
+            
                 <button  className="login_btn" onClick={handleLogin}>Login</button>
-            </Link>
+            
 
 
             <a href="#" onClick={handleForgotPassword}>
