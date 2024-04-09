@@ -6,6 +6,7 @@ import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import EditProfile from './EditProfile.jsx';
 import ENV from '../backend/ENV.js';
 import path from 'path';
+import useStore from './UserContext.jsx';
 
 const { Meta } = Card;
 
@@ -21,7 +22,7 @@ function Profile() {
     followingCount: 0
   });
 
-  const { currentloginID, setCurrentloginID } = useContext(UserContext);
+  const { currentloginID, setcurrentloginID } = useStore();
 
   const getUserProfile = async () => {
     console.log("Profile ID :", currentloginID);

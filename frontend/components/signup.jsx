@@ -4,7 +4,7 @@ import './signup.css';
 import axios from 'axios';
 import { Button } from "antd";
 import logo from '../assets/Unicon.svg';
-import UserContext from '../UserContext.jsx';
+import useStore from '../UserContext.jsx';
 
 
 
@@ -64,7 +64,7 @@ const Signup=()=> {
                 // Perform signup logic here
                 //const { currentusername, setcurrentusername } = useContext(UserContext);                
                 try{
-                    await fetch('http://localhost:5001/api/user/getUserProfileFromUsername', {
+                    await fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ const Signup=()=> {
 
                 try {
                     
-                    await axios.post('http://localhost:5001/api/user/signUpNewUser', { username, password, email, university, major });
+                    await axios.post('http://localhost:8080/api/user/signUpNewUser', { username, password, email, university, major });
                 } catch (err) {
                     console.log(err);
                 }

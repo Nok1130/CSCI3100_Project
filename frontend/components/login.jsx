@@ -5,8 +5,9 @@ import logo from '../assets/Unicon.svg';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import { Button } from "antd";
 import './login.css';
-import UserContext from '../UserContext.jsx';
 import axios from 'axios';
+import useStore from '../UserContext.jsx';
+
 
 
 function Login(){
@@ -15,7 +16,7 @@ function Login(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    const { currentloginID, setcurrentloginID } = useStore();
     
     let isAdmin = false;
 
@@ -43,7 +44,7 @@ function Login(){
         
 
         try{
-            await fetch('http://localhost:5001/api/user/signInUser', {
+            await fetch('http://localhost:8080/api/user/signInUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,10 +55,9 @@ function Login(){
 
                 })  
             })
-        
             .then(response => response.json())
             .then(data => {
-                
+                console.log('Data:', data);
                 console.log(data.user);
                 setcurrentloginID(data.user.userID);
                 isAdmin=data.user.isAdmin;
