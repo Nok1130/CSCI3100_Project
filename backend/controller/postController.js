@@ -44,10 +44,10 @@ const searchPost = async (req, res) => {
     try {
         var post = await postModel.find({});
         if (hashtags === "") {
-            post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "updatedAt": -1 } );
+            post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "createdAt": -1 } );
             
           } else {
-            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : hashtags }).sort( { "updatedAt": -1 } );
+            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : hashtags }).sort( { "createdAt": -1 } );
           }
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
@@ -107,6 +107,24 @@ const likePost = async (req, res) => {
 
 }
 
+const unlikePost = async (req, res) => {
+    const { userID, postID } = req.body;
+
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.like.pull(userID);
+        await post.save();
+        return res.status(200).json({ post });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in unliking post: ", error.message);
+    }
+}
+
 const dislikePost = async (req, res) => {
     const { userID, postID } = req.body;
 
@@ -124,6 +142,24 @@ const dislikePost = async (req, res) => {
         console.log("Error in like or dislike post: ", error.message);
     }
 
+}
+
+const undislikePost = async (req, res) => {
+    const { userID, postID } = req.body;
+
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.dislike.pull(userID);
+        await post.save();
+        return res.status(200).json({ post });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in unliking post: ", error.message);
+    }
 }
 
 const createComment = async (req, res) => {
@@ -216,4 +252,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost }
+export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost }

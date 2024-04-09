@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
-import { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost } from "../controller/postController.js";
+import { createPost, likePost, unlikePost, dislikePost, undislikePost, getPost, createComment, repost, reportPost, searchPost } from "../controller/postController.js";
 import multer from "multer";
 import path from "path";
 import ENV from "../ENV.js";
@@ -25,7 +25,9 @@ const upload = multer({
 });
 
 postRouter.post("/likePost", likePost);
+postRouter.post("/unlikePost", unlikePost);
 postRouter.post("/dislikePost", dislikePost);
+postRouter.post("/undislikePost", undislikePost);
 postRouter.post("/reportPost", reportPost);
 postRouter.post("/repost", repost);
 postRouter.post("/createPost", upload.single('postContent'), createPost);

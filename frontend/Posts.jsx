@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react'
 import axios from 'axios';
 import './Posts.css'
 import { Card, Flex, Avatar, Image } from 'antd';
-import { AiOutlineHeart, AiOutlineDislike, AiOutlineWarning } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineDislike, AiOutlineWarning, AiFillHeart, AiFillDislike } from "react-icons/ai";
 import { BiComment, BiRepost } from "react-icons/bi";
 import { searchPost } from '../backend/controller/postController';
 import ENV from '../backend/ENV.js';
@@ -18,9 +18,11 @@ function Posts({ data }) {
     console.log(search);
     const location = useLocation();
     const [posts, setPosts] = useState([]);
+    const [reload, setReload] = useState(false);
     const [currentUserFollow, setCurrentUserFollow] = useState(['Engineering']);
     const usermajor = 'computer_science';
     const userfaculty = 'engineering';
+    const [likedPost, setLikedPost] = useState(false);
     const [loading, setLoading] = useState(false);
     let postCategoryquery = '';
     const postCategorys = ['all', 'engineering', 'computer_science'];
@@ -102,46 +104,152 @@ function Posts({ data }) {
                 console.log(error);
                 setLoading(false);
             })
-    }, [location, search]);
+    }, [location, search, reload]);
 
     function getAvater(inputusername) {
         var personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-        console.log(inputusername + "---------------------------------")
-        fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: inputusername
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(inputusername + 'data: ' + data.user.personalIcon);
-                if (data.user.personalIcon === "") {
-                    personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-                } else {
-                    personalIcon = ('/uploads/' + data.user.personalIcon);
-                }
-                console.log(inputusername + 'icon:' + personalIcon)
+        // console.log(inputusername + "---------------------------------")
+        // fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         username: inputusername
+        //     })
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log(inputusername + 'data: ' + data.user.personalIcon);
+        //         if (data.user.personalIcon === "") {
+        //             personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
+        //         } else {
+        //             personalIcon = ('/uploads/' + data.user.personalIcon);
+        //         }
+        //         console.log(inputusername + 'icon:' + personalIcon)
 
 
 
 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-            });
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //         personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
+        //     });
 
-        console.log(inputusername + 'icon:' + personalIcon)
+        // console.log(inputusername + 'icon:' + personalIcon)
         return personalIcon
 
     }
 
 
+    const likepost = async (inputpostID) => {
+        console.log('like'+inputpostID)
+        setReload(false);
+        try {
+            const response = await fetch('http://localhost:8080/api/post/likePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: currentloginID,
+                    postID: inputpostID
+                })
 
+            });
+            
+            console.log(response.ok)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        setReload(true);
+    };
+
+    const unlikepost = async (inputpostID) => {
+        console.log('like'+inputpostID)
+        setReload(false);
+        try {
+            const response = await fetch('http://localhost:8080/api/post/unlikePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: currentloginID,
+                    postID: inputpostID
+                })
+
+            });
+            
+            console.log(response.ok)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        setReload(true);
+    };
+
+    const dislikepost = async (inputpostID) => {
+        console.log('like'+inputpostID)
+        setReload(false);
+        try {
+            const response = await fetch('http://localhost:8080/api/post/dislikePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: currentloginID,
+                    postID: inputpostID
+                })
+
+            });
+            
+            console.log(response.ok)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        setReload(true);
+    };
+
+    const undislikepost = async (inputpostID) => {
+        console.log('like'+inputpostID)
+        setReload(false);
+        try {
+            const response = await fetch('http://localhost:8080/api/post/undislikePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: currentloginID,
+                    postID: inputpostID
+                })
+
+            });
+            
+            console.log(response.ok)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        setReload(true);
+    };
 
 
 
@@ -153,9 +261,9 @@ function Posts({ data }) {
                     key={post.postID}
                     className='postcard'
                     actions={[
-                        <AiOutlineHeart key="like" color='red' />,
+                        post.like.includes(currentloginID) ? <AiFillHeart key='unlike' color='red' onClick={()=>unlikepost(post.postID)} /> : <AiOutlineHeart key='like' color='red' onClick={()=>likepost(post.postID)}/>,
                         <BiComment key="comment" color='blue' />,
-                        <AiOutlineDislike key="dislike" color='black' />,
+                        post.dislike.includes(currentloginID) ? <AiFillDislike key="dislike" color='black' onClick={()=>undislikepost(post.postID)}/> : <AiOutlineDislike key="dislike" color='black' onClick={()=>dislikepost(post.postID)}/>,
                         <BiRepost key="repost" color='green' />,
                         <AiOutlineWarning key="report" color='black' />,
                     ]}
