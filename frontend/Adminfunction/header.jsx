@@ -14,7 +14,15 @@ export default function Header() {
   return (
     <div className='header'>
        <div className='headerAlign'>
-         <img src={new_logo} alt='logo' id="logo" style={{height:50,width:75}}/> <Title level={2} type="secondary">Admin</Title>
+         <img src={new_logo} alt='logo' id="logo" style={{height:50,width:75}}/> 
+         <Title level={2} type="secondary">
+            <span className='adminHeader'>A</span>
+            <span className='adminHeader'>d</span>
+            <span className='adminHeader'>m</span>
+            <span className='adminHeader'>i</span>
+            <span className='adminHeader'>n</span>
+           </Title>
+       
         </div>
        
         <div ><IoIosLogOut size='35' onClick={()=>{
