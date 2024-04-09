@@ -99,6 +99,7 @@ function PostMgtPage(){
                    <th className="large">CONTENT</th>
                    <th className="large">ACTIONS</th>
                </tr>
+               <tbody data-aos = "fade-left">
                {results?.map((key,index) =>{
                 return (
                 <tr >
@@ -110,10 +111,10 @@ function PostMgtPage(){
                         className="editBtn"
                         onClick={() => handleEdit(index,key.postText)}>Edit</Button>
 
-                        <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
+                        <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)} className='suspendBTN'/>
 
                         <Button 
-                        onClick={()=> showReport(key.postID)}>
+                        onClick={()=> showReport(key.postID)} className="reportBtn">
                         View Report
                         </Button>
 
@@ -121,6 +122,7 @@ function PostMgtPage(){
                 </tr>
                         );         
                     })}
+                    </tbody>
            </table>
         
            

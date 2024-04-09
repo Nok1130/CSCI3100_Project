@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-import UserContext from './UserContext.jsx';
 import { LikeOutlined, FireFilled, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card, Flex, Descriptions, Row, Col, Statistic, Button, Tabs, Modal, Form, Input, Result, Table } from "antd";
 import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
@@ -30,6 +29,7 @@ function Profile() {
     newPassword: '',
     personalBio: '',
   })
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -116,31 +116,31 @@ function Profile() {
     console.log("Follow button pressed");
   }
 
-  const handleEditProfile = () => {
-    console.log("Edit Profile pressed");
-    console.log(newPersonalProfile);
+  // const handleEditProfile = () => {
+  //   console.log("Edit Profile pressed");
+  //   console.log(newPersonalProfile);
 
-    fetch('http://localhost:8080/api/user/updateUserProfile', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        userID: currentloginID,
-        newUsername: newPersonalProfile.username,
-        oldPassword: newPersonalProfile.oldPassword,
-        newPassword: newPersonalProfile.newPassword,
-        personalBio: newPersonalProfile.personalBio
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  //   fetch('http://localhost:8080/api/user/updateUserProfile', {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       userID: currentloginID,
+  //       newUsername: newPersonalProfile.username,
+  //       oldPassword: newPersonalProfile.oldPassword,
+  //       newPassword: newPersonalProfile.newPassword,
+  //       personalBio: newPersonalProfile.personalBio
+  //     })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
   useEffect(() => {
     getUserProfile();
@@ -235,7 +235,6 @@ function Profile() {
     <div>
     <Flex vertical className='scroll' style={{ height: '90vh' }}>
       <>
-      
         <Button type="primary" onClick={showModal} shape='rounded'>Edit Personal Profile</Button>
         <Modal title="Edit Personal Profile" open={isModalOpen} onOk={handleConfirm} onCancel={handleCancel} footer={[
           <Button key="submit" type="primary" onClick={handleConfirm}>Confirm</Button>,

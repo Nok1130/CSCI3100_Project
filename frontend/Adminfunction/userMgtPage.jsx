@@ -142,16 +142,18 @@ const handleDelete = async (userID) =>{
         <div className="mainUsermgt" >
             <SearchBar children='Search User' getResult={getResults} data={dataset} />
             <table>
-               
+               <thead>
                 <tr data-aos = "fade-left">
                     <th className="large">USERNAME</th>
                     <th className="large">EMAIL</th>
                     <th className="large">ACTIONS</th>
                 </tr>
+                </thead>
+                <tbody data-aos = "fade-left">
                 {results?.map((key,index) =>
                 {
                    return (
-                    <tr className="userRow" key={index}>
+                    <tr className="userRow" key={index} >
                         <td className="username">{key.username}</td>
                         <td className="email">{key.email}</td>
                         <td className="btn">
@@ -162,14 +164,15 @@ const handleDelete = async (userID) =>{
                                     Edit
                             </Button>
 
-                            <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
+                            <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index) }className='suspendBTN'/>
                             
-                            <Button danger onClick={() => handleDelete(key.userID)}>Delete</Button>
+                            <Button danger onClick={() => handleDelete(key.userID)} className="deleteBtn">Delete</Button>
                         </td>
                     </tr>  
                         );   
                 }
                 )}
+                </tbody>
             </table>
             <FloatButton icon={<FaPlus />} onClick={handleAdd}/>
             {
