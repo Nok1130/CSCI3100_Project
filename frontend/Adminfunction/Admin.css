@@ -228,10 +228,27 @@ color:black;
 .editBtn{
     width: 80px;
 }
+
+.editBtn:hover{
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.suspendBTN{
+    width:80px;
+}
+
+.suspendBTN:hover{
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
 .username,#usernameheader{
     font-size: 20px;
 }
-
+.reportBtn:hover{
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+.deleteBtn:hover{
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
 .overflow-hidden {
     max-width: 200px; /* Set the maximum width for the table cell */
     white-space: nowrap;

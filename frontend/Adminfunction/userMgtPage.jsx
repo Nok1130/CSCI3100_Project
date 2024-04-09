@@ -164,9 +164,9 @@ const handleDelete = async (userID) =>{
                                     Edit
                             </Button>
 
-                            <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
+                            <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index) }className='suspendBTN'/>
                             
-                            <Button danger onClick={() => handleDelete(key.userID)}>Delete</Button>
+                            <Button danger onClick={() => handleDelete(key.userID)} className="deleteBtn">Delete</Button>
                         </td>
                     </tr>  
                         );   

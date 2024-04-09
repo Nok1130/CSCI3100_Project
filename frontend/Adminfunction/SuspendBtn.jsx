@@ -21,7 +21,7 @@ export const SuspendBtn = ({ SuspendState,onClick }) => {
     }
   
     return (
-        <Button style={{ color: 'white', backgroundColor:`${style}` }} onClick={handleClick}>
+        <Button className='suspendBTN' style={{ color: 'white', backgroundColor:`${style}` }} onClick={handleClick}> 
             {text}
         </Button>
 
