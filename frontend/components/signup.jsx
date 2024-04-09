@@ -1,15 +1,15 @@
-
-import React, { useState } from 'react';
+import React, { useState ,useContext, useEffect} from 'react';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import './signup.css';
 import axios from 'axios';
 import { Button } from "antd";
 import logo from '../assets/Unicon.svg';
+import useStore from '../UserContext.jsx';
 
 
 
 const Signup=()=> {
-    
+    document.body.style = 'background: #5295ff;';
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedpassword, setConfirmedPassword] = useState('');
@@ -40,18 +40,88 @@ const Signup=()=> {
         setIsChecked(event.target.checked);
     };
     const [isChecked, setIsChecked] = useState(false);
+
+    
+
+    
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        // Perform signup logic here
-        axios.post('',{username, password, email, university, major})
-        .then (result => console.log(result))
-        .catch(err => console.log(err));
-        console.log('Username:', username);
-        console.log('Password:', password);
-        console.log('ConfirmedPassword:', confirmedpassword);
-        console.log('Email:', email);
-        console.log('Unveristy:', university);
-        console.log('Major:', major);
+
+        (async () => {
+            if (password !== confirmedpassword) {
+                alert('Passwords do not match.');
+                window.location.href = '/signup';
+                return;
+                
+            }
+            if(!isChecked){
+                alert("Please agree to the terms of service and privacy policy.");
+                window.location.href = '/signup';
+                return;
+            }
+           
+                event.preventDefault();
+                // Perform signup logic here
+                //const { currentusername, setcurrentusername } = useContext(UserContext);                
+                try{
+                    await fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                username: username
+                            })  
+                        })
+                    
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.user);
+                            //setcurrentusername(data.user.username);
+                            console.log(data.user.username);
+                            console.log("username: founded");
+                            if(data.user.username){
+                                alert("Username already exists. Please try another username.");
+                                window.location.href = '/signup';
+                                return;
+                            }
+                        });
+                       
+                        
+                    }
+                    catch(err){ console.log(err);}
+
+                try {
+                    
+                    await axios.post('http://localhost:8080/api/user/signUpNewUser', { username, password, email, university, major });
+                } catch (err) {
+                    console.log(err);
+                }
+                /*axios.post('http://localhost:5001/api/user/signInUser',{username, password, email, university, major})
+                .then (result => console.log(result))
+                .catch(err => console.log(err));
+                */
+                console.log('Username:', username);
+                console.log('Password:', password);
+                //console.log('ConfirmedPassword:', confirmedpassword);
+                console.log('Email:', email);
+                console.log('Unveristy:', university);
+                console.log('Major:', major);
+                alert("Sign up successful!");
+                window.location.href = '/login';
+            
+               
+        })();
+
+        
+   
+        
+
+
+
+
+
+
     };
     
     /*
@@ -132,14 +202,16 @@ const Signup=()=> {
 
 
 
-                        <label>
+                        <label >
+                        
+                            
                             <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
                             I've read and agree with <b>Terms of Service</b> and <b> Privacy Policy</b>
                         </label>
 
                         <br />
 
-                        <button type="submit" className='btn'>Sign Up</button>
+                        <button type="submit" className='btn_signup'>Sign Up</button>
 
                         
                     </form>
@@ -147,13 +219,14 @@ const Signup=()=> {
                         <div>
                             <div className='password_layout_container '>
                                 <p>Already have an account?</p>
+                                <Link to='/login'>
+                                    <Button type='default' className='btn_login' >
+                                        Login
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
-                        <Link to='/login'>
-                            <Button type='default'>
-                                Login
-                            </Button>
-                        </Link>
+                        
                 </div> 
             </div>
         </div>       

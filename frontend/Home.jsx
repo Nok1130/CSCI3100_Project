@@ -14,7 +14,7 @@ import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
 import { constant } from 'async';
-import UserContext from './UserContext.jsx';
+import useStore from './UserContext.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
@@ -76,7 +76,7 @@ const sidemenu = [
 const Home = () => {
 
 
-    const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    const { currentloginID, setcurrentloginID } = useStore();
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();

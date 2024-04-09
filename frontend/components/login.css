@@ -1,4 +1,8 @@
+html{
+	background-color: #5295ff;
+	
 
+}
 .login_container {
   background-color: #5295ff;
   display: flex;
@@ -50,7 +54,6 @@
 	
 	border: none;
 	width: 100px;
-  margin-top: 10px;
 	padding: 5px;
 	border-radius: 3px;
 	font-size: large;

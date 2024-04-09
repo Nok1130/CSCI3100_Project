@@ -13,15 +13,15 @@ import { atom, RecoilRoot } from 'recoil';
 
 function App() {
 
-  const currentUser = atom({
-    key: 'currentUserID',
-    default: '', 
-  });
+  // const currentUser = atom({
+  //   key: 'currentUserID',
+  //   default: '', 
+  // });
   const [currentloginID, setcurrentloginID] = useState('');
 
   return (
     <RecoilRoot>
-      <UserContext.Provider value={{ currentloginID, setcurrentloginID }}>
+      {/* <UserContext.Provider value={{ currentloginID, setcurrentloginID }}> */}
         <Routes>
             <Route path='/signup' exact element={<Signup />}/>
             <Route path='/login' exact element={<Login />}/>
@@ -29,7 +29,7 @@ function App() {
             <Route path="/Admin/*"  element={<Admin />}/>
             <Route path="/home/*" exact element={<Home />}/>
         </Routes>
-      </UserContext.Provider>
+      {/* </UserContext.Provider> */}
     </RecoilRoot>
 
       

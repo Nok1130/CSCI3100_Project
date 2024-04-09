@@ -1,11 +1,13 @@
-import { useState, useContext } from 'react'
+import { useState, useContext ,useEffect} from 'react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import logo from '../assets/Unicon.svg';
 import {BrowserRouter, Route, Routes,NavLink,useNavigate,Link} from 'react-router-dom';
 import { Button } from "antd";
 import './login.css';
-import UserContext from '../UserContext.jsx';
+import axios from 'axios';
+import useStore from '../UserContext.jsx';
+
 
 
 function Login(){
@@ -14,7 +16,9 @@ function Login(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    const { currentloginID, setcurrentloginID } = useStore();
+    
+    let isAdmin = false;
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -23,28 +27,60 @@ function Login(){
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+    
+    useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loginFailed = urlParams.get('loginFailed');
+    if (loginFailed) {
+        alert("Login failed. Please try again.");
+      }
+    }, []);
+   
 
     const handleLogin = async() => {
         // Perform login logic here
         console.log('Username:', username);
         console.log('Password:', password);
         
-        await fetch('http://localhost:5001/api/user/signInUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })  
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.user);
-            setcurrentloginID(data.user.userID);
-        });
-        console.log("ID: ", currentloginID);
+
+        try{
+            await fetch('http://localhost:8080/api/user/signInUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+
+                })  
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data:', data);
+                console.log(data.user);
+                setcurrentloginID(data.user.userID);
+                isAdmin=data.user.isAdmin;
+            });
+            console.log("ID: ", currentloginID);
+            console.log("isAdmin: ", isAdmin);
+
+
+            if(isAdmin){
+                console.log('Admin Login');
+                window.location.href = '/Admin';   
+            }
+            else
+                window.location.href = '/home';
+            
+        }
+        catch(error){
+            console.log('Error:', error);
+            window.location.href = '/login?loginFailed=true';    
+
+            
+        }
+
         
     };
 
@@ -79,14 +115,12 @@ function Login(){
                 style={{ '::placeholder': { color: placeholderColor } }}
             />
             <br/>
-            <Link to="/home">
+            
                 <button  className="login_btn" onClick={handleLogin}>Login</button>
-            </Link>
+            
 
-
-            <a href="#" onClick={handleForgotPassword}>
-                Forgot Password?
-            </a>
+            
+          
 
 
             <div>
