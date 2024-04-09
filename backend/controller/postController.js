@@ -8,14 +8,14 @@ const createPost = async (req, res) => {
     console.log(req.file);
     const postID = uuidv4().substring(0, 6)
     const content = req.file;
-    const { userID, nickname, postTitle, postText, hashtag } = req.body;
+    const { userID, nickname, postTitle, postText, hashtag, postCategory } = req.body;
     try {
-        if (!userID || !nickname || !postTitle || !postText) {
+        if (!userID || !nickname || !postTitle || !postText || !postCategory) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
         const hashtagList = hashtag === undefined ? [] : [hashtag];
-        const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList });
+        const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList, postCategory });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
