@@ -126,9 +126,9 @@ const handleDelete = async (userID) =>{
             <table>
                
                 <tr>
-                    <th id="usernameheader">USERNAME</th>
-                    <th id="emailheader">EMAIL</th>
-                    <th id="actionheader">ACTIONS</th>
+                    <th className="large">USERNAME</th>
+                    <th className="large">EMAIL</th>
+                    <th className="large">ACTIONS</th>
                 </tr>
                 {results?.map((key,index) =>
                 {

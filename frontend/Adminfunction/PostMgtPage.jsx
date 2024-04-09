@@ -88,7 +88,7 @@ function PostMgtPage(){
      
     return (
     <div className="PostMgt">
-       <div className="mainPostmgt">
+          <div className="mainPostmgt" >
            <SearchBar children="Search Post" getResult={getResults} data={dataset}/>
          <table>              
                <tr>
