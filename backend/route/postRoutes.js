@@ -9,7 +9,7 @@ const postRouter = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.join(ENV.__dirname, 'uploads'));
+      cb(null, path.join(ENV.__dirname, 'public'));
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + '-' + file.originalname);
@@ -49,7 +49,7 @@ postRouter.post("/createPost", upload.single('postContent'), createPost);
     So, in your route handler, you can access the uploaded file with req.file, 
     and you can access the userID with req.body.userID.
 */
-postRouter.get("/getAllPostOfUser", getAllPostOfUser);
+postRouter.post("/getAllPostOfUser", getAllPostOfUser);
 postRouter.post("/createComment", createComment);
 postRouter.post("/getPost", getPost);
 postRouter.get("/getAllPost", getAllPost);

@@ -13,6 +13,7 @@ import Notification from './Notification.jsx';
 import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
+import EditProfile from './EditProfile.jsx';
 import { constant } from 'async';
 import useStore from './UserContext.jsx';
 
@@ -192,7 +193,7 @@ const Home = () => {
                                 <Route path='recommend/*' element={<Recommend />} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
-                                <Route path='profile' element={<Profile />} />
+                                <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
 
