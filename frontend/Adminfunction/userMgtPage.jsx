@@ -54,10 +54,23 @@ function UserMgtPage () {
           // Handle any errors that occur during the fetch request
         }
       };
- const handleSubmit = (newRow) =>{
-     setDataSet([...dataset,newRow]);
-     setResults([...dataset,newRow]);
-     
+ const handleSubmit = async (newRow) =>{
+    //  setDataSet([...dataset,newRow]);
+    //  setResults([...dataset,newRow]);
+     console.log(newRow);
+     const response = await fetch('http://localhost:8080/api/user/signUpNewUser',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: newRow.username,
+            email: newRow.email,
+            password: newRow.password,
+            major: newRow.major
+        })
+    });
+    getUsers();
     }
     const handleEdit = (targetIndex) =>{
         EditState? setEditState(false): setEditState(true);
