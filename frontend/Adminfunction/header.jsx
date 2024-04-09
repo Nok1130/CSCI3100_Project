@@ -20,7 +20,8 @@ export default function Header() {
         <div ><IoIosLogOut size='35' onClick={()=>{
           navigate('/login', { replace: true })
           removecurrentloginID();
-        }}/></div>
+        }}
+        className='logoutbtn'/></div>
     </div>
   )
 }
