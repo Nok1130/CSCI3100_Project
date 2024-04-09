@@ -13,9 +13,9 @@ import Notification from './Notification.jsx';
 import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
-import EditProfile from './EditProfile.jsx';
 import { constant } from 'async';
 import useStore from './UserContext.jsx';
+import OtherProfile from './OtherProfile.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
@@ -196,6 +196,7 @@ const Home = () => {
                                 <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
+                                <Route path='otherprofile' element={<OtherProfile />}/>
 
                             </Routes>
 

@@ -23,9 +23,9 @@ const followUserRequest = async (req, res) => {
 
 // accept a follow request
 const acceptFollowRequest = async (req, res) => {
-    const { username } = req.body;
+    const { userID } = req.body;
     try {
-        const followStatus = await FollowerModel.findOne({ username });
+        const followStatus = await FollowerModel.findOne({ userID });
         if (!followStatus) {
             return res.status(404).json({ message: "Maybe this follow request is on your imagination" });
         }
@@ -43,9 +43,9 @@ const acceptFollowRequest = async (req, res) => {
 
 // reject a follow request
 const rejectFollowRequest = async (req, res) => {
-    const { username } = req.body;
+    const { userID } = req.body;
     try {
-        const followStatus = await FollowerModel.findOne({ username });
+        const followStatus = await FollowerModel.findOne({ userID });
         if (!followStatus) {
             return res.status(404).json({ message: "Maybe this follow request is on your imagination" });
         }
@@ -81,5 +81,18 @@ const getAllFollowerAndFollowing = async (req, res) => {
 
 }
 
+const checkFollow = async (req, res) => {
+    const { follower, following } = req.body;
+    try {
+        const followStatus = await FollowerModel.findOne({ follower, following });
+        return res.status(200).json({ followStatus });
 
-export { followUserRequest, acceptFollowRequest, rejectFollowRequest, getAllFollowerAndFollowing };
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in checkFollow: ", error.message);
+    }
+
+}
+
+
+export { followUserRequest, acceptFollowRequest, rejectFollowRequest, getAllFollowerAndFollowing, checkFollow };
