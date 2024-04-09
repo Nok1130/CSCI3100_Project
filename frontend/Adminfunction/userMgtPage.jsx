@@ -149,11 +149,11 @@ const handleDelete = async (userID) =>{
                     <th className="large">ACTIONS</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody data-aos = "fade-left">
                 {results?.map((key,index) =>
                 {
                    return (
-                    <tr className="userRow" key={index}>
+                    <tr className="userRow" key={index} >
                         <td className="username">{key.username}</td>
                         <td className="email">{key.email}</td>
                         <td className="btn">

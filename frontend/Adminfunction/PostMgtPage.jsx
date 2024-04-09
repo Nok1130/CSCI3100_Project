@@ -99,6 +99,7 @@ function PostMgtPage(){
                    <th className="large">CONTENT</th>
                    <th className="large">ACTIONS</th>
                </tr>
+               <tbody data-aos = "fade-left">
                {results?.map((key,index) =>{
                 return (
                 <tr >
@@ -121,6 +122,7 @@ function PostMgtPage(){
                 </tr>
                         );         
                     })}
+                    </tbody>
            </table>
         
            
