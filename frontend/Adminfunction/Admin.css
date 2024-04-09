@@ -203,9 +203,9 @@ color:black;
 }
 
 .btn{
-    width:70%;
+    width:100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: #E2EDED;
 }
 
