@@ -8,8 +8,10 @@ const SideBar = () => {
 
     return ( 
         <div className="sidebar">
+            
             <div className="mgtTools">
-                
+            <div style={{ color: '#D3D3D3', marginLeft: '20%' }}>Management Tools</div>
+               
                    {         
                     SideBarData.map((keys,val) => 
                     <div className='sideBaritem'>

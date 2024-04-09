@@ -7,8 +7,8 @@ import {useState,useEffect} from 'react';
 import EditPost from "./EditPost";
 import Report from './Report';
 import './Admin.css';
-import axios from 'axios';
-
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 
 function PostMgtPage(){
@@ -20,7 +20,9 @@ function PostMgtPage(){
     const [showReportState,setShowReportState] = useState(false);
     const [reportIndex,setReportIndex] = useState(0);
     const [reportData,setReportData] = useState([]);
-
+    useEffect(()=>{
+        Aos.init()
+    },[])
     useEffect(() => {
         const getPost = async () => {
        
@@ -99,7 +101,7 @@ function PostMgtPage(){
                </tr>
                {results?.map((key,index) =>{
                 return (
-                <tr >
+                <tr data-aos = "fade-right">
                     <td className="username" key={key.postID}>{key.postID}</td>
                     <td className="username">{key.username}</td>
                     <td className="overflow-hidden" style={{width:'10px'}}>{key.postText}</td>

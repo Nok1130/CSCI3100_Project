@@ -9,6 +9,9 @@ import {FaPlus} from 'react-icons/fa6';
 import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
 import "./Admin.css";
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
 // import {getAllUser} from "../backend/controller/adminController";
 // import UserModel from "../model/User.js";
 
@@ -20,7 +23,9 @@ function UserMgtPage () {
     const [EditState,setEditState] = useState(false);
     const [editIndex,setEditIndex] = useState(0);
   
-
+    useEffect(()=>{
+        Aos.init()
+    },[])
 
     useEffect(() => {
         const getUser = async () => {
@@ -146,7 +151,7 @@ const handleDelete = async (userID) =>{
                 {results?.map((key,index) =>
                 {
                    return (
-                    <tr className="userRow" key={index}>
+                    <tr className="userRow" key={index} data-aos = "fade-right">
                         <td className="username">{key.username}</td>
                         <td className="email">{key.email}</td>
                         <td className="btn">
