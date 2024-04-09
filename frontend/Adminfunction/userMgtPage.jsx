@@ -142,12 +142,14 @@ const handleDelete = async (userID) =>{
         <div className="mainUsermgt" >
             <SearchBar children='Search User' getResult={getResults} data={dataset} />
             <table>
-               
+               <thead>
                 <tr data-aos = "fade-left">
                     <th className="large">USERNAME</th>
                     <th className="large">EMAIL</th>
                     <th className="large">ACTIONS</th>
                 </tr>
+                </thead>
+                <tbody>
                 {results?.map((key,index) =>
                 {
                    return (
@@ -170,6 +172,7 @@ const handleDelete = async (userID) =>{
                         );   
                 }
                 )}
+                </tbody>
             </table>
             <FloatButton icon={<FaPlus />} onClick={handleAdd}/>
             {
