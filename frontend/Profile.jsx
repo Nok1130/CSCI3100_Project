@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import UserContext from './UserContext.jsx';
 import { LikeOutlined, FireFilled, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card, Flex, Descriptions, Row, Col, Statistic, Button, Tabs, Modal, Form, Input, Result } from "antd";
+import { Avatar, Card, Flex, Descriptions, Row, Col, Statistic, Button, Tabs, Modal, Form, Input, Result, Table } from "antd";
 import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import EditProfile from './EditProfile.jsx';
 import ENV from '../backend/ENV.js';
@@ -184,7 +184,7 @@ function Profile() {
       <table>
         <tr>
           <th className="large">POSTID</th>
-          <th className="large">USERNAME</th>
+          <th className="large">TITLE</th>
           <th className="large">CONTENT</th>
         </tr>
         {userPosts?.map((key, index) => {
@@ -204,9 +204,28 @@ function Profile() {
       key: '2',
       label: 'Repost',
       children: 
-        <div>
-          <Avatar></Avatar>
-        </div>
+        <table>
+          <tr>
+            <th className='large'>POSTID</th>
+            <th className='large'>ORIGINAL AUTHOR</th>
+            <th className='large'>TITLE</th>
+            <th className='large'>CONTENT</th>
+          </tr>
+          {userPosts?.map((key, index) => {
+            if(key.isRepost){
+              return (
+                <tr>
+                  <td>{key.postID}</td>
+                  <td>{key.originalAuthor}</td>
+                  <td>{key.postTitle}</td>
+                  <td>{key.postText}</td>
+                </tr>
+              )    
+            }
+          }
+          )}
+        </table>
+
     },
   ];
 
@@ -214,8 +233,10 @@ function Profile() {
 
   return (
     <div>
+    <Flex vertical className='scroll' style={{ height: '90vh' }}>
       <>
-        <Button type="primary" onClick={showModal}>Edit Personal Profile</Button>
+      
+        <Button type="primary" onClick={showModal} shape='rounded'>Edit Personal Profile</Button>
         <Modal title="Edit Personal Profile" open={isModalOpen} onOk={handleConfirm} onCancel={handleCancel} footer={[
           <Button key="submit" type="primary" onClick={handleConfirm}>Confirm</Button>,
           <Button key="back" type="primary" onClick={handleCancel}>Cancel</Button>,
@@ -242,7 +263,7 @@ function Profile() {
           </Form>
         </Modal>
       </>
-      <Flex vertical className='scroll' style={{ height: '90vh' }}>
+
       
       <Descriptions layout="vertical" column={1} items={user} />
       <Row gutter={16}>

@@ -138,38 +138,42 @@ const createComment = async (req, res) => {
 };
 
 const repost = async (req, res) => {
-    const { repostUsername, repostNickname, postID } = req.body;
+    const { repostUserID, repostNickname, postID } = req.body;
 
     try {
-        if (!repostUsername || !postID) {
+        if (!repostUserID || !postID) {
             return res.status(404).json({ message: "Required fields missing" });
         }
         const post = await postModel.findOne({ postID: postID });
 
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
-        }
+        } 
         /*
             Generate a new post which has the following properties:
             Everything else is the same with original post except:
             postId is newly generated;
+            userID is set to repostUserID;
+            username is set to repostNickname;
+            originalAuthor is set to original post username;
             isRepost set to true, repostBy is set;
             This generates a repost which displays the original repost
         */
 
         const newPost = await postModel.create({
             postID: uuidv4().substring(0, 6),
-            username: post.username,
+            userID: repostUserID,
+            username: repostNickname,
             nickname: repostNickname,
             hashtag: post.hashtag,
-            repostBy: repostUsername,
+            originalAuthor: post.username,
+            repostBy: repostUserID,
             isRepost: true,
             isSuspended: post.isSuspended,
             postTitle: post.postTitle,
             postCategory: post.postCategory,
             postText: post.postText,
-            postImage: post.postImage,
-            postVideo: post.postVideo,
+            postContent: post.postContent,
             like: post.like,
             dislike: post.dislike,
             comments: post.comments,
