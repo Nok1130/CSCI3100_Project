@@ -17,7 +17,7 @@ function App() {
   //   key: 'currentUserID',
   //   default: '', 
   // });
-  const [currentloginID, setcurrentloginID] = useState('');
+  // const [currentloginID, setcurrentloginID] = useState('');
 
   return (
     <RecoilRoot>

@@ -4,9 +4,12 @@ import { Typography } from 'antd';
 import {IoIosLogOut} from 'react-icons/io';
 import './Admin.css';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../UserContext.jsx';
 const {Title} = Typography;
 
+
 export default function Header() {
+  const { currentloginID, setcurrentloginID, removecurrentloginID } = useStore();
   const navigate = useNavigate();
   return (
     <div className='header'>
@@ -16,6 +19,7 @@ export default function Header() {
        
         <div ><IoIosLogOut size='35' onClick={()=>{
           navigate('/login', { replace: true })
+          removecurrentloginID();
         }}/></div>
     </div>
   )
