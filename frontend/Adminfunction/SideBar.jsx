@@ -15,7 +15,7 @@ const SideBar = () => {
                    {         
                     SideBarData.map((keys,val) => 
                     <div className='sideBaritem'>
-                    <NavLink to={keys.link} key={val} className="link" activeClassName="active" >
+                    <NavLink to={keys.link} key={val} className="link" activeclassname="active" >
                         <div className='icon'>{keys.icon}</div>
                         <div className='title'>{keys.title}</div>
                     </NavLink>

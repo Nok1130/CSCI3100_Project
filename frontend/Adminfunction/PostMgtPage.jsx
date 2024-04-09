@@ -93,7 +93,7 @@ function PostMgtPage(){
           <div className="mainPostmgt" >
            <SearchBar children="Search Post" getResult={getResults} data={dataset}/>
          <table>              
-               <tr>
+               <tr data-aos = "fade-left">
                    <th className="large">POSTID</th>
                    <th className="large" >USERNAME</th>
                    <th className="large">CONTENT</th>
@@ -101,7 +101,7 @@ function PostMgtPage(){
                </tr>
                {results?.map((key,index) =>{
                 return (
-                <tr data-aos = "fade-right">
+                <tr >
                     <td className="username" key={key.postID}>{key.postID}</td>
                     <td className="username">{key.username}</td>
                     <td className="overflow-hidden" style={{width:'10px'}}>{key.postText}</td>

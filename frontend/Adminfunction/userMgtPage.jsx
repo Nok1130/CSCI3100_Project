@@ -139,11 +139,11 @@ const handleDelete = async (userID) =>{
  }
     return ( 
     <div className='usermgt'>
-        <div className="mainUsermgt">
-            <SearchBar children='Search User' getResult={getResults} data={dataset}/>
+        <div className="mainUsermgt" >
+            <SearchBar children='Search User' getResult={getResults} data={dataset} />
             <table>
                
-                <tr>
+                <tr data-aos = "fade-left">
                     <th className="large">USERNAME</th>
                     <th className="large">EMAIL</th>
                     <th className="large">ACTIONS</th>
@@ -151,7 +151,7 @@ const handleDelete = async (userID) =>{
                 {results?.map((key,index) =>
                 {
                    return (
-                    <tr className="userRow" key={index} data-aos = "fade-right">
+                    <tr className="userRow" key={index}>
                         <td className="username">{key.username}</td>
                         <td className="email">{key.email}</td>
                         <td className="btn">
