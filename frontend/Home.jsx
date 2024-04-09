@@ -5,7 +5,7 @@ import { } from '@ant-design/icons';
 import { Layout, Menu, theme, ConfigProvider, Input, Flex } from 'antd';
 import { IoNotificationsOutline } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import { FiEdit, FiMessageSquare } from "react-icons/fi";
+import { FiEdit, FiMessageSquare, FiLogOut } from "react-icons/fi";
 import { useLocation, BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Recommend from './Recommend.jsx';
 import MyGroupAccounts from './MyGroupAccounts.jsx';
@@ -33,14 +33,6 @@ function getItem(label, key, icon, children, type, link) {
 };
 
 const header = [
-    getItem(null, 'notification',
-        <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
-            <IoNotificationsOutline
-                size={25}
-                style={{
-                    color: '#ffffff',
-                }}
-            /></Flex>),
     getItem(null, 'profile',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
             <AiOutlineUser
@@ -66,7 +58,15 @@ const header = [
                 color: '#ffffff',
             }}
         />
-        </Flex>)
+        </Flex>),
+    getItem(null, 'logout',
+        <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
+            <FiLogOut
+                size={25}
+                style={{
+                    color: '#ffffff',
+                }}
+            /></Flex>),
 
 ];
 
@@ -112,10 +112,10 @@ const Home = () => {
             }}
         >
 
-            <Layout 
-                    style = {{
-                        background: colorBgContainer
-                    }}>
+            <Layout
+                style={{
+                    background: colorBgContainer
+                }}>
                 <Header
                     style={{
                         display: 'flex',
@@ -199,13 +199,13 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend data={searchInput}/>} />
+                                <Route path='recommend/*' element={<Recommend data={searchInput} />} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
                                 <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
-                                <Route path='otherprofile' element={<OtherProfile />}/>
+                                <Route path='otherprofile' element={<OtherProfile />} />
 
                             </Routes>
 
@@ -216,6 +216,6 @@ const Home = () => {
             </Layout>
         </ConfigProvider>
     );
-    
+
 };
 export default Home;

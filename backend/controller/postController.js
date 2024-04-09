@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
-        const hashtagList = hashtag === undefined ? [] : [hashtag];
+        const hashtagList = hashtag === undefined ? [] :  hashtag.split(" ");
         const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList, postCategory });
         return res.status(201).json({ newPost });
     } catch (error) {
