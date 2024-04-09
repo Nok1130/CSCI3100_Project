@@ -17,6 +17,11 @@ const postSchema = new Schema({
         required: true,
     },
 
+    username: {
+        type: String,
+        default: "",
+    },
+
     nickname: {
         type: String,
         required: true,
@@ -25,6 +30,10 @@ const postSchema = new Schema({
     hashtag: {
         type: [String],
         default: [],
+    },
+
+    originalAuthor: {
+        type: String,
     },
 
     repostBy: {

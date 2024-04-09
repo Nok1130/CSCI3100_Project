@@ -7,15 +7,20 @@ import { BiComment, BiRepost } from "react-icons/bi";
 import { searchPost } from '../backend/controller/postController';
 import ENV from '../backend/ENV.js';
 import { useLocation } from 'react-router-dom';
+import useStore from './UserContext.jsx';
 
 const { Meta } = Card;
 
 function Posts({ data }) {
+    const { currentloginID, setcurrentloginID } = useStore();
     var search = data;
     console.log('search')
     console.log(search);
     const location = useLocation();
     const [posts, setPosts] = useState([]);
+    const [currentUserFollow, setCurrentUserFollow] = useState(['Engineering']);
+    const usermajor = 'computer_science';
+    const userfaculty = 'engineering';
     const [loading, setLoading] = useState(false);
     let postCategoryquery = '';
     const postCategorys = ['all', 'engineering', 'computer_science'];
@@ -25,13 +30,57 @@ function Posts({ data }) {
         postCategoryquery = `postCategorys=${[location.pathname.split('/').pop()]}`;
     }
 
-    const followers = ['Macro', 'Johnny', 'CSDOG'];
-    followers.push('Engineering');
-    followers.push('Computer Science');
+    const getUserFollow = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/follower/getAllFollowerAndFollowing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: currentloginID
+                })
+            });
+            const data = await response.json();
+            const userIds = data.followingUsernames;
+            console.log(userIds);
+    
+            // Fetch usernames for each user ID
+            const usernames = await Promise.all(userIds.map(async (id) => {
+                console.log({
+                    userID: id
+                });
+                const response = await fetch('http://localhost:8080/api/user/getUserProfileFromUserID', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userID: id
+                    })
+                });
+                const profileData = await response.json();
+                console.log('datausername'+profileData.user.username);
+                return profileData.user.username;
+            }));
+            console.log('username'+usernames);
+            setCurrentUserFollow(usernames);
+            console.log("followname"+currentUserFollow);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
+        getUserFollow();
+    }, [])
+
+    useEffect(() => {
+        console.log('currentFollow'+ currentUserFollow)
         var queryString = '';
+        var following = [userfaculty, usermajor]
         if (search == '' | search == undefined) {
-            const followersquery = followers.map(follower => `nicknames=${follower}`).join('&');
+            const followersquery = currentUserFollow.concat(following).map(follower => `nicknames=${follower}`).join('&');
             queryString = postCategoryquery + '&' + followersquery + '&hashtags=';
         } else {
             const hashtagquery = `hashtags=${search}`;
@@ -55,6 +104,43 @@ function Posts({ data }) {
             })
     }, [location, search]);
 
+    function getAvater(inputusername) {
+        var personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
+        console.log(inputusername + "---------------------------------")
+        fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: inputusername
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(inputusername + 'data: ' + data.user.personalIcon);
+                if (data.user.personalIcon === "") {
+                    personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
+                } else {
+                    personalIcon = ('/uploads/' + data.user.personalIcon);
+                }
+                console.log(inputusername + 'icon:' + personalIcon)
+
+
+
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
+            });
+
+        console.log(inputusername + 'icon:' + personalIcon)
+        return personalIcon
+
+    }
+
+
 
 
 
@@ -75,7 +161,7 @@ function Posts({ data }) {
                     ]}
                 >
                     <Meta
-                        avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
+                        avatar={<Avatar src={getAvater(post.nickname)} />}
                         title={post.nickname}
 
                     />
@@ -86,7 +172,7 @@ function Posts({ data }) {
                     {post.postContent !== '' && (
                         post.postContent.split('.').pop().toLowerCase() === 'mp4' ? <video width="320" height="240" controls>
                             <source src={'/uploads/' + post.postContent} type="video/mp4" />
-                        </video> : <Image src={'/uploads/'+post.postContent} alt={'/uploads/'+post.postContent}/>
+                        </video> : <Image src={'/uploads/' + post.postContent} alt={'/uploads/' + post.postContent} />
 
                     )}
                     {/* {post.postContent !== '' ? <Image src={'/uploads/'+post.postContent} alt={'/uploads/'+post.postContent}/> : null} */}

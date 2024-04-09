@@ -13,6 +13,7 @@
     "@radix-ui/react-popover": "1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
     "antd": "^5.16.1",
+    "aos": "^2.3.4",
     "async": "^3.2.5",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
@@ -44,6 +45,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "recoil": "^0.7.7",
-    "vite": "^5.2.8"
+    "vite": "^5.2.8",
+    "zustand": "^4.5.2"
   }
 }

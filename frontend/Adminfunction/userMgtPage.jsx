@@ -9,6 +9,9 @@ import {FaPlus} from 'react-icons/fa6';
 import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
 import "./Admin.css";
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
 // import {getAllUser} from "../backend/controller/adminController";
 // import UserModel from "../model/User.js";
 
@@ -20,7 +23,9 @@ function UserMgtPage () {
     const [EditState,setEditState] = useState(false);
     const [editIndex,setEditIndex] = useState(0);
   
-
+    useEffect(()=>{
+        Aos.init()
+    },[])
 
     useEffect(() => {
         const getUser = async () => {
@@ -54,10 +59,23 @@ function UserMgtPage () {
           // Handle any errors that occur during the fetch request
         }
       };
- const handleSubmit = (newRow) =>{
-     setDataSet([...dataset,newRow]);
-     setResults([...dataset,newRow]);
-     
+ const handleSubmit = async (newRow) =>{
+    //  setDataSet([...dataset,newRow]);
+    //  setResults([...dataset,newRow]);
+     console.log(newRow);
+     const response = await fetch('http://localhost:8080/api/user/signUpNewUser',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: newRow.username,
+            email: newRow.email,
+            password: newRow.password,
+            major: newRow.major
+        })
+    });
+    getUsers();
     }
     const handleEdit = (targetIndex) =>{
         EditState? setEditState(false): setEditState(true);
@@ -121,14 +139,14 @@ const handleDelete = async (userID) =>{
  }
     return ( 
     <div className='usermgt'>
-        <div className="mainUsermgt">
-            <SearchBar children='Search User' getResult={getResults} data={dataset}/>
+        <div className="mainUsermgt" >
+            <SearchBar children='Search User' getResult={getResults} data={dataset} />
             <table>
                
-                <tr>
-                    <th id="usernameheader">USERNAME</th>
-                    <th id="emailheader">EMAIL</th>
-                    <th id="actionheader">ACTIONS</th>
+                <tr data-aos = "fade-left">
+                    <th className="large">USERNAME</th>
+                    <th className="large">EMAIL</th>
+                    <th className="large">ACTIONS</th>
                 </tr>
                 {results?.map((key,index) =>
                 {

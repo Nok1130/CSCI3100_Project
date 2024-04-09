@@ -62,13 +62,13 @@ const rejectFollowRequest = async (req, res) => {
 
 // get all followers of the user
 const getAllFollowerAndFollowing = async (req, res) => {
-    const { username } = req.body;
+    const { userID } = req.body;
     try {
-        const followers = await FollowerModel.find({ following: username, isAccepted: true });
+        const followers = await FollowerModel.find({ following: userID, isAccepted: true });
         const followerUsernames = followers.map(follower => follower.follower);
         const followerCount = followers.length;
 
-        const followings = await FollowerModel.find({ follower: username, isAccepted: true });
+        const followings = await FollowerModel.find({ follower: userID, isAccepted: true });
         const followingUsernames = followings.map(following => following.following);
         const followingCount = followings.length;
 

@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import './AddUser.css';
 import {Input} from 'antd';
-import {UserOutlined ,MailOutlined} from '@ant-design/icons';
+import {UserOutlined ,MailOutlined,LockOutlined } from '@ant-design/icons';
+import { IoIosSchool } from "react-icons/io";
 const AddUser = ({close,onSubmit}) => {
         
     const [formState, setFormState] = useState({
@@ -21,7 +22,8 @@ const AddUser = ({close,onSubmit}) => {
         e.preventDefault();
         if(formState.username === '' || formState.email === ''){
             alert("Empty field");
-        }if(formState.email.includes('cuhk.edu.hk')){
+        }
+        if(formState.email.includes('cuhk.edu.hk')){
              onSubmit(formState);
         }else{
             alert("invalid email");
@@ -48,6 +50,17 @@ const AddUser = ({close,onSubmit}) => {
                     </div>
                     <br/>
                     <div>
+                        <Input 
+                            placeholder='password'
+                            size="large"
+                            type='password'
+                            onChange={(e) => handleChange(e)}
+                            name="password"
+                            prefix={<LockOutlined />}
+                            />
+                    </div>
+                    <br/>
+                    <div>
                         
                          <Input 
                             placeholder="email" 
@@ -58,6 +71,16 @@ const AddUser = ({close,onSubmit}) => {
                             name="email"
                          />
 
+                    </div>
+                    <br/>
+                    <div>
+                        <Input 
+                            placeholder='Major'
+                            size="large"
+                            onChange={(e) => handleChange(e)}
+                            name="major"
+                            prefix={<IoIosSchool />}
+                            />
                     </div>
                     <br/>
                     <button type='submit' className='addbtn' onClick={handleSubmit} >ADD</button>

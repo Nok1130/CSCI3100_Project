@@ -35,7 +35,7 @@ function Recommend({data}) {
         <Flex vertical gap="small" style={{flex: '1'}}>
         <Menu theme="light" className="navigation_bar" style={{background: 'none', alignItems: 'center', position: 'sticky', top: '0'}} onClick={onClick} defaultSelectedKeys={current} mode="horizontal" items={navbar_items} />
         <Routes>
-          <Route path='/user/*' element={<Users />} />
+          <Route path='/user/*' element={<Users data={data}/>} />
           <Route path='/post/*' element={<Posts data={data}/>} />
           <Route path='/groupaccount/*' element={<GroupAccounts />} />
         </Routes>

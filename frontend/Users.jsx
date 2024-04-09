@@ -1,39 +1,76 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react'
 import { Card, Flex, Avatar, Button } from 'antd';
 import './Users.css';
+import axios from 'axios';
+import useStore from './UserContext.jsx';
+import {Link} from 'react-router-dom';
 
 const { Meta } = Card;
 
-const UserInfo = [
-  {
-    "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=8",
-    "username": "JOMUD",
-  },
-  {
-    "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=7",
-    "username": "CSDOG",
-  },
-  {
-    "avatar": "https://api.dicebear.com/7.x/miniavs/svg?seed=6",
-    "username": "JOJO",
-  }
-]
 
-function Users() {
+
+
+
+function Users({ data }) {
+  const [UserInfo, setUserInfo] = useState([
+    {
+      "personalIcon": "1712414577831-cat.jpg",
+      "username": "JOMUD",
+    },
+    {
+      "personalIcon": "1712414577831-cat.jpg",
+      "username": "CSDOG",
+    },
+    {
+      "personalIcon": "1712414577831-cat.jpg",
+      "username": "JOJO",
+    }
+  ])
+  const [loading, setLoading] = useState(false);
+  const { currentloginID, setcurrentloginID } = useStore();
+  var search = data;
+  useEffect(() => {
+
+    var queryString = '';
+    if (search != '' && search != undefined) {
+      queryString = `username=${search}`
+
+      console.log(queryString)
+      console.log('run');
+      setLoading(true);
+
+      axios
+        .post(`http://localhost:8080/api/user/searchUser?${queryString}`)
+        .then((response) => {
+          console.log(response.data.user)
+          setUserInfo([response.data.user]);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        })
+
+    }
+
+
+  }, [location, search]);
   return (
     <Flex className='scroll' vertical gap="small" style={{ height: '90vh' }}>
 
       {UserInfo.map((key, val) => {
         return <Card
-        className='usercard'
+          className='usercard'
           bordered={false}
           style={{
             width: 300,
           }}
         >
           <Meta
-            avatar={<Avatar src={key.avatar} />}
-            title={<Flex align='center'>{key.username}<Flex justify='flex-end' align='flex-start' style={{ width: '100%' }}><Button type="primary">View profile</Button></Flex></Flex>}
+            avatar={<Avatar src={'/uploads/' + key.personalIcon} />}
+            title={<Flex align='center'>{key.username}<Flex justify='flex-end' align='flex-start' style={{ width: '100%' }}>
+              <Link to={`/home/profile/${key.userID}`}><Button type="primary" >View profile</Button></Link></Flex></Flex>
+      }
 
           />
 
@@ -41,7 +78,7 @@ function Users() {
       })}
 
 
-    </Flex>
+    </Flex >
   )
 }
 

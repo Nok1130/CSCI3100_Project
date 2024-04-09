@@ -7,8 +7,8 @@ import {useState,useEffect} from 'react';
 import EditPost from "./EditPost";
 import Report from './Report';
 import './Admin.css';
-import axios from 'axios';
-
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 
 function PostMgtPage(){
@@ -20,7 +20,9 @@ function PostMgtPage(){
     const [showReportState,setShowReportState] = useState(false);
     const [reportIndex,setReportIndex] = useState(0);
     const [reportData,setReportData] = useState([]);
-
+    useEffect(()=>{
+        Aos.init()
+    },[])
     useEffect(() => {
         const getPost = async () => {
        
@@ -65,12 +67,11 @@ function PostMgtPage(){
        setShowReportState(true);
      }
 
-     const handleEdit = (targetIndex) =>{
+     const handleEdit = (targetIndex,postText) =>{
         EditState? setEditState(false): setEditState(true);
         setEditIndex(targetIndex);
         console.log("edit user");
-        const post = results[targetIndex].content;
-        setEditPost(post);
+        setEditPost(postText);
     }
 
      const handleSuspend = (targetIndex) =>{
@@ -89,10 +90,10 @@ function PostMgtPage(){
      
     return (
     <div className="PostMgt">
-       <div className="mainPostmgt">
+          <div className="mainPostmgt" >
            <SearchBar children="Search Post" getResult={getResults} data={dataset}/>
          <table>              
-               <tr>
+               <tr data-aos = "fade-left">
                    <th className="large">POSTID</th>
                    <th className="large" >USERNAME</th>
                    <th className="large">CONTENT</th>
@@ -107,7 +108,7 @@ function PostMgtPage(){
                     <td style={{display:'flex', justifyContent:'space-evenly'}}>
                         <Button type="primary" 
                         className="editBtn"
-                        onClick={() => handleEdit(index)}>Edit</Button>
+                        onClick={() => handleEdit(index,key.postText)}>Edit</Button>
 
                         <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
 
