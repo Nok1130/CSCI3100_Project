@@ -116,31 +116,31 @@ function Profile() {
     console.log("Follow button pressed");
   }
 
-  // const handleEditProfile = () => {
-  //   console.log("Edit Profile pressed");
-  //   console.log(newPersonalProfile);
+  const handleEditProfile = () => {
+    console.log("Edit Profile pressed");
+    console.log(newPersonalProfile);
 
-  //   fetch('http://localhost:8080/api/user/updateUserProfile', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       userID: currentloginID,
-  //       newUsername: newPersonalProfile.username,
-  //       oldPassword: newPersonalProfile.oldPassword,
-  //       newPassword: newPersonalProfile.newPassword,
-  //       personalBio: newPersonalProfile.personalBio
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
+    fetch('http://localhost:8080/api/user/updateUserProfile', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userID: currentloginID,
+        newUsername: newPersonalProfile.username,
+        oldPassword: newPersonalProfile.oldPassword,
+        newPassword: newPersonalProfile.newPassword,
+        personalBio: newPersonalProfile.personalBio
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   useEffect(() => {
     getUserProfile();

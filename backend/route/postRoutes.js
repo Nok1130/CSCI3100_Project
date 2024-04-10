@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
-import { createPost, likePost, unlikePost, dislikePost, undislikePost, getPost, createComment, repost, reportPost, searchPost,getAllPost } from "../controller/postController.js";
+import { createPost, likePost, unlikePost, dislikePost, undislikePost, getPost, createComment, repost, reportPost, searchPost,getAllPost, getAllPostOfUser } from "../controller/postController.js";
 import multer from "multer";
 import path from "path";
 import ENV from "../ENV.js";
@@ -9,7 +9,7 @@ const postRouter = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.join(ENV.__dirname, 'uploads'));
+      cb(null, path.join(ENV.__dirname, 'public'));
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + '-' + file.originalname);
@@ -35,6 +35,7 @@ postRouter.post("/createComment", createComment);
 postRouter.get("/getPost", getPost);
 postRouter.get("/getAllPost",getAllPost);
 postRouter.get("/searchPost", searchPost);
+postRouter.post("/getAllPostOfUser", getAllPostOfUser);
 
 
 export default postRouter;
