@@ -185,6 +185,8 @@ function Profile() {
         <tr>
           <th className="large">POSTID</th>
           <th className="large">TITLE</th>
+          <th className="large">LIKES</th>
+          <th className='large'>DISLIKES</th>
           <th className="large">CONTENT</th>
         </tr>
         {userPosts?.map((key, index) => {
@@ -192,6 +194,8 @@ function Profile() {
             <tr>
               <td>{key.postID}</td>
               <td>{key.postTitle}</td>
+              <td>{key.like.length}</td>
+              <td>{key.dislike.length}</td>
               <td>{key.postText}</td>
             </tr>
           )
@@ -209,6 +213,8 @@ function Profile() {
             <th className='large'>POSTID</th>
             <th className='large'>ORIGINAL AUTHOR</th>
             <th className='large'>TITLE</th>
+            <th className="large">LIKES</th>
+            <th className='large'>DISLIKES</th>
             <th className='large'>CONTENT</th>
           </tr>
           {userPosts?.map((key, index) => {
@@ -218,6 +224,8 @@ function Profile() {
                   <td>{key.postID}</td>
                   <td>{key.originalAuthor}</td>
                   <td>{key.postTitle}</td>
+                  <td>{key.like.length}</td>
+                  <td>{key.dislike.length}</td>
                   <td>{key.postText}</td>
                 </tr>
               )    

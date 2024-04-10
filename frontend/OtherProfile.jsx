@@ -14,7 +14,7 @@ const OtherProfile = () => {
   const location = useLocation();
   const viewingUserID = "448f40"
   // const viewingUserID = "2d1180"
-  // const userID = location.pathname.split('/').pop();
+  // const viewingUserID = location.pathname.split('/').pop();
 
   const [viewingUserProfile, setViewingUserProfile] = useState(null);
   const [viewingUserFollow, setViewingUserFollow] = useState({
@@ -197,6 +197,8 @@ const OtherProfile = () => {
         <tr>
           <th className="large">POSTID</th>
           <th className="large">TITLE</th>
+          <th className="large">LIKES</th>
+          <th className='large'>DISLIKES</th>
           <th className="large">CONTENT</th>
         </tr>
         {viewingUserPosts?.map((key, index) => {
@@ -204,6 +206,8 @@ const OtherProfile = () => {
             <tr>
               <td>{key.postID}</td>
               <td>{key.postTitle}</td>
+              <td>{key.like.length}</td>
+              <td>{key.dislike.length}</td>
               <td>{key.postText}</td>
             </tr>
           )
@@ -221,6 +225,8 @@ const OtherProfile = () => {
             <th className='large'>POSTID</th>
             <th className='large'>ORIGINAL AUTHOR</th>
             <th className='large'>TITLE</th>
+            <th className="large">LIKES</th>
+            <th className='large'>DISLIKES</th>
             <th className='large'>CONTENT</th>
           </tr>
           {viewingUserPosts?.map((key, index) => {
@@ -230,6 +236,8 @@ const OtherProfile = () => {
                   <td>{key.postID}</td>
                   <td>{key.originalAuthor}</td>
                   <td>{key.postTitle}</td>
+                  <td>{key.like.length}</td>
+                  <td>{key.dislike.length}</td>
                   <td>{key.postText}</td>
                 </tr>
               )    
