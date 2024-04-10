@@ -319,7 +319,7 @@ function Posts({ data }) {
     };
 
     const repost = async (inputpostID) => {
-        console.log('repsot' + JSON.stringify({
+        console.log('repost' + JSON.stringify({
             repostUserID: currentloginID,
             repostNickname: currentusername,
             postID: inputpostID}))
@@ -337,7 +337,7 @@ function Posts({ data }) {
                 })
 
             });
-
+            
             console.log(response.ok)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -387,9 +387,9 @@ function Posts({ data }) {
                     className='postcard'
                     // loading={loading&&!reload}
                     actions={[
-                        post.like.includes(currentloginID) ? <AiFillHeart key='unlike' color='red' onClick={() => unlikepost(post.postID)} /> : <AiOutlineHeart key='like' color='red' onClick={() => likepost(post.postID)} />,
+                        post.like.includes(currentloginID) ? <div><AiFillHeart key='unlike' color='red' onClick={() => unlikepost(post.postID)} /><p className='count'>{post.like.length}</p></div> : <div><AiOutlineHeart key='like' color='red' onClick={() => likepost(post.postID)} /><p className='count'>{post.like.length}</p></div>,
                         <BiComment key="comment" color='blue' onClick={() => showComments(post)} />,
-                        post.dislike.includes(currentloginID) ? <AiFillDislike key="dislike" color='black' onClick={() => undislikepost(post.postID)} /> : <AiOutlineDislike key="dislike" color='black' onClick={() => dislikepost(post.postID)} />,
+                        post.dislike.includes(currentloginID) ? <div><AiFillDislike key="dislike" color='black' onClick={() => undislikepost(post.postID)} /><p className='count'>{post.dislike.length}</p></div> : <div><AiOutlineDislike key="dislike" color='black' onClick={() => dislikepost(post.postID)} /><p className='count'>{post.like.length}</p></div>,
                         <BiRepost key="repost" color='green' onClick={() => repost(post.postID)} />,
                         <AiOutlineWarning key="report" color='black' onClick={() => reportPost(post.postID)}/>,
                     ]}

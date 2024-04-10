@@ -71,7 +71,8 @@ function Login(){
                 window.location.href = '/Admin';   
             }
             else
-                window.location.href = '/home';
+                window.location.href = '/home/recommend/post/All';
+
             
         }
         catch(error){
