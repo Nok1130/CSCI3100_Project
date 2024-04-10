@@ -210,7 +210,7 @@ const repost = async (req, res) => {
             username: repostNickname,
             nickname: repostNickname,
             hashtag: post.hashtag,
-            originalAuthor: post.username,
+            originalAuthor: post.nickname,
             repostBy: repostUserID,
             isRepost: true,
             isSuspended: post.isSuspended,

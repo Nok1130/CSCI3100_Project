@@ -83,8 +83,10 @@ const Home = () => {
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
+    const [ sidemenu, setSidemenu ] = useState([]);
+    const [ loadng, setLoading ] = useState(false);
     const [selectedKeys, setSelectedKeys] = useState(location.pathname);
-    console.log('init: '+selectedKeys);
+    console.log('init: ' + selectedKeys);
     const [searchInput, setSearchInput] = useState([]);
     const onSearch = (value, _e, info) => {
         setSearchInput(value);
@@ -101,36 +103,49 @@ const Home = () => {
 
     const getUserCategory = async () => {
         console.log("Profile ID :", currentloginID);
+        setLoading(true);
+
         await fetch('http://localhost:8080/api/user/getUserProfileFromUserID', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            userID: currentloginID
-          })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userID: currentloginID
+            })
         })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            setcurrentusername(data.user.username);
-            setcurrentuniversity(data.user.university);
-            setcurrentmajor(data.user.major);
-            console.log("profile: "+currentuniversity+currentmajor);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-          
-      }
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.user.university);
+                setcurrentusername(data.user.username);
+                setcurrentuniversity(data.user.university);
+                setcurrentmajor(data.user.major);
+                console.log("profile: " + currentuniversity + currentmajor);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-      useEffect(() => {
+    }
+
+    useEffect(() => {
+        console.log("get user category");
         getUserCategory();
-    }, [currentloginID])
-    const sidemenu = [
 
-        getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem(currentuniversity, `recommend/post/${currentuniversity}`), getItem(currentmajor, `recommend/post/${currentmajor}`)], 'group'),
-        getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
+    }, [currentloginID]);
+
+    useEffect(() => {
+        setLoading(true)
+        console.log("profile: " + currentuniversity + currentmajor);
+        setSidemenu([
+            getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem(currentuniversity, `recommend/post/${currentuniversity}`), getItem(currentmajor, `recommend/post/${currentmajor}`)], 'group')
+        ]);
+        console.log("setmenu");
+        // window.location.reload()
+        setLoading(true)
+      }, [currentusername, currentuniversity, currentmajor]);
+
 
     return (
 
@@ -208,8 +223,8 @@ const Home = () => {
                         <Menu
                             mode="inline"
                             onSelect={handleSelect}
-                            defaultSelectedKeys={'recommend/post/All'}
-                            selectedKeys={selectedKeys}
+                            defaultSelectedKeys='recommend/post/All'
+                            selectedkeys={selectedKeys}
                             style={{
                                 height: '100%',
                                 borderRight: 0,
@@ -237,7 +252,7 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend data={searchInput} selectedkey={selectedKeys}/>} />
+                                <Route path='recommend/*' element={<Recommend data={searchInput} selectedkey={selectedKeys} />} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
                                 <Route path='profile/*' exact element={<Profile />} />

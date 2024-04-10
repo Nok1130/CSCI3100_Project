@@ -32,3 +32,7 @@ pre {
 .ant-form-item {
   margin-bottom: 10px;
 }
+
+p.count {
+  margin: 1px;
+}
