@@ -83,8 +83,8 @@ const Home = () => {
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
-    const [ sidemenu, setSidemenu ] = useState([]);
-    const [ loadng, setLoading ] = useState(false);
+    const [sidemenu, setSidemenu] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedKeys, setSelectedKeys] = useState(location.pathname);
     console.log('init: ' + selectedKeys);
     const [searchInput, setSearchInput] = useState([]);
@@ -103,7 +103,6 @@ const Home = () => {
 
     const getUserCategory = async () => {
         console.log("Profile ID :", currentloginID);
-        setLoading(true);
 
         await fetch('http://localhost:8080/api/user/getUserProfileFromUserID', {
             method: 'POST',
@@ -121,7 +120,6 @@ const Home = () => {
                 setcurrentuniversity(data.user.university);
                 setcurrentmajor(data.user.major);
                 console.log("profile: " + currentuniversity + currentmajor);
-                setLoading(false);
             })
             .catch(error => {
                 console.error(error);
@@ -136,16 +134,28 @@ const Home = () => {
     }, [currentloginID]);
 
     useEffect(() => {
-        setLoading(true)
+
         console.log("profile: " + currentuniversity + currentmajor);
         setSidemenu([
-            getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem(currentuniversity, `recommend/post/${currentuniversity}`), getItem(currentmajor, `recommend/post/${currentmajor}`)], 'group')
+            getItem('Posts', 'g1', null, [getItem('All', '/home/recommend/post/All'), getItem(currentuniversity, `/home/recommend/post/${currentuniversity}`), getItem(currentmajor, `/home/recommend/post/${currentmajor}`)], 'group')
         ]);
-        console.log("setmenu");
-        // window.location.reload()
-        setLoading(true)
-      }, [currentusername, currentuniversity, currentmajor]);
 
+
+    }, [currentusername, currentuniversity, currentmajor]);
+
+
+
+    useEffect(() => {
+        if(sidemenu.length > 0) {
+            if (sidemenu[0].children[1].label != '') {
+                setLoading(false)
+            }
+        }
+    }, [sidemenu])
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
 
     return (
 
@@ -158,6 +168,7 @@ const Home = () => {
                 },
             }}
         >
+
 
             <Layout
                 style={{
@@ -224,7 +235,7 @@ const Home = () => {
                             mode="inline"
                             onSelect={handleSelect}
                             defaultSelectedKeys='recommend/post/All'
-                            selectedkeys={selectedKeys}
+                            selectedKeys={selectedKeys}
                             style={{
                                 height: '100%',
                                 borderRight: 0,
@@ -269,6 +280,7 @@ const Home = () => {
             </Layout>
         </ConfigProvider>
     );
+
 
 };
 export default Home;

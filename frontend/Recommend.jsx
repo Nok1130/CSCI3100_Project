@@ -32,13 +32,15 @@ function Recommend({ data, selectedkey }) {
   };
 
   useEffect(() => {
+    console.log('setcurrent')
     setCurrent([location.pathname]);
     console.log(current+' '+location.pathname);
+    console.log(navbar_items[0].key)
 }, [location])
 
   return (
     <Flex vertical gap="small" style={{ flex: '1' }}>
-      <Menu theme="light" className="navigation_bar" style={{ background: 'none', alignItems: 'center', position: 'sticky', top: '0' }} onClick={onClick} defaultSelectedKeys={current} SelectedKeys={current} mode="horizontal" items={navbar_items} />
+      <Menu theme="light" className="navigation_bar" style={{ background: 'none', alignItems: 'center', position: 'sticky', top: '0' }} onClick={onClick} defaultSelectedKeys={location.pathname} selectedKeys={location.pathname} mode="horizontal" items={navbar_items} />
       <Routes>
         <Route path='/user/*' element={<Users data={data} />} />
         <Route path='/post/*' element={<Posts data={data} />} />
