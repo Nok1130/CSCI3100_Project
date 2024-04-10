@@ -9,7 +9,7 @@ const postRouter = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.join(ENV.__dirname, 'public'));
+      cb(null, path.join(ENV.__dirname, 'uploads'));
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + '-' + file.originalname);
