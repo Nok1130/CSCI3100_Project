@@ -20,10 +20,7 @@ function Recommend({ data, selectedkey }) {
       label: 'Users',
       key: '/home/recommend/user',
     },
-    {
-      label: 'Group Accounts',
-      key: '/home/recommend/groupaccount',
-    }
+
   ]
   const navigate = useNavigate();
   const location = useLocation();

@@ -13,43 +13,6 @@ const onFinishFailed = (errorInfo) => {
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
-// const props_video = {
-//   beforeUpload: (file) => {
-//     const isPNG = file.type === 'video/mp4';
-//     if (!isPNG) {
-//       message.error(`${file.name} is not a video file`);
-//     }
-//     return isPNG || Upload.LIST_IGNORE;
-//   },
-//   onChange: (info) => {
-//     console.log(info.fileList);
-//   },
-//   action: '//jsonplaceholder.typicode.com/posts/',
-//   listType: 'picture',
-//   previewFile(file) {
-//     console.log('Your upload file:', file);
-//     // Your process logic. Here we just mock to the same file
-//     return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-//       method: 'POST',
-//       body: file,
-//     })
-//       .then((res) => res.json())
-//       .then(({ thumbnail }) => thumbnail);
-//   },
-// };
-// const props_image = {
-//   beforeUpload: (file) => {
-//     const isPNG = file.type === 'image/png' || file.type === 'image/jpeg';
-//     if (!isPNG) {
-//       message.error(`${file.name} is not a image file`);
-//     }
-//     return isPNG || Upload.LIST_IGNORE;
-//   },
-//   onChange: (info) => {
-//     console.log(info.fileList);
-//   },
-// };
-
 
 
 function CreatePost()  {
@@ -57,13 +20,6 @@ function CreatePost()  {
   const { currentuniversity, setcurrentuniversity } = useStore();
   const { currentmajor, setcurrentmajor } = useStore();
   const { currentusername, setcurrentusername } = useStore();
-  const [messageApi, contextHolder] = message.useMessage();
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'Post successfully',
-    });
-  };
   const onFinish = async (values) => {
     console.log(values);
     const formData = new FormData();
@@ -85,12 +41,25 @@ function CreatePost()  {
       method: 'POST',
       body: formData,
     })
-    success;
+    console.log('success');
+    message.success('Post created successfully');
     window.location.pathname = '/home/recommend/post/All';
     };
 
+    const props = {
+      beforeUpload: file => {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        const isMp4 = file.type === 'video/mp4';
+        if (!isJpgOrPng && !isMp4) {
+          message.error('You can only upload JPG/PNG/MP4 file!');
+        }
+        return isJpgOrPng || isMp4 ? true : Upload.LIST_IGNORE;
+      },
+      maxCount: 1,
+    };
+
   return (
-    <>{contextHolder}
+
   <Form name="basic"
     labelCol={{
       span: 8,
@@ -206,13 +175,8 @@ function CreatePost()  {
 
     <Flex justify='space-between'>
       <Flex>
-        {/* <Form.Item name="postContent">
-          <Upload>
-            <Button className='upload' icon={<LiaFileVideo style={{ height: 30, width: 30 }} />}></Button>
-          </Upload>
-        </Form.Item> */}
         <Form.Item name="postContent">
-          <Upload>
+          <Upload {...props} action='https://unicon.free.beeceptor.com'>
             <Button className='upload' icon={<LiaImage style={{ height: 30, width: 30 }} />}></Button>
           </Upload>
         </Form.Item>
@@ -229,6 +193,6 @@ function CreatePost()  {
       </Form.Item>
     </Flex>
 
-  </Form></>)
+  </Form>)
 };
 export default CreatePost;

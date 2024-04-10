@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios';
 import './Posts.css'
-import { Card, Flex, Avatar, Image, Modal, Button, Input, Select, Form } from 'antd';
+import { Card, Flex, Avatar, Image, Modal, Button, Input, Select, Form, message } from 'antd';
 import { AiOutlineHeart, AiOutlineDislike, AiOutlineWarning, AiFillHeart, AiFillDislike } from "react-icons/ai";
 import { BiComment, BiRepost } from "react-icons/bi";
 import { searchPost } from '../backend/controller/postController';
@@ -338,9 +338,13 @@ function Posts({ data }) {
 
             });
             
-            console.log(response.ok)
+            console.log(response.ok);
+            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                console.log('success');
+                message.success('Repost successfully');
             }
 
         } catch (error) {
@@ -369,18 +373,22 @@ function Posts({ data }) {
                 postID: reportpostID,
                 reportReason: ReportReason
             })
+            
 
         });
 
         console.log(response.ok)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
+        } else {
+            console.log('success');
+            message.success('Report post successfully');
         }
         
     }
     return (
+        
         <Flex vertical className='scroll' style={{ height: '90vh' }}>
-
             {posts.map((post, index) => (
                 <Card
                     key={post.postID}
@@ -407,8 +415,8 @@ function Posts({ data }) {
                     <pre className='hashtag'>{post.hashtag.map(hashtag => `#${hashtag}`).join(' ')}</pre>
                     {post.postContent !== '' && (
                         post.postContent.split('.').pop().toLowerCase() === 'mp4' ? <video width="320" height="240" controls>
-                            <source src={'/public/uploads/' + post.postContent} type="video/mp4" />
-                        </video> : <Image src={'/public/uploads/' + post.postContent} alt={'/public/uploads/' + post.postContent} />
+                            <source src={'/uploads/' + post.postContent} type="video/mp4" />
+                        </video> : <Image src={'/uploads/' + post.postContent} alt={'/uploads/' + post.postContent} />
 
                     )}
                    
