@@ -23,20 +23,20 @@ const createPost = async (req, res) => {
     }
 };
 
-// // get all posts
-// const getAllPostOfUser = async (req, res) => {
-//     const { nicknames, postCategorys, hashtag } = req.query;
-//     try {
-        
-//         if (!post) {
-//             return res.status(404).json({ message: "Post not found" });
-//         }
-//         return res.status(200).json({ post });
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//         console.log("Error in getPost: ", error.message);
-//     }
-// };
+// get all posts
+const getAllPostOfUser = async (req, res) => {
+    const { userID } = req.body;
+    try {
+        const post = await postModel.find({ userID }).sort( { "createdAt": -1 } );
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+};
 
 //search post
 const searchPost = async (req, res) => {
@@ -76,7 +76,7 @@ const getPost = async (req, res) => {
 
 const getAllPost = async (req, res) => {
     try {
-        const post = await postModel.find();
+        const post = await postModel.find().sort( { "createdAt": -1 } );
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -252,4 +252,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost,getAllPost }
+export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost,getAllPost, getAllPostOfUser }
