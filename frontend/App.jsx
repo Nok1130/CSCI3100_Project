@@ -11,6 +11,7 @@ import PostMgtPage from './Adminfunction/PostMgtPage.jsx';
 import UserContext from './UserContext.jsx';
 import { atom, RecoilRoot } from 'recoil';
 
+
 function App() {
 
   // const currentUser = atom({
@@ -20,6 +21,7 @@ function App() {
   // const [currentloginID, setcurrentloginID] = useState('');
 
   return (
+ 
     <RecoilRoot>
       {/* <UserContext.Provider value={{ currentloginID, setcurrentloginID }}> */}
         <Routes>
@@ -31,6 +33,7 @@ function App() {
         </Routes>
       {/* </UserContext.Provider> */}
     </RecoilRoot>
+
 
       
    
