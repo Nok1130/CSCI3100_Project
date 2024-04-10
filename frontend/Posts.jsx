@@ -30,6 +30,10 @@ function Posts({ data }) {
     const [loading, setLoading] = useState(false);
     let postCategoryquery = '';
     const postCategorys = ['All', currentuniversity, currentmajor];
+    const [isReportVisible, setisReportVisible] = useState(false);
+    const [ReportReason,setReportReason] = useState("");
+    const [reportpostID,setreportpostID] = useState(null);
+
     if ([location.pathname.split('/').pop()] == 'All') {
         postCategoryquery = postCategorys.map(postCategory => `postCategorys=${postCategory}`).join('&');
     } else {
@@ -313,40 +317,34 @@ function Posts({ data }) {
         }
         setReload(true);
     };
+    const reportPost =  (postID,userID) => {
+        setreportpostID(postID);
+        setisReportVisible(true);
 
-    const repost = async (inputpostID) => {
-        console.log('repsot' + JSON.stringify({
-            repostUserID: currentloginID,
-            repostNickname: currentusername,
-            postID: inputpostID}))
-        setReload(false);
-        try {
-            const response = await fetch('http://localhost:8080/api/post/repost', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    repostUserID: currentloginID,
-                    repostNickname: currentusername,
-                    postID: inputpostID
-                })
+    }
 
-            });
+    const onReportSubmit = async () => {
+        setisReportVisible(false);
+        console.log(ReportReason);
+        const response = await fetch('http://localhost:8080/api/post/reportPost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userID: currentloginID,
+                postID: reportpostID,
+                reportReason: ReportReason
+            })
 
-            console.log(response.ok)
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+        });
 
-        } catch (error) {
-            console.error('Error:', error);
+        console.log(response.ok)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        setReload(true);
-    };
-
-
-
+        
+    }
     return (
         <Flex vertical className='scroll' style={{ height: '90vh' }}>
 
@@ -359,8 +357,8 @@ function Posts({ data }) {
                         post.like.includes(currentloginID) ? <AiFillHeart key='unlike' color='red' onClick={() => unlikepost(post.postID)} /> : <AiOutlineHeart key='like' color='red' onClick={() => likepost(post.postID)} />,
                         <BiComment key="comment" color='blue' onClick={() => showComments(post)} />,
                         post.dislike.includes(currentloginID) ? <AiFillDislike key="dislike" color='black' onClick={() => undislikepost(post.postID)} /> : <AiOutlineDislike key="dislike" color='black' onClick={() => dislikepost(post.postID)} />,
-                        <BiRepost key="repost" color='green' onClick={() => repost(post.postID)}/>,
-                        <AiOutlineWarning key="report" color='black' />,
+                        <BiRepost key="repost" color='green' />,
+                        <AiOutlineWarning key="report" color='black' conClick={() =>reportPost(post.postID,post.userID)}/>,
                     ]}
                 >
                     <Meta
@@ -368,7 +366,6 @@ function Posts({ data }) {
                         title={post.nickname}
 
                     />
-                    {post.isRepost ? <Flex><pre>Orginally posted by </pre><b style={{alignSelf: 'center'}}>{post.originalAuthor}</b></Flex> : null }
                     <h3 className='title'>{post.postTitle}</h3>
                     <pre className='content'>{post.postText}
                     </pre>
@@ -379,6 +376,8 @@ function Posts({ data }) {
                         </video> : <Image src={'/uploads/' + post.postContent} alt={'/uploads/' + post.postContent} />
 
                     )}
+                    {/* {post.postContent !== '' ? <Image src={'/uploads/'+post.postContent} alt={'/uploads/'+post.postContent}/> : null} */}
+
 
                 </Card>
 
@@ -424,7 +423,23 @@ function Posts({ data }) {
                     </Form.Item>
                 </Form>
             </Modal>
-
+            
+             
+            <Modal
+            title="Report Post"
+            centered
+            open={isReportVisible}
+            onOk={onReportSubmit}
+            okText='Report'
+            onCancel={() => setisReportVisible(false)}
+            width={1000}
+            >
+            <Input.TextArea
+                    onChange={(e) => setReportReason(e.target.value)}
+                    placeholder="Input your report reason"
+                    style={{ backgroundColor: 'white', height: '500px' }}
+                    />
+          </Modal>
         </Flex>
     )
 }
