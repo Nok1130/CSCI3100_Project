@@ -13,10 +13,10 @@ import userRoutes from "./route/userRoutes.js";
 import postRoutes from './route/postRoutes.js';
 import followerRoutes from "./route/followerRoutes.js";
 import adminRoutes from "./route/adminRoutes.js";
-import chatRoutes from "./route/chatRoutes.js";
+import messageTextRoutes from "./route/messageTextRoutes.js";
 import groupRoutes from "./route/groupRoutes.js";
 
-const PORT = 5001;
+const PORT = 8080;
 
 const app = express();
 app.use(cors());
@@ -73,7 +73,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/follower", followerRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/post", postRoutes);
-app.use("/api/chat", chatRoutes);
+app.use("/api/messageText", messageTextRoutes)
 app.use("/api/group", groupRoutes);
 
 app.listen(PORT, () => {

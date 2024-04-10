@@ -13,8 +13,8 @@ const SearchBar = ({children,getResult,data}) => {
     const handleSearch = (e) => {
       var value = e.target.value;
       if(children === 'Search Post'){
-        const filteredItems = PostInfo.filter(
-            (item) => item.content.includes(searchQuery) || item.postId.includes(searchQuery)
+        const filteredItems = data.filter(
+            (item) => item.postText.includes(searchQuery) || item.postID.includes(searchQuery) 
             );
             getResult(filteredItems);
            

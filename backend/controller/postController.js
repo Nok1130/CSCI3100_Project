@@ -8,13 +8,14 @@ const createPost = async (req, res) => {
     console.log(req.file);
     const postID = uuidv4().substring(0, 6)
     const content = req.file;
-    const { username, nickname, postTitle, postText } = req.body;
+    const { userID, nickname, postTitle, postText, hashtag, postCategory } = req.body;
     try {
-        if (!username || !nickname || !postTitle || !postText) {
+        if (!userID || !nickname || !postTitle || !postText || !postCategory) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
-        const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postContent: contentFilename });
+        const hashtagList = hashtag === undefined ? [] : [hashtag];
+        const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList, postCategory });
         return res.status(201).json({ newPost });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -22,39 +23,25 @@ const createPost = async (req, res) => {
     }
 };
 
-// const createPost = async (req, res) => {
-//     console.log(req.body);
-//     console.log(req.file);
-//     const postID = uuidv4().substring(0, 6)
-//     const content = req.file;
-//     const { username, nickname, postTitle, postText } = req.body;
-//     try {
-//         if (!username || !nickname || !postTitle || !postText) {
-//             return res.status(400).json({ message: "Missing required fields" });
-//         }
-//         if (content.mimeType === "video/mp4") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postVideo: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         if (content.mimeType === "image/png" || content.mimeType === "image/jpeg" || content.mimeType === "image/jpg") {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText, postImage: content.filename });
-//             return res.status(201).json({ newPost });
-//         }
-//         else {
-//             const newPost = await postModel.create({ postID, username, nickname, postTitle, postText });
-//             return res.status(201).json({ newPost });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//         console.log("Error in createPost: ", error.message);
-//     }
-// };
+const searchPostByHashtag = async (req, res) => {
+    const { hashtag } = req.body;
+    try {
+        const post = await postModel.find({ hashtag : hashtag });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
 
 // get all posts
 const getAllPostOfUser = async (req, res) => {
-    const { username } = req.query;
+    const { userID } = req.body;
     try {
-        const post = await postModel.find({ username : username });
+        const post = await postModel.find({ userID: userID });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -66,9 +53,22 @@ const getAllPostOfUser = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-    const { postID } = req.query;
+    const { postID } = req.body;
     try {
         const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        return res.status(200).json({ post });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
+const getAllPost = async (req, res) => {
+    try {
+        const post = await postModel.find();
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -128,7 +128,7 @@ const createComment = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        post.comments.push({ username, commentContent });
+        post.comments.set(username, commentContent);
         await post.save();
         return res.status(201).json({ post });
     } catch (error) {
@@ -138,38 +138,42 @@ const createComment = async (req, res) => {
 };
 
 const repost = async (req, res) => {
-    const { repostUsername, repostNickname, postID } = req.body;
+    const { repostUserID, repostNickname, postID } = req.body;
 
     try {
-        if (!repostUsername || !postID) {
+        if (!repostUserID || !postID) {
             return res.status(404).json({ message: "Required fields missing" });
         }
         const post = await postModel.findOne({ postID: postID });
 
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
-        }
+        } 
         /*
             Generate a new post which has the following properties:
             Everything else is the same with original post except:
             postId is newly generated;
+            userID is set to repostUserID;
+            username is set to repostNickname;
+            originalAuthor is set to original post username;
             isRepost set to true, repostBy is set;
             This generates a repost which displays the original repost
         */
 
         const newPost = await postModel.create({
             postID: uuidv4().substring(0, 6),
-            username: post.username,
+            userID: repostUserID,
+            username: repostNickname,
             nickname: repostNickname,
             hashtag: post.hashtag,
-            repostBy: repostUsername,
+            originalAuthor: post.username,
+            repostBy: repostUserID,
             isRepost: true,
             isSuspended: post.isSuspended,
             postTitle: post.postTitle,
             postCategory: post.postCategory,
             postText: post.postText,
-            postImage: post.postImage,
-            postVideo: post.postVideo,
+            postContent: post.postContent,
             like: post.like,
             dislike: post.dislike,
             comments: post.comments,
@@ -204,4 +208,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, createComment, repost, reportPost }
+export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, getAllPost, createComment, repost, reportPost, searchPostByHashtag }

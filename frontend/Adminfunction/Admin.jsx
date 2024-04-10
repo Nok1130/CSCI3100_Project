@@ -7,7 +7,10 @@ import PostMgtPage from './PostMgtPage.jsx';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Header from './header.jsx'
 
+
 function Admin(){
+
+
     return ( 
    
      <div className='admin'>
@@ -15,13 +18,13 @@ function Admin(){
 
         <SideBar/>
          <Header/>
+         
           <Routes>
               <Route path ='/' element={<UserMgtPage />} />
               <Route path='/UserManagement' element={<UserMgtPage />}/>
               <Route path='/PostManagement' element={<PostMgtPage />} />
-      
           </Routes>
-         
+  
          
      
          

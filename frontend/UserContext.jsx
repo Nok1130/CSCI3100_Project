@@ -1,9 +1,17 @@
-import React from 'react';
+import { create } from 'zustand'
 
-// Create a context with default value
-const UserContext = React.createContext({
-  currentloginID: '',
-  setcurrentloginID: () => {},
-});
+// Define your store
+const useStore = create(set => ({
+  currentloginID: localStorage.getItem('currentloginID') || '',
+  setcurrentloginID: (id) => {
+    localStorage.setItem('currentloginID', id);
+    set({ currentloginID: id });
+  },
+  removecurrentloginID: () => {
+    localStorage.removeItem('currentloginID');
+    set({ currentloginID: '' });
+  },
+}));
 
-export default UserContext;
+export default useStore;
+

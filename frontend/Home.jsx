@@ -14,7 +14,8 @@ import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
 import { constant } from 'async';
-import UserContext from './UserContext.jsx';
+import useStore from './UserContext.jsx';
+import OtherProfile from './OtherProfile.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
@@ -76,7 +77,7 @@ const sidemenu = [
 const Home = () => {
 
 
-    const { currentloginID, setcurrentloginID } = useContext(UserContext);
+    const { currentloginID, setcurrentloginID } = useStore();
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
@@ -192,9 +193,10 @@ const Home = () => {
                                 <Route path='recommend/*' element={<Recommend />} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
-                                <Route path='profile' element={<Profile />} />
+                                <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
+                                <Route path='otherprofile' element={<OtherProfile />}/>
 
                             </Routes>
 
