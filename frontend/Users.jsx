@@ -26,11 +26,24 @@ function Users({ data }) {
       "username": "JOJO",
     }
   ])
+
+ 
+
   const [loading, setLoading] = useState(false);
   const { currentloginID, setcurrentloginID } = useStore();
   var search = data;
-  useEffect(() => {
+  useEffect(()=>{
 
+    const getUser = async () => {
+      console.log('fetch');
+      const response = await fetch('http://localhost:8080/api/admin/getAllUser');
+      const data = await response.json();
+      const user =data.users.filter((user)=> user.userID !== currentloginID)
+       setUserInfo(user);
+       }
+       getUser();
+  },[])
+  useEffect(() => {
     var queryString = '';
     if (search != '' && search != undefined) {
       queryString = `username=${search}`
@@ -55,6 +68,7 @@ function Users({ data }) {
 
 
   }, [location, search]);
+
   return (
     <Flex className='scroll' vertical gap="small" style={{ height: '90vh' }}>
 
@@ -67,7 +81,7 @@ function Users({ data }) {
           }}
         >
           <Meta
-            avatar={<Avatar src={'/uploads/' + key.personalIcon} />}
+            avatar={<Avatar src={'/uploads/1712414577831-cat.jpg'} />}
             title={<Flex align='center'>{key.username}<Flex justify='flex-end' align='flex-start' style={{ width: '100%' }}>
               <Link to={`/home/otherprofile/${key.userID}`}><Button type="primary" >View profile</Button></Link></Flex></Flex>
       }
