@@ -1,32 +1,12 @@
 import React from 'react';
 import './CreatePost.css';
-import { Avatar, Button, Checkbox, Form, Input, Select, Flex, Upload } from 'antd';
+import { Avatar, Button, Checkbox, Form, Input, Select, Flex, Upload, message } from 'antd';
 import { LiaFileVideo, LiaImage } from "react-icons/lia";
 import axios from 'axios';
+import useStore from './UserContext';
 
 const { TextArea } = Input;
-const onFinish = async (values) => {
-  console.log(values);
-  const formData = new FormData();
-  formData.append('userID', values.userID);
-  formData.append('postCategory', values.postCategory);
-  formData.append('nickname', values.nickname);
-  formData.append('postTitle', values.postTitle);
-  formData.append('postText', values.postText);
-  if (values.hashtag) {
-    formData.append('hashtag', values.hashtag);
-  }
-  if (values.postContent) {
-    formData.append('postContent', values.postContent.file.originFileObj);
-    console.log(values.postContent.file.originFileObj)
-  }
-  console.log('Success:', formData);
-  
-  fetch(`http://localhost:8080/api/post/createPost`, {
-    method: 'POST',
-    body: formData,
-  })
-  };
+
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
@@ -72,8 +52,42 @@ const handleChange = (value) => {
 
 
 
-const CreatePost = () => (
+function CreatePost()  {
+  const { currentloginID, setcurrentloginID } = useStore();
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Post successfully',
+    });
+  };
+  const onFinish = async (values) => {
+    console.log(values);
+    const formData = new FormData();
+    formData.append('userID', currentloginID);
+    formData.append('postCategory', values.postCategory);
+    formData.append('nickname', values.nickname);
+    formData.append('postTitle', values.postTitle);
+    formData.append('postText', values.postText);
+    if (values.hashtag) {
+      formData.append('hashtag', values.hashtag);
+    }
+    if (values.postContent) {
+      formData.append('postContent', values.postContent.file.originFileObj);
+      console.log(values.postContent.file.originFileObj)
+    }
+    console.log('Success:', formData);
+    
+    await fetch(`http://localhost:8080/api/post/createPost`, {
+      method: 'POST',
+      body: formData,
+    })
+    success;
+    window.location.pathname = '/home/recommend/post/All';
+    };
 
+  return (
+    <>{contextHolder}
   <Form name="basic"
     labelCol={{
       span: 8,
@@ -107,16 +121,16 @@ const CreatePost = () => (
         onChange={handleChange}
         options={[
           {
-            value: 'all',
+            value: 'All',
             label: 'All',
           },
           {
-            value: 'engineering',
-            label: 'Engineering',
+            value: 'CUHK',
+            label: 'CUHK',
           },
           {
-            value: 'computer_science',
-            label: 'Computer Science',
+            value: 'CS',
+            label: 'CS',
           },
         ]}
       />
@@ -141,15 +155,15 @@ const CreatePost = () => (
           options={[
             {
               value: 'username',
-              label: 'CSDOG',
+              label: 'Johnny',
             },
             {
-              value: 'Engineering',
-              label: 'Engineering',
+              value: 'CUHK',
+              label: 'CUHK',
             },
             {
-              value: 'Computer_Science',
-              label: 'Computer Science',
+              value: 'CS',
+              label: 'CS',
             },
           ]}
         />
@@ -212,6 +226,6 @@ const CreatePost = () => (
       </Form.Item>
     </Flex>
 
-  </Form>
-);
+  </Form></>)
+};
 export default CreatePost;

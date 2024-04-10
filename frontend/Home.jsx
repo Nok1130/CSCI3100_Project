@@ -72,7 +72,7 @@ const header = [
 
 const sidemenu = [
 
-    getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/all'), getItem('Engineering', 'recommend/post/engineering'), getItem('Computer Science', 'recommend/post/computerscience')], 'group'),
+    getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem('CUHK', 'recommend/post/CUHK'), getItem('CS', 'recommend/post/CS')], 'group'),
     getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
 
 
@@ -86,7 +86,8 @@ const Home = () => {
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
-    const [selectedKeys, setSelectedKeys] = useState([location.pathname]);
+    const [selectedKeys, setSelectedKeys] = useState(location.pathname);
+    console.log('init: '+selectedKeys);
     const [searchInput, setSearchInput] = useState([]);
     const onSearch = (value, _e, info) => {
         setSearchInput(value);
@@ -94,6 +95,7 @@ const Home = () => {
     };
     const handleSelect = ({ key }) => {
         setSelectedKeys([key]);
+        console.log(selectedKeys)
     };
 
     const {
@@ -171,6 +173,7 @@ const Home = () => {
                         <Menu
                             mode="inline"
                             onSelect={handleSelect}
+                            defaultSelectedKeys={'recommend/post/All'}
                             selectedKeys={selectedKeys}
                             style={{
                                 height: '100%',
@@ -199,7 +202,7 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend data={searchInput} />} />
+                                <Route path='recommend/*' element={<Recommend data={searchInput} selectedkey={selectedKeys}/>} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
                                 <Route path='profile/*' exact element={<Profile />} />
