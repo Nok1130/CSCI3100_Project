@@ -407,8 +407,8 @@ function Posts({ data }) {
                     <pre className='hashtag'>{post.hashtag.map(hashtag => `#${hashtag}`).join(' ')}</pre>
                     {post.postContent !== '' && (
                         post.postContent.split('.').pop().toLowerCase() === 'mp4' ? <video width="320" height="240" controls>
-                            <source src={'/uploads/' + post.postContent} type="video/mp4" />
-                        </video> : <Image src={'/uploads/' + post.postContent} alt={'/uploads/' + post.postContent} />
+                            <source src={'/public/uploads/' + post.postContent} type="video/mp4" />
+                        </video> : <Image src={'/public/uploads/' + post.postContent} alt={'/public/uploads/' + post.postContent} />
 
                     )}
                    
