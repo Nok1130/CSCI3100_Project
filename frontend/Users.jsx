@@ -69,7 +69,7 @@ function Users({ data }) {
           <Meta
             avatar={<Avatar src={'/uploads/' + key.personalIcon} />}
             title={<Flex align='center'>{key.username}<Flex justify='flex-end' align='flex-start' style={{ width: '100%' }}>
-              <Link to={`/home/profile/${key.userID}`}><Button type="primary" >View profile</Button></Link></Flex></Flex>
+              <Link to={`/home/otherprofile/${key.userID}`}><Button type="primary" >View profile</Button></Link></Flex></Flex>
       }
 
           />

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { LikeOutlined, FireFilled, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card, Flex, Descriptions, Row, Col, Statistic, Button, Tabs, Modal, Form, Input, Result, Table } from "antd";
+import { Avatar, Card, Flex, Descriptions, Row, Col, Statistic, Button, Tabs, Modal, Form, Input, Result, Table, Image } from "antd";
 import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import EditProfile from './EditProfile.jsx';
 import ENV from '../backend/ENV.js';
@@ -12,9 +12,9 @@ const { TextArea } = Input;
 const OtherProfile = () => {
   const { currentloginID, setcurrentloginID } = useStore();
   const location = useLocation();
-  const viewingUserID = "448f40"
+  // const viewingUserID = "448f40"
   // const viewingUserID = "2d1180"
-  // const viewingUserID = location.pathname.split('/').pop();
+  const viewingUserID = location.pathname.split('/').pop();
 
   const [viewingUserProfile, setViewingUserProfile] = useState(null);
   const [viewingUserFollow, setViewingUserFollow] = useState({
@@ -171,7 +171,7 @@ const OtherProfile = () => {
     {
       children: 
       <Avatar
-        src="https://api.dicebear.com/8.x/croodles-neutral/svg?flip=false"     
+        src={"../" + viewingUserProfile?.personalIcon}   
         size={{
           xs: 24,
           sm: 32,
@@ -180,8 +180,14 @@ const OtherProfile = () => {
           xl: 80,
           xxl: 100,
         }}
-      />,
+        alt={"../" + viewingUserProfile?.personalIcon}
+      />
+      // <Image     
+      //   src={"../" + viewingUserProfile?.personalIcon}   
+      //   alt={"../" + viewingUserProfile?.personalIcon}
+      // />
     },
+
     {
       children: <h2>{viewingUserProfile?.personalBio}</h2>,
     }

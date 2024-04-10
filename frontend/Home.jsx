@@ -243,7 +243,7 @@ const Home = () => {
                                 <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
-                                <Route path='otherprofile' element={<OtherProfile />} />
+                                <Route path='otherprofile/*' element={<OtherProfile />} />
 
                             </Routes>
 

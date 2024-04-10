@@ -159,7 +159,7 @@ function Profile() {
     {
       children: 
       <Avatar
-        src="https://api.dicebear.com/8.x/croodles-neutral/svg?flip=false"     
+        src={"../" + currentUserProfile?.personalIcon}
         size={{
           xs: 24,
           sm: 32,
@@ -168,7 +168,7 @@ function Profile() {
           xl: 80,
           xxl: 100,
         }}
-      />,
+      ></Avatar>,
     },
     {
       children: <h2>{currentUserProfile?.personalBio}</h2>,
