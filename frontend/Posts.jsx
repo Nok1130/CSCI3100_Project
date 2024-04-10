@@ -350,10 +350,10 @@ function Posts({ data }) {
     };
 
 
-    const reportPost =  (postID,userID) => {
+    const reportPost =  (postID) => {
         setreportpostID(postID);
         setisReportVisible(true);
-
+        console.log("reportPost");
     }
 
     const onReportSubmit = async () => {
@@ -391,9 +391,10 @@ function Posts({ data }) {
                         <BiComment key="comment" color='blue' onClick={() => showComments(post)} />,
                         post.dislike.includes(currentloginID) ? <AiFillDislike key="dislike" color='black' onClick={() => undislikepost(post.postID)} /> : <AiOutlineDislike key="dislike" color='black' onClick={() => dislikepost(post.postID)} />,
                         <BiRepost key="repost" color='green' onClick={() => repost(post.postID)} />,
-                        <AiOutlineWarning key="report" color='black' conClick={() =>reportPost(post.postID,post.userID)}/>,
+                        <AiOutlineWarning key="report" color='black' onClick={() => reportPost(post.postID)}/>,
                     ]}
                 >
+                
                     <Meta
                         avatar={<Avatar src={getAvater(post.nickname)} />}
                         title={post.nickname}
