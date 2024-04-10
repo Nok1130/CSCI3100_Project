@@ -19,6 +19,7 @@ function PostMgtPage()
     const [showReportState,setShowReportState] = useState(false);
     const [reportData,setReportData] = useState([]);
 
+
     useEffect(()=>
     {
         Aos.init()
@@ -38,6 +39,7 @@ function PostMgtPage()
       }, []);
 
     const getResults = (result) =>{
+
         setResults(result);
     }
 

@@ -6,8 +6,10 @@ import {FaPlus} from 'react-icons/fa6';
 import { SuspendBtn } from "./SuspendBtn";
 import Edit from "./Edit";
 import "./Admin.css";
+
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+
 
 function UserMgtPage () {
     const [results,setResults] = useState(null);//store search result for display
@@ -106,6 +108,7 @@ function UserMgtPage () {
         AddButtonState ? setAddButtonState(false) : setAddButtonState(true);
         console.log("add user");
     }
+
 
     const handleDelete = async (userID) =>
     {

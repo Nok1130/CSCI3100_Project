@@ -7,6 +7,7 @@
     padding:0;
     background-color: #3E3E3E;
     color:black;
+
 }
 
 body{
@@ -152,7 +153,7 @@ height:100%;
     border-radius: 10px;
     padding-left: 20px;
     color:black;
-    position: fixed;
+     position: fixed;
     z-index:1;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     transition: border 0.3s, box-shadow 0.3s;
@@ -160,7 +161,6 @@ height:100%;
 .searchBar:hover{
     opacity: 1;  
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
-      
 }
 .searchBar input{
 border:none;
@@ -212,7 +212,6 @@ color:black;
     border:none;
     height:30px;
     font-size:15px;
-    font-size: 20px;
 }
 #actionheader{
     margin-left:45px;
@@ -223,7 +222,7 @@ color:black;
     border:none;
     height:30px;
     font-size:15px;
-    font-size: 20px;
+
 }
 
 .btn{
