@@ -13,6 +13,11 @@ const { Meta } = Card;
 
 function Posts({ data }) {
     const { currentloginID, setcurrentloginID } = useStore();
+    const { currentuniversity, setcurrentuniversity } = useStore();
+    const { currentmajor, setcurrentmajor } = useStore();
+    const { currentusername, setcurrentusername } = useStore();
+    const [form] = Form.useForm();
+
     var search = data;
     console.log('search')
     console.log(search);
@@ -22,11 +27,9 @@ function Posts({ data }) {
     const [currentUserFollow, setCurrentUserFollow] = useState(['Engineering']);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
-    const usermajor = 'CS';
-    const useruni = 'CUHK';
     const [loading, setLoading] = useState(false);
     let postCategoryquery = '';
-    const postCategorys = ['All', 'CUHK', 'CS'];
+    const postCategorys = ['All', currentuniversity, currentmajor];
     if ([location.pathname.split('/').pop()] == 'All') {
         postCategoryquery = postCategorys.map(postCategory => `postCategorys=${postCategory}`).join('&');
     } else {
@@ -76,8 +79,10 @@ function Posts({ data }) {
         } catch (error) {
             console.error('Error:', error);
         }
+        form.resetFields();
         setReload(true);
         setIsModalVisible(false);
+        
 
     };
     const onFinishFailed = (errorInfo) => {
@@ -138,7 +143,7 @@ function Posts({ data }) {
     useEffect(() => {
         console.log('currentFollow' + currentUserFollow)
         var queryString = '';
-        var following = [useruni, usermajor]
+        var following = [currentuniversity, currentmajor]
         if (search == '' | search == undefined) {
             const followersquery = currentUserFollow.concat(following).map(follower => `nicknames=${follower}`).join('&');
             queryString = postCategoryquery + '&' + followersquery + '&hashtags=';
@@ -318,7 +323,7 @@ function Posts({ data }) {
                 <Card
                     key={post.postID}
                     className='postcard'
-                    loading={loading}
+                    // loading={loading&&!reload}
                     actions={[
                         post.like.includes(currentloginID) ? <AiFillHeart key='unlike' color='red' onClick={() => unlikepost(post.postID)} /> : <AiOutlineHeart key='like' color='red' onClick={() => likepost(post.postID)} />,
                         <BiComment key="comment" color='blue' onClick={() => showComments(post)} />,
@@ -361,7 +366,7 @@ function Posts({ data }) {
                     </Card>
                 ))}
                 <Form name="basic"
-            
+                    form={form}
                     style={{
                         width: '100%',
                         background: 'none',
@@ -373,10 +378,10 @@ function Posts({ data }) {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off">
                     <Form.Item name="username" rules={[{ required: true, message: 'Please select an identity!' }]}>
-                        <Select placeholder="Select an option">
-                            <Option value="Johnny">Johnny</Option>
-                            <Option value="CUHK">CUHK</Option>
-                            <Option value="AIST">AIST</Option>
+                        <Select placeholder="Select post identity">
+                            <Option value={currentusername}>{currentusername}</Option>
+                            <Option value={currentuniversity}>{currentuniversity}</Option>
+                            <Option value={currentmajor}>{currentmajor}</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item name="commentContent" rules={[{ required: true, message: 'Please input your comment!' }]}>

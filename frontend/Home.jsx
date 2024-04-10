@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Home.css'
 import unicon from './assets/Unicon.svg'
 import { } from '@ant-design/icons';
@@ -13,7 +13,6 @@ import Notification from './Notification.jsx';
 import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
-import { constant } from 'async';
 import useStore from './UserContext.jsx';
 import OtherProfile from './OtherProfile.jsx';
 
@@ -70,10 +69,7 @@ const header = [
 
 ];
 
-const sidemenu = [
 
-    getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem('CUHK', 'recommend/post/CUHK'), getItem('CS', 'recommend/post/CS')], 'group'),
-    getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
 
 
 
@@ -81,8 +77,9 @@ const Home = () => {
 
 
     const { currentloginID, setcurrentloginID } = useStore();
-    // const { currentfaculty, setcurrentfaculty } = useStore('Engineering');
-    // const { currentmajor, setcurrentmajor } = useStore('Computer Science');
+    const { currentuniversity, setcurrentuniversity } = useStore();
+    const { currentmajor, setcurrentmajor } = useStore();
+    const { currentusername, setcurrentusername } = useStore();
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
@@ -101,6 +98,39 @@ const Home = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+
+    const getUserCategory = async () => {
+        console.log("Profile ID :", currentloginID);
+        await fetch('http://localhost:8080/api/user/getUserProfileFromUserID', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userID: currentloginID
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            setcurrentusername(data.user.username);
+            setcurrentuniversity(data.user.university);
+            setcurrentmajor(data.user.major);
+            console.log("profile: "+currentuniversity+currentmajor);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+          
+      }
+
+      useEffect(() => {
+        getUserCategory();
+    }, [currentloginID])
+    const sidemenu = [
+
+        getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem(currentuniversity, `recommend/post/${currentuniversity}`), getItem(currentmajor, `recommend/post/${currentmajor}`)], 'group'),
+        getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
 
     return (
 

@@ -54,6 +54,9 @@ const handleChange = (value) => {
 
 function CreatePost()  {
   const { currentloginID, setcurrentloginID } = useStore();
+  const { currentuniversity, setcurrentuniversity } = useStore();
+  const { currentmajor, setcurrentmajor } = useStore();
+  const { currentusername, setcurrentusername } = useStore();
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
     messageApi.open({
@@ -125,12 +128,12 @@ function CreatePost()  {
             label: 'All',
           },
           {
-            value: 'CUHK',
-            label: 'CUHK',
+            value: currentuniversity,
+            label: currentuniversity,
           },
           {
-            value: 'CS',
-            label: 'CS',
+            value: currentmajor,
+            label: currentmajor,
           },
         ]}
       />
@@ -154,16 +157,16 @@ function CreatePost()  {
           onChange={handleChange}
           options={[
             {
-              value: 'username',
-              label: 'Johnny',
+              value: currentusername,
+              label: currentusername,
             },
             {
-              value: 'CUHK',
-              label: 'CUHK',
+              value: currentuniversity,
+              label: currentuniversity,
             },
             {
-              value: 'CS',
-              label: 'CS',
+              value: currentmajor,
+              label: currentmajor,
             },
           ]}
         />
