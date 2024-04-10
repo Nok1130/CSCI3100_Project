@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
             return res.status(400).json({ message: "Missing required fields" });
         }
         const contentFilename = content === undefined ? "" : content.filename;
-        const hashtagList = hashtag === undefined ? [] : [hashtag];
+        const hashtagList = hashtag === undefined ? [] :  hashtag.split(" ");
         const newPost = await postModel.create({ postID, userID, nickname, postTitle, postText, postContent: contentFilename, hashtag : hashtagList, postCategory });
         return res.status(201).json({ newPost });
     } catch (error) {
@@ -23,25 +23,32 @@ const createPost = async (req, res) => {
     }
 };
 
-const searchPostByHashtag = async (req, res) => {
-    const { hashtag } = req.body;
-    try {
-        const post = await postModel.find({ hashtag : hashtag });
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
-        }
-        return res.status(200).json({ post });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-        console.log("Error in getPost: ", error.message);
-    }
-}
+// // get all posts
+// const getAllPostOfUser = async (req, res) => {
+//     const { nicknames, postCategorys, hashtag } = req.query;
+//     try {
+        
+//         if (!post) {
+//             return res.status(404).json({ message: "Post not found" });
+//         }
+//         return res.status(200).json({ post });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//         console.log("Error in getPost: ", error.message);
+//     }
+// };
 
-// get all posts
-const getAllPostOfUser = async (req, res) => {
-    const { userID } = req.body;
+//search post
+const searchPost = async (req, res) => {
+    const { nicknames, postCategorys, hashtags } = req.query;
     try {
-        const post = await postModel.find({ userID: userID });
+        var post = await postModel.find({});
+        if (hashtags === "") {
+            post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "createdAt": -1 } );
+            
+          } else {
+            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : hashtags }).sort( { "createdAt": -1 } );
+          }
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -51,6 +58,7 @@ const getAllPostOfUser = async (req, res) => {
         console.log("Error in getPost: ", error.message);
     }
 };
+
 
 const getPost = async (req, res) => {
     const { postID } = req.body;
@@ -99,6 +107,24 @@ const likePost = async (req, res) => {
 
 }
 
+const unlikePost = async (req, res) => {
+    const { userID, postID } = req.body;
+
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.like.pull(userID);
+        await post.save();
+        return res.status(200).json({ post });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in unliking post: ", error.message);
+    }
+}
+
 const dislikePost = async (req, res) => {
     const { userID, postID } = req.body;
 
@@ -116,6 +142,24 @@ const dislikePost = async (req, res) => {
         console.log("Error in like or dislike post: ", error.message);
     }
 
+}
+
+const undislikePost = async (req, res) => {
+    const { userID, postID } = req.body;
+
+    try {
+        const post = await postModel.findOne({ postID: postID });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.dislike.pull(userID);
+        await post.save();
+        return res.status(200).json({ post });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log("Error in unliking post: ", error.message);
+    }
 }
 
 const createComment = async (req, res) => {
@@ -208,4 +252,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, getAllPostOfUser, likePost, dislikePost, getPost, getAllPost, createComment, repost, reportPost, searchPostByHashtag }
+export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost }

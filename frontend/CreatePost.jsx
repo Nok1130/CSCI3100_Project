@@ -1,45 +1,97 @@
 import React from 'react';
 import './CreatePost.css';
-import { Avatar, Button, Checkbox, Form, Input, Select, Flex, Upload } from 'antd';
+import { Avatar, Button, Checkbox, Form, Input, Select, Flex, Upload, message } from 'antd';
 import { LiaFileVideo, LiaImage } from "react-icons/lia";
+import axios from 'axios';
+import useStore from './UserContext';
 
-const {TextArea} = Input;
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
+const { TextArea } = Input;
+
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
-const props_video = {
-  beforeUpload: (file) => {
-    const isPNG = file.type === 'video/mp4';
-    if (!isPNG) {
-      message.error(`${file.name} is not a video file`);
+// const props_video = {
+//   beforeUpload: (file) => {
+//     const isPNG = file.type === 'video/mp4';
+//     if (!isPNG) {
+//       message.error(`${file.name} is not a video file`);
+//     }
+//     return isPNG || Upload.LIST_IGNORE;
+//   },
+//   onChange: (info) => {
+//     console.log(info.fileList);
+//   },
+//   action: '//jsonplaceholder.typicode.com/posts/',
+//   listType: 'picture',
+//   previewFile(file) {
+//     console.log('Your upload file:', file);
+//     // Your process logic. Here we just mock to the same file
+//     return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
+//       method: 'POST',
+//       body: file,
+//     })
+//       .then((res) => res.json())
+//       .then(({ thumbnail }) => thumbnail);
+//   },
+// };
+// const props_image = {
+//   beforeUpload: (file) => {
+//     const isPNG = file.type === 'image/png' || file.type === 'image/jpeg';
+//     if (!isPNG) {
+//       message.error(`${file.name} is not a image file`);
+//     }
+//     return isPNG || Upload.LIST_IGNORE;
+//   },
+//   onChange: (info) => {
+//     console.log(info.fileList);
+//   },
+// };
+
+
+
+function CreatePost()  {
+  const { currentloginID, setcurrentloginID } = useStore();
+  const { currentuniversity, setcurrentuniversity } = useStore();
+  const { currentmajor, setcurrentmajor } = useStore();
+  const { currentusername, setcurrentusername } = useStore();
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Post successfully',
+    });
+  };
+  const onFinish = async (values) => {
+    console.log(values);
+    const formData = new FormData();
+    formData.append('userID', currentloginID);
+    formData.append('postCategory', values.postCategory);
+    formData.append('nickname', values.nickname);
+    formData.append('postTitle', values.postTitle);
+    formData.append('postText', values.postText);
+    if (values.hashtag) {
+      formData.append('hashtag', values.hashtag);
     }
-    return isPNG || Upload.LIST_IGNORE;
-  },
-  onChange: (info) => {
-    console.log(info.fileList);
-  },
-};
-const props_image = {
-  beforeUpload: (file) => {
-    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg';
-    if (!isPNG) {
-      message.error(`${file.name} is not a image file`);
+    if (values.postContent) {
+      formData.append('postContent', values.postContent.file.originFileObj);
+      console.log(values.postContent.file.originFileObj)
     }
-    return isPNG || Upload.LIST_IGNORE;
-  },
-  onChange: (info) => {
-    console.log(info.fileList);
-  },
-};
-const CreatePost = () => (
-  <Form
-    name="basic"
+    console.log('Success:', formData);
+    
+    await fetch(`http://localhost:8080/api/post/createPost`, {
+      method: 'POST',
+      body: formData,
+    })
+    success;
+    window.location.pathname = '/home/recommend/post/All';
+    };
+
+  return (
+    <>{contextHolder}
+  <Form name="basic"
     labelCol={{
       span: 8,
     }}
@@ -57,7 +109,7 @@ const CreatePost = () => (
     autoComplete="off"
   >
     <Form.Item
-      name="post_access"
+      name="postCategory"
       rules={[
         {
           required: true,
@@ -66,22 +118,22 @@ const CreatePost = () => (
       ]}
     >
       <Select
-        className='post_access'
+        className='postCategory'
         placeholder="Select major/ faculty"
 
         onChange={handleChange}
         options={[
           {
-            value: 'all',
+            value: 'All',
             label: 'All',
           },
           {
-            value: 'engineering',
-            label: 'Engineering',
+            value: currentuniversity,
+            label: currentuniversity,
           },
           {
-            value: 'computer_science',
-            label: 'Computer Science',
+            value: currentmajor,
+            label: currentmajor,
           },
         ]}
       />
@@ -89,7 +141,7 @@ const CreatePost = () => (
     <Flex gap="small">
       <Avatar width={30} src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
       <Form.Item
-        name="identity"
+        name="nickname"
         rules={[
           {
             required: true,
@@ -100,21 +152,21 @@ const CreatePost = () => (
 
 
         <Select
-          className='identity'
+          className='nickname'
           placeholder="Select identity"
           onChange={handleChange}
           options={[
             {
-              value: 'username',
-              label: 'CSDOG',
+              value: currentusername,
+              label: currentusername,
             },
             {
-              value: 'engineering',
-              label: 'Engineering',
+              value: currentuniversity,
+              label: currentuniversity,
             },
             {
-              value: 'computer_science',
-              label: 'Computer Science',
+              value: currentmajor,
+              label: currentmajor,
             },
           ]}
         />
@@ -124,59 +176,59 @@ const CreatePost = () => (
     </Flex>
 
     <Form.Item
-            name="title"
-            rules={[
-              {
-                required: true,
-              },
-            ]}>
-    <Input className="title" placeholder="Title" maxLength={80} showCount variant="borderless"/>
+      name="postTitle"
+      rules={[
+        {
+          required: true,
+        },
+      ]}>
+      <Input className="title" placeholder="Title" maxLength={80} showCount variant="borderless" />
     </Form.Item>
 
     <Form.Item
-            className='content_form'
-            name="content"
-            style={{height: '40%'}}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-            >
-    <TextArea size='large' className="content" placeholder="Content" style={{resize: 'none'}} variant="borderless"/>
-    </Form.Item>
-
-    <Form.Item
-            name="topic"
+      className='content_form'
+      name="postText"
+      style={{ height: '40%' }}
+      rules={[
+        {
+          required: true,
+        },
+      ]}
     >
-    <Input className="topic" placeholder="Topic"/>
+      <TextArea size='large' className="content" placeholder="Content" style={{ resize: 'none' }} variant="borderless" />
     </Form.Item>
 
-  <Flex justify='space-between'>
-    <Flex>
-    <Form.Item>
-      <Upload {...props_video}>
-        <Button className='upload' icon={<LiaFileVideo style={{height: 30, width: 30}}/>}></Button>
-      </Upload>
+    <Form.Item
+      name="hashtag"
+    >
+      <Input className="hashtag" placeholder="Topic"/>
     </Form.Item>
-    <Form.Item>
-      <Upload {...props_image}>
-        <Button type="file"accept="image/png, image/jpeg" className='upload' icon={<LiaImage style={{height: 30, width: 30}}/>}></Button>
-      </Upload>
-    </Form.Item>
+
+    <Flex justify='space-between'>
+      <Flex>
+        {/* <Form.Item name="postContent">
+          <Upload>
+            <Button className='upload' icon={<LiaFileVideo style={{ height: 30, width: 30 }} />}></Button>
+          </Upload>
+        </Form.Item> */}
+        <Form.Item name="postContent">
+          <Upload>
+            <Button className='upload' icon={<LiaImage style={{ height: 30, width: 30 }} />}></Button>
+          </Upload>
+        </Form.Item>
+      </Flex>
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Post
+        </Button>
+      </Form.Item>
     </Flex>
-    <Form.Item
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Post
-      </Button>
-    </Form.Item>
-  </Flex>
 
-  </Form>
-);
+  </Form></>)
+};
 export default CreatePost;

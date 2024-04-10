@@ -22,8 +22,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use( express.static( "public" ) );
 
-
+app.get('/', (request, response) => {
+  console.log(request)
+  return response.status(234).send('Unicon')
+})
 
 const db = new MongoClient(ENV.DB_CONNECTION, {
   serverApi: {

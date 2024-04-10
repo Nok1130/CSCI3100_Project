@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Home.css'
 import unicon from './assets/Unicon.svg'
 import { } from '@ant-design/icons';
 import { Layout, Menu, theme, ConfigProvider, Input, Flex } from 'antd';
 import { IoNotificationsOutline } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import { FiEdit, FiMessageSquare } from "react-icons/fi";
+import { FiEdit, FiMessageSquare, FiLogOut } from "react-icons/fi";
 import { useLocation, BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Recommend from './Recommend.jsx';
 import MyGroupAccounts from './MyGroupAccounts.jsx';
@@ -13,13 +13,12 @@ import Notification from './Notification.jsx';
 import Profile from './Profile.jsx';
 import CreatePost from './CreatePost.jsx';
 import Chat from './Chat.jsx';
-import { constant } from 'async';
 import useStore from './UserContext.jsx';
 import OtherProfile from './OtherProfile.jsx';
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 function getItem(label, key, icon, children, type, link) {
 
     return {
@@ -33,14 +32,6 @@ function getItem(label, key, icon, children, type, link) {
 };
 
 const header = [
-    getItem(null, 'notification',
-        <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
-            <IoNotificationsOutline
-                size={25}
-                style={{
-                    color: '#ffffff',
-                }}
-            /></Flex>),
     getItem(null, 'profile',
         <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
             <AiOutlineUser
@@ -66,33 +57,80 @@ const header = [
                 color: '#ffffff',
             }}
         />
-        </Flex>)
+        </Flex>),
+    getItem(null, '/login',
+        <Flex style={{ height: '100%', width: '100%' }} align='center' justify='center'>
+            <FiLogOut
+                size={25}
+                style={{
+                    color: '#ffffff',
+                }}
+            /></Flex>),
 
 ];
 
-const sidemenu = [
 
-    getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/all'), getItem('Engineering', 'recommend/post/engineering'), getItem('Computer Science', 'recommend/post/computerscience')], 'group'),
-    getItem('Groups', 'g1', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
+
+
+
 const Home = () => {
 
 
-    const { currentloginID, setcurrentloginID } = useStore();
+    const { currentloginID, setcurrentloginID, removecurrentloginID } = useStore();
+    const { currentuniversity, setcurrentuniversity, removecurrentuniversity } = useStore();
+    const { currentmajor, setcurrentmajor, removecurrentmajor } = useStore();
+    const { currentusername, setcurrentusername } = useStore();
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
-    const [selectedKeys, setSelectedKeys] = useState([location.pathname]);
-    console.log(selectedKeys);
+    const [selectedKeys, setSelectedKeys] = useState(location.pathname);
+    console.log('init: '+selectedKeys);
+    const [searchInput, setSearchInput] = useState([]);
+    const onSearch = (value, _e, info) => {
+        setSearchInput(value);
+        console.log(searchInput);
+    };
     const handleSelect = ({ key }) => {
         setSelectedKeys([key]);
+        console.log(selectedKeys)
     };
 
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
+    const getUserCategory = async () => {
+        console.log("Profile ID :", currentloginID);
+        await fetch('http://localhost:8080/api/user/getUserProfileFromUserID', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userID: currentloginID
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            setcurrentusername(data.user.username);
+            setcurrentuniversity(data.user.university);
+            setcurrentmajor(data.user.major);
+            console.log("profile: "+currentuniversity+currentmajor);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+          
+      }
 
+      useEffect(() => {
+        getUserCategory();
+    }, [currentloginID])
+    const sidemenu = [
 
+        getItem('Posts', 'g1', null, [getItem('All', 'recommend/post/All'), getItem(currentuniversity, `recommend/post/${currentuniversity}`), getItem(currentmajor, `recommend/post/${currentmajor}`)], 'group'),
+        getItem('Groups', 'g2', null, [getItem('Group Accounts', 'groupaccount')], 'group')];
 
     return (
 
@@ -106,7 +144,10 @@ const Home = () => {
             }}
         >
 
-            <Layout>
+            <Layout
+                style={{
+                    background: colorBgContainer
+                }}>
                 <Header
                     style={{
                         display: 'flex',
@@ -144,6 +185,11 @@ const Home = () => {
                             }}
                             onClick={({ key }) => {
                                 navigate(key);
+                                if (key == '/login') {
+                                    removecurrentloginID();
+                                    removecurrentuniversity();
+                                    removecurrentmajor();
+                                }
                             }}
                             onSelect={handleSelect}
                             selectedKeys={selectedKeys}
@@ -162,6 +208,7 @@ const Home = () => {
                         <Menu
                             mode="inline"
                             onSelect={handleSelect}
+                            defaultSelectedKeys={'recommend/post/All'}
                             selectedKeys={selectedKeys}
                             style={{
                                 height: '100%',
@@ -190,13 +237,13 @@ const Home = () => {
                             }}
                         >
                             <Routes>
-                                <Route path='recommend/*' element={<Recommend />} />
+                                <Route path='recommend/*' element={<Recommend data={searchInput} selectedkey={selectedKeys}/>} />
                                 <Route path='groupaccount/*' element={<MyGroupAccounts />} />
                                 <Route path='notification' element={<Notification />} />
                                 <Route path='profile/*' exact element={<Profile />} />
                                 <Route path='createpost' element={<CreatePost />} />
                                 <Route path='chat' element={<Chat />} />
-                                <Route path='otherprofile' element={<OtherProfile />}/>
+                                <Route path='otherprofile' element={<OtherProfile />} />
 
                             </Routes>
 
@@ -207,5 +254,6 @@ const Home = () => {
             </Layout>
         </ConfigProvider>
     );
+
 };
 export default Home;

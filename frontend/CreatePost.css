@@ -1,8 +1,8 @@
-.post_access .ant-select-selector {
+.postCategory .ant-select-selector {
     background: rgb(160, 160, 160) !important;
 }
 
-.identity .ant-select-selector {
+.nickname .ant-select-selector {
     background: whitesmoke !important;
 }
 
@@ -33,27 +33,27 @@ input.title,
     height: 100% !important;
 }
 
-.identity{
+.nickname{
     width: 150px !important;
     color: 'black';
 }
 
-.post_access{
+.postCategory{
     width: 175px !important;
     color: 'black';
 }
 
-.topic,
-input.topic::placeholder,
-.topic:hover,
-.topic:focus {
+.hashtag,
+input.hashtag::placeholder,
+.hashtag:hover,
+.hashtag:focus {
     width: 100%;
     font-weight: bold;
     background: white;
 
 }
 
-input.topic {
+input.hashtag {
     color: #5295FF !important;
 }
 

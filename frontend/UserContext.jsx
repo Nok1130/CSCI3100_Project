@@ -2,13 +2,13 @@
 
 // // Define your store
 // const useStore = create(set => ({
-//   currentloginID: localStorage.getItem('currentloginID') || '',
+//   currentloginID: sessionStorage.getItem('currentloginID') || '',
 //   setcurrentloginID: (id) => {
-//     localStorage.setItem('currentloginID', id);
+//     sessionStorage.setItem('currentloginID', id);
 //     set({ currentloginID: id });
 //   },
 //   removecurrentloginID: () => {
-//     localStorage.removeItem('currentloginID');
+//     sessionStorage.removeItem('currentloginID');
 //     set({ currentloginID: '' });
 //   },
 // }));
@@ -56,7 +56,68 @@ const useStore = create(set => ({
     sessionStorage.removeItem('currentloginID');
     set({ currentloginID: '' });
   },
+
+  currentusername: sessionStorage.getItem('currentusername') || '',
+  setcurrentusername: (id) => {
+    sessionStorage.setItem('currentusername', id);
+    set({ currentusername: id });
+  },
+  removecurrentusername: () => {
+    sessionStorage.removeItem('currentusername');
+    set({ currentusername: '' });
+  },
+
+  currentuniversity: sessionStorage.getItem('currentuniversity') || '',
+  setcurrentuniversity: (id) => {
+    sessionStorage.setItem('currentuniversity', id);
+    set({ currentuniversity: id });
+  },
+  removecurrentuniversity: () => {
+    sessionStorage.removeItem('currentuniversity');
+    set({ currentuniversity: '' });
+  },
+
+  currentmajor: sessionStorage.getItem('currentmajor') || '',
+  setcurrentmajor: (id) => {
+    sessionStorage.setItem('currentmajor', id);
+    set({ currentmajor: id });
+  },
+  removecurrentmajor: () => {
+    sessionStorage.removeItem('currentmajor');
+    set({ currentmajor: '' });
+  },
+
 }));
+
+// const useUniStore = create(set => ({
+//   currentuniversity: sessionStorage.getItem('currentuniversity') || '',
+//   setcurrentloginID: (id) => {
+//     sessionStorage.setItem('currentuniversity', id);
+//     set({ currentuniversity: id });
+//   },
+//   removecurrentloginID: () => {
+//     sessionStorage.removeItem('currentuniversity');
+//     set({ currentuniversity: '' });
+//   },
+//   removecurrentloginID: () => {
+//     sessionStorage.removeItem('currentmajor');
+//     set({ currentmajor: '' });
+//   },
+
+// }));
+
+// const useMajorStore = create(set => ({
+//   currentmajor: sessionStorage.getItem('currentmajor') || '',
+//   setcurrentloginID: (id) => {
+//     sessionStorage.setItem('currentmajor', id);
+//     set({ currentmajor: id });
+//   },
+//   removecurrentloginID: () => {
+//     sessionStorage.removeItem('currentmajor');
+//     set({ currentmajor: '' });
+//   },
+
+// }));
 
 export default useStore;
 
