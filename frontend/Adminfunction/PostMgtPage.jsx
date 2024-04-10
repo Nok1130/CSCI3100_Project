@@ -18,6 +18,24 @@ function PostMgtPage(){
     const [showReportState,setShowReportState] = useState(false);
     const [reportIndex,setReportIndex] = useState(0);
 
+    useEffect(() => {
+        const getPost = async () => {
+            try {
+              const response = await fetch('http://localhost:5001/api/admin/getAllUser');
+              const data = await response.json();
+              console.log(data);
+    
+                setDataSet(data.users);
+                setResults(data.users);
+          //   })
+            }catch (error) {
+              console.log("error");
+              // Handle any errors that occur during the fetch request
+            }
+          };
+        getPost();
+      }, []);
+
      const getResults = (result) =>{
         setResults(result);
      }

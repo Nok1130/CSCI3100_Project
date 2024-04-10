@@ -23,57 +23,37 @@ function UserMgtPage () {
 
 
     useEffect(() => {
-
         const getUser = async () => {
-          try {
-            const response = await fetch('http://localhost:5001/api/admin/getAllUser', {
-              method: 'GET',
-            })
-            // const data = await response.json();
-            // console.log(data); // Log the fetched data
-            .then(response => response.json())
-            .then(data => {
-
-            console.log(data);
-              //console.log(data.users);
-              setDataSet(data.users);
-              setResults(data.users);
-          })
-          } catch (error) {
-            console.log("error");
-            // Handle any errors that occur during the fetch request
-          }
-        };
-      
+            try {
+              const response = await fetch('http://localhost:5001/api/admin/getAllUser');
+              const data = await response.json();
+              console.log(data);
+    
+                setDataSet(data.users);
+                setResults(data.users);
+          //   })
+            }catch (error) {
+              console.log("error");
+              // Handle any errors that occur during the fetch request
+            }
+          };
         getUser();
       }, []);
 
+      const getUsers = async () => {
+        try {
+          const response = await fetch('http://localhost:5001/api/admin/getAllUser');
+          const data = await response.json();
+          console.log(data);
 
-    // useEffect(() => {
-    //     return (getUser()
-    //             );
-    // });
-//  const getUser = async () =>{
-
-//     await null
-//     // console.log("data");
-//         // const response = await fetch('/api/admin/getAllUser2',{
-//         //       method: 'GET'
-//         //   })
-//         //   .then(response => response.json()).then(data => {
-//         //     console.log(response);
-//         //     console.log(data);
-//         //       //console.log(data.users);
-//         //       //setDataSet(data.users);
-//         //       //setResults(data.users);
-//         //   })
-    
-//         // const data = await response.json();
-//         // console.log(data);
-   
-//  };
-
-
+            setDataSet(data.users);
+            setResults(data.users);
+      //   })
+        }catch (error) {
+          console.log("error");
+          // Handle any errors that occur during the fetch request
+        }
+      };
  const handleSubmit = (newRow) =>{
      setDataSet([...dataset,newRow]);
      setResults([...dataset,newRow]);
@@ -114,6 +94,19 @@ function UserMgtPage () {
     console.log("add user");
 }
 
+const handleDelete = async (userID) =>{
+    const response = await fetch('http://localhost:5001/api/admin/deleteUser',{
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userID: userID
+        })
+    });
+    getUsers();
+
+}
  const handleSuspend = (targetIndex) =>{
     console.log("entered");
    const change = results.map((key,index) => {
@@ -152,6 +145,8 @@ function UserMgtPage () {
                             </Button>
 
                             <SuspendBtn SuspendState={key.isSuspend} onClick={() => handleSuspend(index)}/>
+                            
+                            <Button danger onClick={() => handleDelete(key.userID)}>Delete</Button>
                         </td>
                     </tr>  
                         );   
