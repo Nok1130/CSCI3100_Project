@@ -252,4 +252,4 @@ const reportPost = async (req, res) => {
     }
 }
 
-export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost }
+export { createPost, likePost, dislikePost, getPost, createComment, repost, reportPost, searchPost, unlikePost, undislikePost,getAllPost }
