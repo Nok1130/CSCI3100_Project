@@ -47,7 +47,15 @@ const searchPost = async (req, res) => {
             post = await postModel.find({ nickname : { $in:  nicknames }, postCategory: { $in:  postCategorys } }).sort( { "createdAt": -1 } );
             
           } else {
-            post = await postModel.find({ postCategory: { $in:  postCategorys }, hashtag : hashtags }).sort( { "createdAt": -1 } );
+            // post = await postModel.find({ nickname : nicknames, postCategory: { $in:  postCategorys }, hashtag : hashtags }).sort( { "createdAt": -1 } );
+            post = await postModel.find({
+                $or: [
+                  { "nickname": { $regex: nicknames, $options: 'i' } },
+                  { "hashtag": { $regex: hashtags, $options: 'i' } }
+                ],
+                postCategory: { $in: postCategorys }
+              }).sort({ "createdAt": -1 });
+              
           }
         if (!post) {
             return res.status(404).json({ message: "Post not found" });

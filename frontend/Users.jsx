@@ -3,7 +3,7 @@ import { Card, Flex, Avatar, Button } from 'antd';
 import './Users.css';
 import axios from 'axios';
 import useStore from './UserContext.jsx';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -27,22 +27,20 @@ function Users({ data }) {
     }
   ])
 
- 
 
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(true);
   const { currentloginID, setcurrentloginID } = useStore();
   var search = data;
-  useEffect(()=>{
 
     const getUser = async () => {
       console.log('fetch');
       const response = await fetch('http://localhost:8080/api/admin/getAllUser');
       const data = await response.json();
-      const user =data.users.filter((user)=> user.userID !== currentloginID)
-       setUserInfo(user);
-       }
-       getUser();
-  },[])
+      const user = data.users.filter((user) => user.userID !== currentloginID)
+      setUserInfo(user);
+    }
+    
   useEffect(() => {
     var queryString = '';
     if (search != '' && search != undefined) {
@@ -56,18 +54,34 @@ function Users({ data }) {
         .post(`http://localhost:8080/api/user/searchUser?${queryString}`)
         .then((response) => {
           console.log(response.data.user)
-          setUserInfo([response.data.user]);
-          setLoading(false);
+          setUserInfo(response.data.user);
+          console.log(UserInfo);
+          // setLoading(false);
         })
         .catch((error) => {
           console.log(error);
           setLoading(false);
         })
 
+    } else {
+      getUser();
     }
 
 
   }, [location, search]);
+
+  useEffect(() => {
+
+    console.log(UserInfo);
+    setLoading(false);
+
+
+
+  }, [UserInfo]);
+
+  if (loading) {
+    return (<div>Loading</div>)
+  }
 
   return (
     <Flex className='scroll' vertical gap="small" style={{ height: '90vh' }}>
@@ -84,7 +98,7 @@ function Users({ data }) {
             avatar={<Avatar src={'/uploads/1712414577831-cat.jpg'} />}
             title={<Flex align='center'>{key.username}<Flex justify='flex-end' align='flex-start' style={{ width: '100%' }}>
               <Link to={`/home/otherprofile/${key.userID}`}><Button type="primary" >View profile</Button></Link></Flex></Flex>
-      }
+            }
 
           />
 

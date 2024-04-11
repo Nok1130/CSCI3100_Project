@@ -161,12 +161,17 @@ const searchUser = async (req, res) => {
     const { username } = req.query;
     console.log("username: ", username);
     try {
-        const user = await UserModel.findOne({ username });
-        if (!user) {
+        // const user = await UserModel.findOne({ username });
+        const users = await UserModel.find({
+            "username": { $regex: username, $options: 'i' }
+          }).sort({
+            "username.length": 1 // Sorts in ascending order by nickname length
+          });
+        if (!users) {
             return res.status(404).json({ message: "Search user not found" });
         }
 
-        return res.status(200).json({ user });
+        return res.status(200).json({ users });
     } 
     catch (error) {
         res.status(500).json({ error: error.message });
