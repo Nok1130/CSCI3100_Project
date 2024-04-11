@@ -27,7 +27,7 @@ function Posts({ data }) {
     const [currentUserFollow, setCurrentUserFollow] = useState(['Engineering']);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     let postCategoryquery = '';
     const postCategorys = ['All', currentuniversity, currentmajor];
     const [isReportVisible, setisReportVisible] = useState(false);
@@ -129,7 +129,6 @@ function Posts({ data }) {
                 });
                 const profileData = await response.json();
                 console.log('datausername' + profileData.user.username);
-                setLoading(false);
                 return profileData.user.username;
             }));
             console.log('username' + usernames);
@@ -159,20 +158,22 @@ function Posts({ data }) {
 
         console.log(queryString)
         console.log('run');
-        setLoading(true);
 
         axios
             .get(`http://localhost:8080/api/post/searchPost?${queryString}`)
             .then((response) => {
                 console.log(response.data.post)
                 setPosts(response.data.post);
-                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             })
-    }, [location, search, reload]);
+    }, [location, search, reload, currentUserFollow]);
+
+    useEffect(() => {
+        setLoading(false)
+    }, [posts])
 
 
     const likepost = async (inputpostID) => {
@@ -351,6 +352,10 @@ function Posts({ data }) {
         }
         
     }
+
+    if(loading) {
+        return <div></div>
+    }
     return (
         
         <Flex vertical className='scroll' style={{ height: '90vh' }}>
@@ -393,7 +398,6 @@ function Posts({ data }) {
                 {currentPost && Object.entries(currentPost.comments).map(([username, comment], index) => (
                     <Card key={index} classNames='comments' style={{justifySelf: 'center'}}>
                         <Meta
-                            avatar={<Avatar src={getAvater(username)} />}
                             title={username}
                         />
                         <pre>{comment}</pre>
