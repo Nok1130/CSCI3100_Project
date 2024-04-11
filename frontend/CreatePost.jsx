@@ -153,7 +153,7 @@ function CreatePost()  {
       ]}>
       <Input className="title" placeholder="Title" maxLength={80} showCount variant="borderless" />
     </Form.Item>
-
+    <hr/>
     <Form.Item
       className='content_form'
       name="postText"

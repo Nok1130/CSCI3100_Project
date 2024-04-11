@@ -1,29 +1,29 @@
-html{
-	background-color: #5295ff;
-
-}
-
-body {
+*{
 	margin: 0;
 	padding: 0;
 	font-family: "Roboto", sans-serif;
-	
-	
-	
 }
+
+.bdy {	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #0d131d;
+}
+
 ::placeholder {
 	color: #536671;
-	opacity: 1; /* Firefox */
+	 opacity: 1; /*Firefox */
   }
 
   
 .signup_container {
-	width: 100%;
+	position: absolute;
+	width: 700px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
-	
 }
 
 .signup_form_container {
@@ -43,8 +43,6 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: #5295ff;
-	
 }
 
 .left h1 {
@@ -53,8 +51,6 @@ body {
 	font-size: 40px;
 	align-self: center;
 	font-family: "Roboto", sans-serif;
-	
-	
 }
 
 .right {
@@ -74,15 +70,16 @@ body {
 
 .right h1 {
 	
-	color: black;
+	color: #3e3e3e;
 	font-size: 35px;
 	align-self:flex-start;
 	font-family: "Roboto", sans-serif;
+	margin-bottom: 40px;
 
 }
 .right h6 {
 	margin-top: -25px;
-	color: black;
+	color: #3e3e3e;
 	font-size: 13px;
 	align-self:flex-start;
 	font-family: "Roboto", sans-serif;
@@ -203,3 +200,53 @@ body {
 	font-size: 14px;
 }
 
+.termsOfService {
+	color: #3e3e3e;
+}
+
+section {
+	gap: 2px;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	flex-wrap: wrap;
+	overflow: hidden;
+}
+
+section::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(#0d131d, #5295ff, #0d131d);
+	animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+	0%
+	{
+		transform: translateY(-100%);
+	}
+	100%
+	{
+		transform: translateY(100%);
+	}
+}
+
+.animateSpan {
+	position: relative;
+	display: block;
+	width: calc(6.25vw - 2px);
+	height: calc(6.25vw - 2px);
+	background: #0d131d;
+	z-index: 0;
+	transition: 1.5s;
+}
+
+.animateSpan:hover {
+	background: #5295ff;
+	transition: 0s;
+}

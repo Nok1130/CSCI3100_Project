@@ -179,7 +179,7 @@ const Home = () => {
                         display: 'flex',
                         alignItems: 'center',
                         background: '#5295FF',
-                        padding: '0 min(50px, 5%)',
+                        padding: '0 min(10px, 5%)',
 
                     }}
                 >

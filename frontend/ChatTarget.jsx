@@ -11,16 +11,17 @@ const ChatTarget = ({ChatRoom}) => {
 
     return (
         <ChakraProvider>
-            <Flex gap={4} alignItems={"center"} p={"1"} _hover={{cursor: "pointer", bg:useColorModeValue("gray.600", "gray.dark"), color:"white"}} borderRadius={"md"} 
+            <Flex gap={4} alignItems={"center"} p={"1"} _hover={{cursor: "pointer", bg: "#3e3e3e", color:"white"}} borderRadius={"md"} 
                 onClick={() =>
                     setSelectChat({
                         _id: ChatRoom._id,
                         userID: user._id,
                         username: user.username,
                         personalIcon: user.personalIcon,
+                        mock: ChatRoom.mock,
                     })
                 }
-                bg={selectChat._id === ChatRoom._id ? "gray.600" : ""}
+                bg={selectChat._id === ChatRoom._id ? "#3e3e3e" : ""}
                 color={selectChat._id === ChatRoom._id ? "white" : ""}
             >
                 <WrapItem>

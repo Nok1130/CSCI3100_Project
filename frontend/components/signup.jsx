@@ -132,104 +132,600 @@ const Signup=()=> {
     }
 */
     return (
-        <div className='signup_container'> 
-      
+        <div className='bdy'>
+        <section>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
+            <span className='animateSpan'></span>
 
-            <div className='signup_form_container'>
-                <div className='left'> 
-                    <div>
-                        <img src={logo} alt="Logo" />
-                    </div>
-                    <h1 className='roboto-regular'>Welcome To</h1> 
-                    <h1 >Unicon</h1> 
-                </div >
+            <div className='signup_container'> 
+        
 
-                <div className='right'>
-                    <form onSubmit={handleSubmit} className='form_container'>
-                        <h1>Sign Up</h1>
-                        <h6>Create A Account Express Opinions Freely And Anonymously</h6>
-                       
-
-                        <input type="text" autoComplete = 'off' name = 'username' onChange={(e)=>setUsername(e.target.value)} className="input_signup"  placeholder='Username' required/>
-                    
-                        <br />
-                        <div className='password_layout_container'>
-                        <input type="password" autoComplete = 'off' name = 'password' onChange={(e)=>setPassword(e.target.value)} placeholder='Password' className='input_password'required />
-                    
-                        <br />
-                        
-                        <input type="password" autoComplete = 'off' name = 'confirmedpassword' onChange={(e)=>setConfirmedPassword(e.target.value)}   className="input_password"placeholder='Confirm Password' required/>
-                    
-                        <br />
-                        
-
-
-
-                        </div>
-                        <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='University email' required />
-                    
-                        <br />
-
-
-                        <div className='password_layout_container '>
-                            <select name='university' onChange={(e)=>setUniversity(e.target.value)} className='input_select'>
-                               
-                                
-                                <option value="CUHK">Chinese University of Hong Kong</option>
-                                <option value="HKU">Hong Kong University</option>
-                                <option value="HKUST">Hong Kong University of Science and Technology</option>
-                                <option value="PolyU">Hong Kong Polytechnic University</option>
-                                <option value="CityU">City University of Hong Kong</option>
-                                <option value="HKBU">Hong Kong Baptist University</option>
-                                <option value="HKMU">Hong Kong Metropolitan University</option>
-                                <option value="LingnanU">Lingnan University</option>
-                                <option value="HSYU">Hong Kong Shue Yan University</option>
-                                <option value="EdUHK">Education University of Hong Kong</option>
-                                <option value="HSUHK">Hang Seng University of Hong Kong</option>
-                                <option value="SFU">Saint Francis University</option>
-                                
-                            </select>
-                            <input type="text" autoComplete = 'off' name = 'major' onChange={(e)=>setMajor(e.target.value)} className="input_password"  placeholder='Major' required/>
-
-
-                        </div>
-
-
-
-
-
-
-
-
-
-                        <label >
-                        
-                            
-                            <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
-                            I've read and agree with <b>Terms of Service</b> and <b> Privacy Policy</b>
-                        </label>
-
-                        <br />
-
-                        <button type="submit" className='btn_signup'>Sign Up</button>
-
-                        
-                    </form>
-                    
+                <div className='signup_form_container'>
+                    <div className='left'> 
                         <div>
-                            <div className='password_layout_container '>
-                                <p>Already have an account?</p>
-                                <Link to='/login'>
-                                    <Button type='default' className='btn_login' >
-                                        Login
-                                    </Button>
-                                </Link>
-                            </div>
+                            <img src={logo} alt="Logo" />
                         </div>
+                        <h1 className='roboto-regular'>Welcome To</h1> 
+                        <h1 >Unicon</h1> 
+                    </div >
+
+                    <div className='right'>
+                        <form onSubmit={handleSubmit} className='form_container'>
+                            <h1>Sign Up</h1>
+                            <h6>Create an account to express opinions freely and anonymously!</h6>
                         
-                </div> 
-            </div>
-        </div>       
+
+                            <input type="text" autoComplete = 'off' name = 'username' onChange={(e)=>setUsername(e.target.value)} className="input_signup"  placeholder='Username' required/>
+                        
+                            <br />
+                            <div className='password_layout_container'>
+                            <input type="password" autoComplete = 'off' name = 'password' onChange={(e)=>setPassword(e.target.value)} placeholder='Password' className='input_password'required />
+                        
+                            <br />
+                            
+                            <input type="password" autoComplete = 'off' name = 'confirmedpassword' onChange={(e)=>setConfirmedPassword(e.target.value)}   className="input_password"placeholder='Confirm Password' required/>
+                        
+                            <br />
+                            
+
+
+
+                            </div>
+                            <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='University email' required />
+                        
+                            <br />
+
+
+                            <div className='password_layout_container '>
+                                <select name='university' onChange={(e)=>setUniversity(e.target.value)} className='input_select'>
+                                    <option value="CUHK">Chinese University of Hong Kong</option>
+                                    <option value="HKU">Hong Kong University</option>
+                                    <option value="HKUST">Hong Kong University of Science and Technology</option>
+                                    <option value="PolyU">Hong Kong Polytechnic University</option>
+                                    <option value="CityU">City University of Hong Kong</option>
+                                    <option value="HKBU">Hong Kong Baptist University</option>
+                                    <option value="HKMU">Hong Kong Metropolitan University</option>
+                                    <option value="LingnanU">Lingnan University</option>
+                                    <option value="HSYU">Hong Kong Shue Yan University</option>
+                                    <option value="EdUHK">Education University of Hong Kong</option>
+                                    <option value="HSUHK">Hang Seng University of Hong Kong</option>
+                                    <option value="SFU">Saint Francis University</option>
+                                    
+                                </select>
+                                <input type="text" autoComplete = 'off' name = 'major' onChange={(e)=>setMajor(e.target.value)} className="input_password"  placeholder='Major' required/>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <label className="termsOfService">
+                            
+                                
+                                <input type="checkbox" autoComplete = 'off'checked={isChecked} onChange={handleCheckboxChange } className='term_labe' requried />
+                                I've read and agree with <b>Terms of Service</b> and <b> Privacy Policy</b>
+                            </label>
+
+                            <br />
+
+                            <button type="submit" className='btn_signup'>Sign Up</button>
+
+                            
+                        </form>
+                        
+                            <div>
+                                <div className='password_layout_container '>
+                                    <p>Already have an account?</p>
+                                    <Link to='/login'>
+                                        <Button type='default' className='btn_login' >
+                                            Login
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                            
+                    </div> 
+                </div>
+            </div>    
+        </section>
+        </div>
     );
 };
 export default Signup;

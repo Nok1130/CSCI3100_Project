@@ -16,6 +16,10 @@ const ChatRoom = () => {
   const getMessages = async () => {
     setLoadingMessages(true);
     setMessages([]);
+    if (selectChat.mock) {
+      setLoadingMessages(false);
+      return;
+    }
     await fetch(('/api/messageText/' + selectChat.userID), {
       method: 'POST',
       headers: {
@@ -41,7 +45,7 @@ const ChatRoom = () => {
   }, [currentloginID, selectChat.userID]);
   return (
     <ChakraProvider>
-      <Flex flex={70} bg={useColorModeValue("gray.600", "gray.dark")} p={1} borderRadius={"md"} flexDirection={"column"} h={"full"}>
+      <Flex flex={70} bg="#3e3e3e" p={1} borderRadius={"md"} flexDirection={"column"} h={"full"}>
         <Flex w={"full"} h={12} alignItems={"center"} gap={2}>
             <Avatar size={"sm"} src={"../backend/uploads/" + selectChat.personalIcon}  />
             <Text display={"flex"} alignItems={"center"} color={"white"}>
