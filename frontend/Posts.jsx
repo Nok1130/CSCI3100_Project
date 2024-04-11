@@ -152,8 +152,9 @@ function Posts({ data }) {
             const followersquery = currentUserFollow.concat(following).map(follower => `nicknames=${follower}`).join('&');
             queryString = postCategoryquery + '&' + followersquery + '&hashtags=';
         } else {
+            const followersquery = `nicknames=${search}`
             const hashtagquery = `hashtags=${search}`;
-            queryString = postCategoryquery + '&' + hashtagquery;
+            queryString = followersquery + '&' + postCategoryquery + '&' + hashtagquery;
         }
 
         console.log(queryString)
@@ -172,42 +173,6 @@ function Posts({ data }) {
                 setLoading(false);
             })
     }, [location, search, reload]);
-
-    function getAvater(inputusername) {
-        var personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-        // console.log(inputusername + "---------------------------------")
-        // fetch('http://localhost:8080/api/user/getUserProfileFromUsername', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         username: inputusername
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(inputusername + 'data: ' + data.user.personalIcon);
-        //         if (data.user.personalIcon === "") {
-        //             personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-        //         } else {
-        //             personalIcon = ('/uploads/' + data.user.personalIcon);
-        //         }
-        //         console.log(inputusername + 'icon:' + personalIcon)
-
-
-
-
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //         personalIcon = 'https://api.dicebear.com/7.x/miniavs/svg?seed=8';
-        //     });
-
-        // console.log(inputusername + 'icon:' + personalIcon)
-        return personalIcon
-
-    }
 
 
     const likepost = async (inputpostID) => {
@@ -393,7 +358,6 @@ function Posts({ data }) {
                 <Card
                     key={post.postID}
                     className='postcard'
-                    // loading={loading&&!reload}
                     actions={[
                         post.like.includes(currentloginID) ? <div><AiFillHeart key='unlike' color='red' onClick={() => unlikepost(post.postID)} /><p className='count'>{post.like.length}</p></div> : <div><AiOutlineHeart key='like' color='red' onClick={() => likepost(post.postID)} /><p className='count'>{post.like.length}</p></div>,
                         <BiComment key="comment" color='blue' onClick={() => showComments(post)} />,
@@ -404,7 +368,6 @@ function Posts({ data }) {
                 >
                 
                     <Meta
-                        avatar={<Avatar src={getAvater(post.nickname)} />}
                         title={post.nickname}
 
                     />

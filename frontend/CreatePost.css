@@ -72,3 +72,7 @@ input.hashtag {
 .ant-col.ant-col-16.ant-col-offset-8.ant-form-item-control.css-dev-only-do-not-override-16clcv3 {
     margin: 0;
 }
+
+hr {
+    border-top: 3px dashed rgb(212, 212, 212);
+  }

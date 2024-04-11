@@ -83,7 +83,9 @@ const Home = () => {
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
-    const [sidemenu, setSidemenu] = useState([]);
+    const [sidemenu, setSidemenu] = useState([
+        getItem('Posts', 'g1', null, [getItem('All', '/home/recommend/post/All'), getItem('', `/home/recommend/post/`), getItem('', `/home/recommend/post/`)], 'group')
+    ]);
     const [loading, setLoading] = useState(true);
     const [selectedKeys, setSelectedKeys] = useState(location.pathname);
     console.log('init: ' + selectedKeys);
@@ -179,7 +181,7 @@ const Home = () => {
                         display: 'flex',
                         alignItems: 'center',
                         background: '#5295FF',
-                        padding: '0 min(50px, 5%)',
+                        padding: '0 min(10px, 5%)',
 
                     }}
                 >
