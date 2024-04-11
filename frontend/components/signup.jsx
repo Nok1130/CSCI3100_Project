@@ -662,7 +662,7 @@ const Signup=()=> {
 
 
                             </div>
-                            <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='University email' required />
+                            <input type="email" autoComplete = 'off' name='email' onChange={(e)=>setEmail(e.target.value)}  className="input_signup"  placeholder='Email' required />
                         
                             <br />
 
