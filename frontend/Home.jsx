@@ -83,7 +83,9 @@ const Home = () => {
     console.log("Home ID :", currentloginID);
     const location = useLocation();
     const navigate = useNavigate();
-    const [sidemenu, setSidemenu] = useState([]);
+    const [sidemenu, setSidemenu] = useState([
+        getItem('Posts', 'g1', null, [getItem('All', '/home/recommend/post/All'), getItem('', `/home/recommend/post/`), getItem('', `/home/recommend/post/`)], 'group')
+    ]);
     const [loading, setLoading] = useState(true);
     const [selectedKeys, setSelectedKeys] = useState(location.pathname);
     console.log('init: ' + selectedKeys);
