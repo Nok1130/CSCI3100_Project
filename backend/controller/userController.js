@@ -179,5 +179,22 @@ const searchUser = async (req, res) => {
     }
 };
 
+// const searchUser = async (req, res) => {
+//     const { username } = req.query;
+//     console.log("username: ", username);
+//     try {
+//         const user = await UserModel.findOne({ username });
+//         if (!user) {
+//             return res.status(404).json({ message: "Search user not found" });
+//         }
+
+//         return res.status(200).json({ user });
+//     } 
+//     catch (error) {
+//         res.status(500).json({ error: error.message });
+//         console.log("Error in searchUser: ", error.message);
+//     }
+// };
+
 export { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile, updateUserProfileIcon, signUpNewUser, signInUser, searchUser };
 

@@ -41,31 +41,30 @@ function Users({ data }) {
       setUserInfo(user);
     }
     
-  useEffect(() => {
-    var queryString = '';
-    if (search != '' && search != undefined) {
-      queryString = `username=${search}`
-
-      console.log(queryString)
-      console.log('run');
-      setLoading(true);
-
-      axios
-        .post(`http://localhost:8080/api/user/searchUser?${queryString}`)
-        .then((response) => {
-          console.log(response.data.user)
-          setUserInfo(response.data.user);
-          console.log(UserInfo);
-          // setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        })
-
-    } else {
-      getUser();
-    }
+    useEffect(() => {
+      var queryString = '';
+      if (search != '' && search != undefined) {
+        queryString = `username=${search}`
+  
+        console.log(queryString)
+        console.log('run');
+        setLoading(true);
+  
+        axios
+          .post(`http://localhost:8080/api/user/searchUser?${queryString}`)
+          .then((response) => {
+            console.log(response.data.users)
+            setUserInfo(response.data.users);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          })
+  
+      } else {
+        getUser();
+      }
 
 
   }, [location, search]);
