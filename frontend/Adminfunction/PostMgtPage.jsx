@@ -119,7 +119,7 @@ function PostMgtPage()
                     </th>
 
                     <th className="large" >
-                        USERNAME
+                        USERID
                     </th>
 
                     <th className="large">
@@ -139,7 +139,7 @@ function PostMgtPage()
                                     {key.postID}
                             </td>
                             <td className="username">
-                                {key.username}
+                                {key.userID}
                             </td>
                             <td className="overflow-hidden" 
                                 style={{width:'10px'}}>

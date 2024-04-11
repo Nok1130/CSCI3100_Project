@@ -22,12 +22,11 @@ const AddUser = ({close,onSubmit}) => {
         e.preventDefault();
         if(formState.username === '' || formState.email === ''){
             alert("Empty field");
+            close();
         }
-        if(formState.email.includes('cuhk.edu.hk')){
+      
              onSubmit(formState);
-        }else{
-            alert("invalid email");
-        }
+     
         close();
     }
 
