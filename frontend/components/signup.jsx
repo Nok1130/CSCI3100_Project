@@ -713,14 +713,16 @@ const Signup=()=> {
                             <div>
                                 <div className='password_layout_container '>
                                     <p>Already have an account?</p>
-                                    <Link to='/login'>
+
+                                </div>
+                            </div>
+                            <div>
+                            <Link to='/login'>
                                         <Button type='default' className='btn_login' >
                                             Login
                                         </Button>
                                     </Link>
-                                </div>
                             </div>
-                            
                     </div> 
                 </div>
             </div>    
