@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import FollowerModel from "../model/Follower.js";
 
 // create a new follow request

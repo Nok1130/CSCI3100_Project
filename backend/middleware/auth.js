@@ -1,6 +1,5 @@
 /*
     This file is for some useful functions of authenticating users.
-    No use now
 */
 import jwt from "jsonwebtoken";
 import User from "../model/User.js";
@@ -52,14 +51,3 @@ export async function checkAdmin(req, res, next) {
     res.status(401).json({ error: "Authentication Failed!" });
   }
 }
-
-// /*
-//     This function provides some local variables for sending OTP.
-// */
-// export function localVariables(req, res, next) {
-//   req.app.locals = {
-//     OTP: null,
-//     resetSession: false,
-//   };
-//   next();
-// }

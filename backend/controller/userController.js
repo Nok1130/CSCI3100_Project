@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import UserModel from "../model/User.js";
 import { v4 as uuidv4 } from "uuid";
 

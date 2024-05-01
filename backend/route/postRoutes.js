@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import express from "express";
 import { createPost, likePost, unlikePost, dislikePost, undislikePost, getPost, createComment, repost, reportPost, searchPost,getAllPost, getAllPostOfUser } from "../controller/postController.js";
 import multer from "multer";

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { getUserProfileFromUserID, getUserProfileFromUsername, updateUserProfile, updateUserProfileIcon, signUpNewUser, signInUser, searchUser } from "../controller/userController.js";
 import express from "express";
 import multer from "multer";

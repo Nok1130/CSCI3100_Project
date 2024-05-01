@@ -280,9 +280,6 @@ function Profile() {
         <Col span={12}>
           <Statistic title="Following" value={currentUserFollow?.followingCount} prefix={<FireFilled />}/>
         </Col>
-        {/* <Col>
-          <Button type='primary' onClick={() => follow()}>Follow!</Button>
-        </Col> */}
       </Row>
       <Tabs defaultActiveKey="1" items={post}/>
       </Flex>

@@ -12,8 +12,6 @@ const { TextArea } = Input;
 const OtherProfile = () => {
   const { currentloginID, setcurrentloginID } = useStore();
   const location = useLocation();
-  // const viewingUserID = "448f40"
-  // const viewingUserID = "2d1180"
   const viewingUserID = location.pathname.split('/').pop();
 
   const [viewingUserProfile, setViewingUserProfile] = useState(null);

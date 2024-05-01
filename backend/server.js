@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { Admin, MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ServerApiVersion } from "mongodb";
 import { mongoose } from "mongoose";
 import dotenv from "dotenv";
 import ENV from "./ENV.js";

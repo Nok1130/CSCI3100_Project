@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import postModel from "../model/Post.js";
 import reportModel from "../model/Report.js";
 import { v4 as uuidv4 } from "uuid";
