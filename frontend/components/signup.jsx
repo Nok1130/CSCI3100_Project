@@ -155,6 +155,7 @@ const Signup=()=> {
 */
     return (
         <div className='bdy'>
+            {/*background animation */}
         <section>
             <span className='animateSpan'></span>
             <span className='animateSpan'></span>
